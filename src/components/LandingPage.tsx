@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NetworkBackground } from './NetworkBackground';
-import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown } from 'lucide-react';
 
 type Language = 'en' | 'es';
 type Theme = 'dark' | 'light';
@@ -42,7 +42,7 @@ const translations = {
       { number: "03", title: "Execution", desc: "We facilitate the operational and strategic rollout of your project." }
     ],
     diffTitle: 'Why industry leaders ',
-    diffTitleHighlight: 'choose Builco',
+    diffTitleHighlight: 'choose Building Conenctions',
     diffItems: [
       { title: "Elite Network", desc: "Access to decision-makers that aren't on any public directory." },
       { title: "Deep Domain Expertise", desc: "Decades of experience in mining, energy, and infrastructure." },
@@ -54,7 +54,7 @@ const translations = {
     ctaSub: 'Join the network of industry pioneers shaping the future of infrastructure.',
     ctaBtn: 'Schedule a Strategic Consultation',
     footerDesc: 'Strategic connections for high-impact industries. Global reach, local intelligence, absolute discretion.',
-    footerRights: '© 2026 BUILCO STRATEGIC PARTNERS. ALL RIGHTS RESERVED.'
+    footerRights: '© 2026 BUILDING CONENCTIONS STRATEGIC PARTNERS. ALL RIGHTS RESERVED.'
   },
   es: {
     nav: ['Soluciones', 'Industrias', 'Proceso', 'Nosotros'],
@@ -91,7 +91,7 @@ const translations = {
       { number: "03", title: "Ejecución", desc: "Facilitamos el despliegue operativo y estratégico de su proyecto." }
     ],
     diffTitle: 'Por qué los líderes ',
-    diffTitleHighlight: 'eligen Builco',
+    diffTitleHighlight: 'eligen Building Conenctions',
     diffItems: [
       { title: "Red de Élite", desc: "Acceso a tomadores de decisiones que no están en ningún directorio público." },
       { title: "Experiencia Profunda", desc: "Décadas de experiencia en minería, energía e infraestructura." },
@@ -103,7 +103,7 @@ const translations = {
     ctaSub: 'Únase a la red de pioneros de la industria que dan forma al futuro de la infraestructura.',
     ctaBtn: 'Programar una Consulta Estratégica',
     footerDesc: 'Conexiones estratégicas para industrias de alto impacto. Alcance global, inteligencia local, discreción absoluta.',
-    footerRights: '© 2026 BUILCO STRATEGIC PARTNERS. TODOS LOS DERECHOS RESERVADOS.'
+    footerRights: '© 2026 BUILDING CONENCTIONS STRATEGIC PARTNERS. TODOS LOS DERECHOS RESERVADOS.'
   }
 };
 
@@ -113,55 +113,250 @@ const AppContext = createContext<{
   theme: Theme;
   setTheme: (t: Theme) => void;
   t: typeof translations.en;
+  setIsMinoModalOpen: (open: boolean) => void;
 }>({
   lang: 'en',
   setLang: () => {},
   theme: 'dark',
   setTheme: () => {},
-  t: translations.en
+  t: translations.en,
+  setIsMinoModalOpen: () => {}
 });
 
 const Logo = ({ className = "w-8 h-8" }: { className?: string }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
-      d="M50 10 L90 50 L50 90 L10 50 Z" 
-      stroke="currentColor" 
-      strokeWidth="10" 
-      strokeLinejoin="round"
-    />
-    <path 
-      d="M65 35 C65 35 55 35 50 45 C45 55 55 65 65 65" 
-      stroke="currentColor" 
-      strokeWidth="10" 
-      strokeLinecap="round"
-    />
-    <path 
-      d="M35 65 C35 65 45 65 50 55 C55 45 45 35 35 35" 
-      stroke="currentColor" 
-      strokeWidth="10" 
-      strokeLinecap="round"
-    />
-  </svg>
+  <img 
+    src="https://builco.co/assets/logo-B9aq_5yh.svg" 
+    alt="Building Conenctions Logo" 
+    className={className} 
+    referrerPolicy="no-referrer"
+  />
 );
+
+const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
+  const { theme, lang } = useContext(AppContext);
+  const t = lang === 'es' ? {
+    title: 'Mino - Registro Inicial',
+    sub: 'Únete a la red estratégica de minería e infraestructura.',
+    name: 'Nombre Completo',
+    email: 'Correo Electrónico',
+    company: 'Empresa',
+    message: 'Mensaje / Interés',
+    submit: 'Enviar Registro',
+    close: 'Cerrar'
+  } : {
+    title: 'Mino - Initial Registration',
+    sub: 'Join the strategic network of mining and infrastructure.',
+    name: 'Full Name',
+    email: 'Email Address',
+    company: 'Company',
+    message: 'Message / Interest',
+    submit: 'Submit Registration',
+    close: 'Close'
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className={`relative w-full max-w-2xl overflow-hidden rounded-sm shadow-2xl ${theme === 'dark' ? 'bg-charcoal border border-white/10' : 'bg-white border border-slate-200'}`}
+          >
+            <div className="h-32 bg-gold relative flex items-center px-10 overflow-hidden">
+              <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl" />
+              <div className="relative z-10">
+                <h2 className="text-3xl font-helvetica font-black text-black tracking-tighter uppercase">{t.title}</h2>
+                <p className="text-black/60 font-bold text-xs uppercase tracking-widest">{t.sub}</p>
+              </div>
+              <button 
+                onClick={onClose}
+                className="absolute top-6 right-6 p-2 rounded-full bg-black/10 hover:bg-black/20 text-black transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="p-10">
+              <form className="grid gap-6" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.name}</label>
+                    <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                  </div>
+                  <div className="space-y-2">
+                    <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
+                    <input type="email" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.company}</label>
+                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                </div>
+                <div className="space-y-2">
+                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.message}</label>
+                  <textarea rows={3} className={`w-full px-4 py-3 rounded-sm border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                </div>
+                <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+                  {t.submit}
+                </button>
+              </form>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+const LoginPage = () => {
+  const { theme, lang, t: trans } = useContext(AppContext);
+  const t = lang === 'es' ? {
+    welcome: 'Bienvenido a Mino',
+    sub: 'Acceso exclusivo a la red estratégica',
+    email: 'Correo Electrónico',
+    password: 'Contraseña',
+    login: 'Iniciar Sesión',
+    forgot: '¿Olvidó su contraseña?',
+    noAccount: '¿No tiene una cuenta?',
+    request: 'Solicitar Acceso'
+  } : {
+    welcome: 'Welcome to Mino',
+    sub: 'Exclusive access to the strategic network',
+    email: 'Email Address',
+    password: 'Password',
+    login: 'Log In',
+    forgot: 'Forgot your password?',
+    noAccount: "Don't have an account?",
+    request: 'Request Access'
+  };
+
+  return (
+    <div className={`min-h-screen flex items-center justify-center p-6 relative overflow-hidden ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
+      <NetworkBackground />
+      
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className={`relative z-10 w-full max-w-md p-10 rounded-sm shadow-2xl border ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10' : 'bg-white border-slate-200'}`}
+      >
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 mb-6">
+            <Logo className="w-10 h-10 text-gold" />
+          </div>
+          <h1 className={`text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+            {t.welcome}
+          </h1>
+          <p className={`text-xs font-bold uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
+            {t.sub}
+          </p>
+        </div>
+
+        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <div className="space-y-2">
+            <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
+            <input type="email" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="name@company.com" required />
+          </div>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.password}</label>
+              <a href="#" className="text-[10px] font-bold text-gold hover:underline">{t.forgot}</a>
+            </div>
+            <input type="password" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="••••••••" required />
+          </div>
+          <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+            {t.login}
+          </button>
+        </form>
+
+        <div className="mt-10 pt-10 border-t border-white/5 text-center">
+          <p className={`text-xs font-bold ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>
+            {t.noAccount} <a href="#" className="text-gold hover:underline">{t.request}</a>
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { lang, setLang, theme, setTheme, t } = useContext(AppContext);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const { lang, setLang, theme, setTheme, t, setIsMinoModalOpen } = useContext(AppContext);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${theme === 'dark' ? 'glass-dark' : 'glass-light'}`}>
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-3 group cursor-pointer">
+        <div 
+          className="flex items-center gap-3 group cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
           <Logo className="w-9 h-9 text-gold group-hover:scale-110 transition-transform" />
-          <span className={`text-2xl font-display font-bold tracking-tighter transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>BUILCO</span>
+          <span className={`text-2xl font-helvetica font-bold tracking-tighter transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>BUILDING CONENCTIONS</span>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {t.nav.map((item, i) => (
-            <a key={i} href={`#${translations.en.nav[i].toLowerCase()}`} className={`text-sm font-semibold transition-colors ${theme === 'dark' ? 'text-white/70 hover:text-gold' : 'text-slate-600 hover:text-gold'}`}>
-              {item}
-            </a>
-          ))}
+          {t.nav.map((item, i) => {
+            const isAbout = i === 3;
+            if (isAbout) {
+              return (
+                <div 
+                  key={i} 
+                  className="relative"
+                  onMouseEnter={() => setIsAboutOpen(true)}
+                  onMouseLeave={() => setIsAboutOpen(false)}
+                >
+                  <button 
+                    className={`flex items-center gap-1 text-sm font-semibold transition-colors ${theme === 'dark' ? 'text-white/70 hover:text-gold' : 'text-slate-600 hover:text-gold'}`}
+                    onClick={() => setIsAboutOpen(!isAboutOpen)}
+                  >
+                    {item} <ChevronDown className={`w-4 h-4 transition-transform ${isAboutOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  <AnimatePresence>
+                    {isAboutOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-2xl border overflow-hidden ${theme === 'dark' ? 'bg-charcoal border-white/10' : 'bg-white border-slate-200'}`}
+                      >
+                        <a 
+                          href="#about" 
+                          className={`block px-6 py-4 text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:bg-white/5 hover:text-gold' : 'text-slate-600 hover:bg-slate-50 hover:text-gold'}`}
+                          onClick={() => setIsAboutOpen(false)}
+                        >
+                          {item}
+                        </a>
+                        <a 
+                          href="/mino" 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`block px-6 py-4 text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:bg-white/5 hover:text-gold' : 'text-slate-600 hover:bg-slate-50 hover:text-gold'}`}
+                          onClick={() => setIsAboutOpen(false)}
+                        >
+                          Mino
+                        </a>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+            return (
+              <a key={i} href={`#${translations.en.nav[i].toLowerCase()}`} className={`text-sm font-semibold transition-colors ${theme === 'dark' ? 'text-white/70 hover:text-gold' : 'text-slate-600 hover:text-gold'}`}>
+                {item}
+              </a>
+            );
+          })}
           
           <div className={`flex items-center gap-4 border-l pl-8 ml-4 ${theme === 'dark' ? 'border-white/10' : 'border-slate-200'}`}>
             <button 
@@ -203,11 +398,37 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className={`md:hidden border-b overflow-hidden shadow-2xl ${theme === 'dark' ? 'bg-charcoal border-white/5' : 'bg-white border-slate-200'} px-6 py-8 flex flex-col gap-6`}
           >
-            {t.nav.map((item, i) => (
-              <a key={i} href={`#${translations.en.nav[i].toLowerCase()}`} className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`} onClick={() => setIsOpen(false)}>
-                {item}
-              </a>
-            ))}
+            {t.nav.map((item, i) => {
+              const isAbout = i === 3;
+              if (isAbout) {
+                return (
+                  <div key={i} className="flex flex-col gap-4">
+                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`}>
+                      {item}
+                    </div>
+                    <div className="flex flex-col gap-4 pl-4 border-l-2 border-gold/30">
+                      <a href="#about" className={`text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`} onClick={() => setIsOpen(false)}>
+                        {item}
+                      </a>
+                      <a 
+                        href="/mino" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Mino
+                      </a>
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <a key={i} href={`#${translations.en.nav[i].toLowerCase()}`} className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`} onClick={() => setIsOpen(false)}>
+                  {item}
+                </a>
+              );
+            })}
             <div className={`flex items-center justify-between pt-6 border-t ${theme === 'dark' ? 'border-white/10' : 'border-slate-100'}`}>
               <button onClick={() => setLang(lang === 'en' ? 'es' : 'en')} className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-widest">
                 <Languages className="w-5 h-5" /> {lang === 'en' ? 'Español' : 'English'}
@@ -424,9 +645,12 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-16 mb-24">
           <div className="col-span-2">
-            <div className="flex items-center gap-3 mb-8">
-              <Logo className="w-8 h-8 text-gold" />
-              <span className={`text-2xl font-display font-bold tracking-tighter transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>BUILCO</span>
+            <div 
+              className="flex items-center gap-3 mb-8 cursor-pointer group"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <Logo className="w-8 h-8 text-gold group-hover:scale-110 transition-transform" />
+              <span className={`text-2xl font-helvetica font-bold tracking-tighter transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>BUILDING CONENCTIONS</span>
             </div>
             <p className={`max-w-sm leading-relaxed text-lg transition-colors ${theme === 'dark' ? 'text-white/40' : 'text-slate-500 font-medium'}`}>
               {t.footerDesc}
@@ -452,7 +676,7 @@ const Footer = () => {
         <div className={`pt-10 border-t flex flex-col md:flex-row justify-between items-center gap-6 ${theme === 'dark' ? 'border-white/5' : 'border-slate-100'}`}>
           <p className={`text-xs font-bold transition-colors ${theme === 'dark' ? 'text-white/20' : 'text-slate-400'}`}>{t.footerRights}</p>
           <div className="flex gap-8">
-            {['LinkedIn', 'Twitter'].map(social => (
+            {['LinkedIn', 'Twitter', 'Facebook'].map(social => (
               <a key={social} href="#" className={`text-xs font-bold transition-colors ${theme === 'dark' ? 'text-white/20 hover:text-gold' : 'text-slate-400 hover:text-gold'}`}>{social}</a>
             ))}
           </div>
@@ -465,13 +689,24 @@ const Footer = () => {
 export default function LandingPage() {
   const [lang, setLang] = useState<Language>('en');
   const [theme, setTheme] = useState<Theme>('dark');
+  const [isMinoModalOpen, setIsMinoModalOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
   useEffect(() => {
     document.documentElement.className = theme;
   }, [theme]);
 
+  // Simple routing
+  if (currentPath === '/mino') {
+    return (
+      <AppContext.Provider value={{ lang, setLang, theme, setTheme, t: translations[lang], setIsMinoModalOpen }}>
+        <LoginPage />
+      </AppContext.Provider>
+    );
+  }
+
   return (
-    <AppContext.Provider value={{ lang, setLang, theme, setTheme, t: translations[lang] }}>
+    <AppContext.Provider value={{ lang, setLang, theme, setTheme, t: translations[lang], setIsMinoModalOpen }}>
       <div className={`min-h-screen transition-colors duration-300 relative ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
         <NetworkBackground />
         <Navbar />
@@ -482,6 +717,7 @@ export default function LandingPage() {
         <Differentiation />
         <FinalCTA />
         <Footer />
+        <MinoModal isOpen={isMinoModalOpen} onClose={() => setIsMinoModalOpen(false)} />
       </div>
     </AppContext.Provider>
   );
