@@ -219,6 +219,8 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
 
 const LoginPage = () => {
   const { theme, lang, t: trans } = useContext(AppContext);
+  const [isRegistering, setIsRegistering] = useState(false);
+  
   const t = lang === 'es' ? {
     welcome: 'Bienvenido a Mino',
     sub: 'Acceso exclusivo a la red estratégica',
@@ -227,7 +229,15 @@ const LoginPage = () => {
     login: 'Iniciar Sesión',
     forgot: '¿Olvidó su contraseña?',
     noAccount: '¿No tiene una cuenta?',
-    request: 'Solicitar Acceso'
+    request: 'Solicitar Acceso',
+    registerTitle: 'Solicitud de Acceso',
+    registerSub: 'Complete los datos para unirse a Mino',
+    fullName: 'Nombre Completo',
+    company: 'Empresa',
+    camara: 'Cámara de Comercio',
+    rut: 'RUT',
+    submitRequest: 'Enviar Solicitud',
+    backToLogin: 'Volver al Inicio de Sesión'
   } : {
     welcome: 'Welcome to Mino',
     sub: 'Exclusive access to the strategic network',
@@ -236,7 +246,15 @@ const LoginPage = () => {
     login: 'Log In',
     forgot: 'Forgot your password?',
     noAccount: "Don't have an account?",
-    request: 'Request Access'
+    request: 'Request Access',
+    registerTitle: 'Access Request',
+    registerSub: 'Complete the details to join Mino',
+    fullName: 'Full Name',
+    company: 'Company',
+    camara: 'Chamber of Commerce',
+    rut: 'Tax ID (RUT)',
+    submitRequest: 'Submit Request',
+    backToLogin: 'Back to Login'
   };
 
   return (
@@ -244,8 +262,10 @@ const LoginPage = () => {
       <NetworkBackground />
       
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        key={isRegistering ? 'register' : 'login'}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
         className={`relative z-10 w-full max-w-md p-10 rounded-sm shadow-2xl border ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10' : 'bg-white border-slate-200'}`}
       >
         <div className="text-center mb-10">
@@ -253,35 +273,75 @@ const LoginPage = () => {
             <Logo className="w-10 h-10 text-gold" />
           </div>
           <h1 className={`text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-            {t.welcome}
+            {isRegistering ? t.registerTitle : t.welcome}
           </h1>
           <p className={`text-xs font-bold uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
-            {t.sub}
+            {isRegistering ? t.registerSub : t.sub}
           </p>
         </div>
 
-        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-          <div className="space-y-2">
-            <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
-            <input type="email" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="name@company.com" required />
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.password}</label>
-              <a href="#" className="text-[10px] font-bold text-gold hover:underline">{t.forgot}</a>
+        {!isRegistering ? (
+          <>
+            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-2">
+                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
+                <input type="email" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="name@company.com" required />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.password}</label>
+                  <a href="#" className="text-[10px] font-bold text-gold hover:underline">{t.forgot}</a>
+                </div>
+                <input type="password" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="••••••••" required />
+              </div>
+              <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+                {t.login}
+              </button>
+            </form>
+
+            <div className="mt-10 pt-10 border-t border-white/5 text-center">
+              <p className={`text-xs font-bold ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>
+                {t.noAccount} <button onClick={() => setIsRegistering(true)} className="text-gold hover:underline">{t.request}</button>
+              </p>
             </div>
-            <input type="password" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="••••••••" required />
-          </div>
-          <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
-            {t.login}
-          </button>
-        </form>
+          </>
+        ) : (
+          <>
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-1">
+                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.fullName}</label>
+                <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+              </div>
+              <div className="space-y-1">
+                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
+                <input type="email" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+              </div>
+              <div className="space-y-1">
+                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.company}</label>
+                <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.camara}</label>
+                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                </div>
+                <div className="space-y-1">
+                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.rut}</label>
+                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                </div>
+              </div>
+              <button type="submit" className="w-full py-5 mt-4 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+                {t.submitRequest}
+              </button>
+            </form>
 
-        <div className="mt-10 pt-10 border-t border-white/5 text-center">
-          <p className={`text-xs font-bold ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>
-            {t.noAccount} <a href="#" className="text-gold hover:underline">{t.request}</a>
-          </p>
-        </div>
+            <div className="mt-8 pt-6 border-t border-white/5 text-center">
+              <button onClick={() => setIsRegistering(false)} className="text-[10px] font-black uppercase tracking-widest text-gold hover:underline">
+                {t.backToLogin}
+              </button>
+            </div>
+          </>
+        )}
       </motion.div>
     </div>
   );
