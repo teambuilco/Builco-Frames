@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NetworkBackground } from './NetworkBackground';
-import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown } from 'lucide-react';
+import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown, Check } from 'lucide-react';
 
 type Language = 'en' | 'es';
 type Theme = 'dark' | 'light';
@@ -49,6 +49,9 @@ const translations = {
       { title: "Absolute Discretion", desc: "High-stakes strategic work requires the highest level of confidentiality." }
     ],
     yearsExp: 'Years of Strategic Excellence',
+    whereWeAre: 'Where we are',
+    clients: ['Anglo American', 'BHP', 'Rio Tinto', 'Glencore', 'Vale', 'Freeport-McMoRan', 'Barrick Gold', 'Newmont'],
+    locations: ['Colombia', 'Chile', 'Peru', 'Australia', 'Canada', 'South Africa', 'Brazil', 'Mexico', 'USA'],
     ctaTitle: 'Ready to scale your ',
     ctaTitleHighlight: 'global footprint?',
     ctaSub: 'Join the network of industry pioneers shaping the future of infrastructure.',
@@ -98,6 +101,9 @@ const translations = {
       { title: "Discreción Absoluta", desc: "El trabajo estratégico de alto nivel requiere el más alto nivel de confidencialidad." }
     ],
     yearsExp: 'Años de Excelencia Estratégica',
+    whereWeAre: 'En donde estamos',
+    clients: ['Anglo American', 'BHP', 'Rio Tinto', 'Glencore', 'Vale', 'Freeport-McMoRan', 'Barrick Gold', 'Newmont'],
+    locations: ['Colombia', 'Chile', 'Perú', 'Australia', 'Canadá', 'Sudáfrica', 'Brasil', 'México', 'Estados Unidos'],
     ctaTitle: '¿Listo para escalar su ',
     ctaTitleHighlight: 'huella global?',
     ctaSub: 'Únase a la red de pioneros de la industria que dan forma al futuro de la infraestructura.',
@@ -220,6 +226,9 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
 const LoginPage = () => {
   const { theme, lang, t: trans } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
+  const [isForgotOpen, setIsForgotOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [isResetSent, setIsResetSent] = useState(false);
   
   const t = lang === 'es' ? {
     welcome: 'Bienvenido a Mino',
@@ -237,7 +246,12 @@ const LoginPage = () => {
     camara: 'Cámara de Comercio',
     rut: 'RUT',
     submitRequest: 'Enviar Solicitud',
-    backToLogin: 'Volver al Inicio de Sesión'
+    backToLogin: 'Volver al Inicio de Sesión',
+    forgotTitle: 'Restablecer Contraseña',
+    forgotSub: 'Ingrese su correo para recibir las instrucciones',
+    send: 'Enviar',
+    resetSuccess: 'Se ha enviado el restablecimiento de la contraseña a su correo electrónico',
+    close: 'Cerrar'
   } : {
     welcome: 'Welcome to Mino',
     sub: 'Exclusive access to the strategic network',
@@ -254,7 +268,17 @@ const LoginPage = () => {
     camara: 'Chamber of Commerce',
     rut: 'Tax ID (RUT)',
     submitRequest: 'Submit Request',
-    backToLogin: 'Back to Login'
+    backToLogin: 'Back to Login',
+    forgotTitle: 'Reset Password',
+    forgotSub: 'Enter your email to receive instructions',
+    send: 'Send',
+    resetSuccess: 'Password reset has been sent to your email',
+    close: 'Close'
+  };
+
+  const handleResetSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsResetSent(true);
   };
 
   return (
@@ -290,7 +314,17 @@ const LoginPage = () => {
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.password}</label>
-                  <a href="#" className="text-[10px] font-bold text-gold hover:underline">{t.forgot}</a>
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      setIsForgotOpen(true);
+                      setIsResetSent(false);
+                      setResetEmail('');
+                    }}
+                    className="text-[10px] font-bold text-gold hover:underline"
+                  >
+                    {t.forgot}
+                  </button>
                 </div>
                 <input type="password" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="••••••••" required />
               </div>
@@ -343,6 +377,83 @@ const LoginPage = () => {
           </>
         )}
       </motion.div>
+
+      {/* Forgot Password Modal */}
+      <AnimatePresence>
+        {isForgotOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsForgotOpen(false)}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className={`relative w-full max-w-md overflow-hidden rounded-sm shadow-2xl ${theme === 'dark' ? 'bg-charcoal border border-white/10' : 'bg-white border border-slate-200'}`}
+            >
+              <div className="h-24 bg-gold relative flex items-center px-8 overflow-hidden">
+                <div className="absolute right-0 top-0 w-48 h-48 bg-black/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+                <div className="relative z-10">
+                  <h2 className="text-2xl font-helvetica font-black text-black tracking-tighter uppercase">{t.forgotTitle}</h2>
+                  <p className="text-black/60 font-bold text-[10px] uppercase tracking-widest">{t.forgotSub}</p>
+                </div>
+                <button 
+                  onClick={() => setIsForgotOpen(false)}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-black/10 hover:bg-black/20 text-black transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="p-8">
+                {!isResetSent ? (
+                  <form className="space-y-6" onSubmit={handleResetSubmit}>
+                    <div className="space-y-2">
+                      <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
+                      <input 
+                        type="email" 
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} 
+                        placeholder="name@company.com" 
+                        required 
+                      />
+                    </div>
+                    <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+                      {t.send}
+                    </button>
+                  </form>
+                ) : (
+                  <div className="text-center py-4">
+                    <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="text-gold"
+                      >
+                        <Check className="w-8 h-8" />
+                      </motion.div>
+                    </div>
+                    <p className={`text-sm font-bold leading-relaxed mb-8 ${theme === 'dark' ? 'text-white/80' : 'text-slate-600'}`}>
+                      {t.resetSuccess}
+                    </p>
+                    <button 
+                      onClick={() => setIsForgotOpen(false)}
+                      className={`text-[10px] font-black uppercase tracking-widest text-gold hover:underline`}
+                    >
+                      {t.close}
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -552,18 +663,55 @@ const Hero = () => {
 const SocialProof = () => {
   const { t, theme } = useContext(AppContext);
   return (
-    <section className={`py-24 border-y transition-all duration-500 ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-slate-100'}`}>
-      <div className="max-w-7xl mx-auto px-6">
-        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] mb-16 transition-colors ${theme === 'dark' ? 'text-white/30' : 'text-slate-300'}`}>
+    <section className={`py-12 border-y transition-all duration-500 overflow-hidden ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-slate-100'}`}>
+      <div className="max-w-7xl mx-auto px-6 mb-12">
+        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] transition-colors ${theme === 'dark' ? 'text-white/30' : 'text-slate-300'}`}>
           {t.socialProof}
         </p>
-        <div className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-16 items-center opacity-40 grayscale hover:grayscale-0 transition-all duration-700 ${theme === 'dark' ? 'invert-0' : 'invert opacity-60'}`}>
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="flex justify-center">
-              <div className={`h-8 w-32 rounded-sm transition-colors ${theme === 'dark' ? 'bg-white/10' : 'bg-slate-900/10'}`}></div>
+      </div>
+      
+      <div className="relative flex overflow-hidden">
+        <motion.div 
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 items-center whitespace-nowrap px-10"
+        >
+          {[...t.clients, ...t.clients].map((client, i) => (
+            <span key={i} className={`text-2xl font-helvetica font-black uppercase tracking-tighter opacity-40 hover:opacity-100 transition-opacity cursor-default ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+              {client}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+const LocationMarquee = () => {
+  const { t, theme } = useContext(AppContext);
+  return (
+    <section className={`py-12 border-y transition-all duration-500 overflow-hidden ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-slate-100'}`}>
+      <div className="max-w-7xl mx-auto px-6 mb-12">
+        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] transition-colors ${theme === 'dark' ? 'text-white/30' : 'text-slate-300'}`}>
+          {t.whereWeAre}
+        </p>
+      </div>
+      
+      <div className="relative flex overflow-hidden">
+        <motion.div 
+          animate={{ x: [-1000, 0] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-20 items-center whitespace-nowrap px-10"
+        >
+          {[...t.locations, ...t.locations].map((location, i) => (
+            <div key={i} className="flex items-center gap-4">
+              <Globe className="w-5 h-5 text-gold opacity-50" />
+              <span className={`text-2xl font-helvetica font-black uppercase tracking-tighter opacity-40 hover:opacity-100 transition-opacity cursor-default ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                {location}
+              </span>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -773,6 +921,7 @@ export default function LandingPage() {
         <Hero />
         <SocialProof />
         <Services />
+        <LocationMarquee />
         <Process />
         <Differentiation />
         <FinalCTA />
