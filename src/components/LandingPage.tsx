@@ -131,7 +131,7 @@ const AppContext = createContext<{
 
 const Logo = ({ className = "w-8 h-8" }: { className?: string }) => (
   <img 
-    src="https://builco.co/assets/logo-B9aq_5yh.svg" 
+    src="https://storage.googleapis.com/aistudio-build-assets/3obsvayrmxfpx44asrww57/logo.png" 
     alt="Building Conenctions Logo" 
     className={className} 
     referrerPolicy="no-referrer"
