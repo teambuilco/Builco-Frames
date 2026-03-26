@@ -132,7 +132,7 @@ const AppContext = createContext<{
 const Logo = ({ className = "w-8 h-8" }: { className?: string }) => (
   <img 
     src="https://storage.googleapis.com/aistudio-build-assets/3obsvayrmxfpx44asrww57/logo.png" 
-    alt="Building Conenctions Logo" 
+    alt="Building Connections Logo" 
     className={className} 
     referrerPolicy="no-referrer"
   />
@@ -689,15 +689,62 @@ const SocialProof = () => {
 
 const LocationMarquee = () => {
   const { t, theme } = useContext(AppContext);
+  
+  const partners = [
+    { 
+      name: "Cámara de Comercio de Bogotá", 
+      logo: "https://storage.googleapis.com/aistudio-build-assets/3obsvayrmxfpx44asrww57/logo_1.png" 
+    },
+    { 
+      name: "ParqueE", 
+      logo: "https://parquee.com.co/wp-content/uploads/2021/06/Logo-Parque-E-01.png" 
+    },
+    { 
+      name: "Alcaldía de Medellín", 
+      logo: "https://www.medellin.gov.co/irj/go/km/docs/pccdesign/medellin/Temas/Alcaldia/Logos/Logo_Alcaldia_Medellin.png" 
+    }
+  ];
+
   return (
     <section className={`py-12 border-y transition-all duration-500 overflow-hidden ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-slate-100'}`}>
       <div className="max-w-7xl mx-auto px-6 mb-12">
-        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] transition-colors ${theme === 'dark' ? 'text-white/30' : 'text-slate-300'}`}>
+        <p className={`text-center text-[10px] font-black uppercase tracking-[0.4em] transition-colors ${theme === 'dark' ? 'text-white/30' : 'text-slate-300'} mb-12`}>
           {t.whereWeAre}
         </p>
+        
+        <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24">
+          {partners.map((partner, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <img 
+                src={partner.logo} 
+                alt={partner.name} 
+                className={`h-12 md:h-16 object-contain transition-all duration-500 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 ${theme === 'dark' ? 'brightness-0 invert' : ''}`}
+                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  // Fallback to text if image fails to load
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  const parent = (e.target as HTMLImageElement).parentElement;
+                  if (parent) {
+                    const span = document.createElement('span');
+                    span.className = `text-sm font-bold uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`;
+                    span.innerText = partner.name;
+                    parent.appendChild(span);
+                  }
+                }}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
       
-      <div className="relative flex overflow-hidden">
+      <div className="relative flex overflow-hidden mt-12">
         <motion.div 
           animate={{ x: [-1000, 0] }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
