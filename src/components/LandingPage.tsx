@@ -45,15 +45,15 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             className={`relative w-full max-w-2xl overflow-hidden rounded-sm shadow-2xl ${theme === 'dark' ? 'bg-charcoal border border-white/10' : 'bg-white border border-slate-200'}`}
           >
-            <div className="h-32 bg-gold relative flex items-center px-10 overflow-hidden">
+            <div className={`h-32 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}>
               <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl" />
               <div className="relative z-10">
-                <h2 className="text-3xl font-helvetica font-black text-black tracking-tighter uppercase">{t.title}</h2>
-                <p className="text-black/60 font-bold text-xs uppercase tracking-widest">{t.sub}</p>
+                <h2 className={`text-3xl font-helvetica font-black tracking-tighter uppercase ${theme === 'dark' ? 'text-black' : 'text-white'}`}>{t.title}</h2>
+                <p className={`font-bold text-xs uppercase tracking-widest ${theme === 'dark' ? 'text-black/60' : 'text-white/60'}`}>{t.sub}</p>
               </div>
               <button 
                 onClick={onClose}
-                className="absolute top-6 right-6 p-2 rounded-full bg-black/10 hover:bg-black/20 text-black transition-colors"
+                className={`absolute top-6 right-6 p-2 rounded-full transition-colors ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -79,7 +79,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                   <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.message}</label>
                   <textarea rows={3} className={`w-full px-4 py-3 rounded-sm border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
                 </div>
-                <button type="submit" className="w-full py-5 bg-gold hover:bg-gold-hover text-black font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl shadow-gold/20 hover:shadow-gold/40 active:scale-[0.98]">
+                <button type="submit" className={`w-full py-5 font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl active:scale-[0.98] ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
                   {t.submit}
                 </button>
               </form>
@@ -250,7 +250,7 @@ const Navbar = () => {
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             </div>
-            <button className="w-full py-4 bg-gold text-black font-bold rounded-sm shadow-xl shadow-gold/20">
+            <button className={`w-full py-4 font-bold rounded-sm shadow-xl active:scale-95 ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-200'}`}>
               {t.contact}
             </button>
           </motion.div>
@@ -279,6 +279,7 @@ const Hero = () => {
             {t.badge}
           </div>
           <h1 className={`text-5xl md:text-7xl font-bold leading-[1.05] mb-8 tracking-tight transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+            <Logo className={`inline-block w-12 h-12 md:w-20 md:h-20 mr-4 md:mr-6 mb-2 md:mb-4 align-middle ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
             {t.heroTitle}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{t.heroTitleHighlight}</span>{t.heroTitleEnd}
           </h1>
           <p className={`text-lg md:text-xl mb-12 leading-relaxed max-w-2xl transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
@@ -296,7 +297,7 @@ const Hero = () => {
       </div>
       
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
-        <div className="w-px h-16 bg-linear-to-b from-gold to-transparent"></div>
+        <div className={`w-px h-16 ${theme === 'dark' ? 'bg-linear-to-b from-gold to-transparent' : 'bg-linear-to-b from-gold-deep to-transparent'}`}></div>
       </div>
     </section>
   );
@@ -335,7 +336,7 @@ const LocationMarquee = () => {
   const partners = [
     { 
       name: "Cámara de Comercio de Bogotá", 
-      logo: "https://storage.googleapis.com/aistudio-build-assets/3obsvayrmxfpx44asrww57/logo_3.png" 
+      logo: "https://storage.googleapis.com/aistudio-build-assets/3obsvayrmxfpx44asrww57/logo_4.png" 
     },
     { 
       name: "ParqueE", 
@@ -364,22 +365,9 @@ const LocationMarquee = () => {
               viewport={{ once: true }}
               className="group"
             >
-              <img 
+              <Logo 
                 src={partner.logo} 
-                alt={partner.name} 
-                className={`h-12 md:h-16 object-contain transition-all duration-500 grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 ${theme === 'dark' ? 'brightness-0 invert' : 'brightness-0'}`}
-                referrerPolicy="no-referrer"
-                onError={(e) => {
-                  // Fallback to text if image fails to load
-                  (e.target as HTMLImageElement).style.display = 'none';
-                  const parent = (e.target as HTMLImageElement).parentElement;
-                  if (parent) {
-                    const span = document.createElement('span');
-                    span.className = `text-sm font-bold uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`;
-                    span.innerText = partner.name;
-                    parent.appendChild(span);
-                  }
-                }}
+                className={`h-12 md:h-16 w-12 md:w-16 transition-all duration-500 opacity-40 group-hover:opacity-100 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}
               />
             </motion.div>
           ))}
@@ -531,7 +519,7 @@ const FinalCTA = () => {
           {t.ctaTitle}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{t.ctaTitleHighlight}</span>
         </h2>
         <p className={`text-xl mb-16 transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>{t.ctaSub}</p>
-        <button className="px-14 py-6 bg-gold hover:bg-gold-hover text-black font-bold text-xl rounded-sm transition-all shadow-2xl shadow-gold/20 hover:shadow-gold/40 active:scale-95">
+        <button className={`px-14 py-6 font-bold text-xl rounded-sm transition-all shadow-2xl active:scale-95 ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
           {t.ctaBtn}
         </button>
       </div>
