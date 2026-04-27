@@ -48,54 +48,54 @@ const AboutPage = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           onClick={() => window.close()}
-          className={`flex items-center gap-2 transition-colors mb-12 group ${theme === 'dark' ? 'text-gold hover:text-white' : 'text-gold-deep hover:text-slate-900'}`}
+          className={`flex items-center gap-3 transition-all mb-16 px-6 py-3 rounded-full border-2 group hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-gold/30 text-gold hover:border-gold hover:text-white bg-gold/5' : 'border-slate-200 text-slate-700 hover:border-slate-900 hover:text-slate-900 bg-white shadow-sm'}`}
         >
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-black uppercase tracking-widest">Regresar</span>
+          <span className="text-xs font-black uppercase tracking-[0.2em]">Regresar</span>
         </motion.button>
 
-        <header className="mb-20">
+        <header className="mb-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="flex items-center gap-4 mb-8">
-              <Logo className={`w-12 h-12 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-              <div className={`h-12 w-px ${theme === 'dark' ? 'bg-white/20' : 'bg-slate-900/20'}`} />
-              <span className={`text-xl font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/50' : 'text-slate-400'}`}>Builco</span>
+            <div className="flex items-center gap-6 mb-12">
+              <Logo className={`w-14 h-14 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
+              <div className={`h-14 w-px ${theme === 'dark' ? 'bg-white/20' : 'bg-slate-900/20'}`} />
+              <span className={`text-2xl font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/50' : 'text-slate-400'}`}>Builco</span>
             </div>
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-6">
+            <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-10">
               Nuestra <span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>Historia</span>
             </h1>
-            <div className={`w-32 h-2 mb-8 ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`} />
-            <p className={`text-xl md:text-2xl max-w-2xl font-medium leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
+            <div className={`w-40 h-2.5 mb-12 rounded-full ${theme === 'dark' ? 'bg-gold shadow-[0_0_20px_rgba(225,180,109,0.3)]' : 'bg-gold-deep'}`} />
+            <p className={`text-2xl md:text-3xl max-w-3xl font-medium leading-[1.4] ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
               Builco nació en las profundidades de la tierra, donde el esfuerzo humano se encuentra con la riqueza mineral.
             </p>
           </motion.div>
         </header>
 
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-10 items-start">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-8"
+            className="space-y-10"
           >
-            <div className={`p-8 border rounded-sm backdrop-blur-md ${theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white/50'}`}>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                <Target className={`w-6 h-6 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> El Origen
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
+                <Target className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> El Origen
               </h2>
-              <p className={`leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
                 Fundada en 2015, Building Connections (Builco) surgió de una necesidad crítica en el sector minero: la falta de una red estratégica que conectara a los actores clave con tecnología de vanguardia y servicios de consultoría de alto nivel.
               </p>
             </div>
 
-            <div className={`p-8 border rounded-sm backdrop-blur-md ${theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white/50'}`}>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                <Users className={`w-6 h-6 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Nuestra Gente
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
+                <Users className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Nuestra Gente
               </h2>
-              <p className={`leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
                 Creemos que el corazón de la minería no son las máquinas, sino las personas. Por eso, nuestra plataforma Mino está diseñada para empoderar a cada trabajador, desde el tajo hasta la gerencia, facilitando una comunicación transparente y eficiente.
               </p>
             </div>
@@ -106,22 +106,22 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-10"
           >
-            <div className={`p-8 border rounded-sm backdrop-blur-md ${theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white/50'}`}>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                <Globe className={`w-6 h-6 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Impacto Global
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
+                <Globe className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Impacto Global
               </h2>
-              <p className={`leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
                 Lo que comenzó como una iniciativa local en las regiones mineras de Colombia, hoy se proyecta como un estándar internacional de conectividad y eficiencia operativa en la industria extractiva global.
               </p>
             </div>
 
-            <div className={`p-8 border rounded-sm backdrop-blur-md ${theme === 'dark' ? 'border-white/10 bg-white/5' : 'border-slate-200 bg-white/50'}`}>
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                <Shield className={`w-6 h-6 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Compromiso
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
+                <Shield className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Compromiso
               </h2>
-              <p className={`leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
                 Nuestro compromiso es con la seguridad, la sostenibilidad y la innovación. Cada conexión que construimos es un paso hacia una minería más humana y tecnológicamente avanzada.
               </p>
             </div>

@@ -11,7 +11,7 @@ export const translations = {
     heroTitle: 'Building strategic connections in ',
     heroTitleHighlight: 'high-impact',
     heroTitleEnd: ' industries',
-    heroSub: 'We bridge the gap between vision and execution in mining, energy, and infrastructure. Accelerating global growth through elite networking and strategic intelligence.',
+    heroSub: 'We bridge the gap between vision and execution in mining, energy, and Government and Public Relations. Accelerating global growth through elite networking and strategic intelligence.',
     getStarted: 'Get Started',
     portfolio: 'Our Portfolio',
     socialProof: 'Trusted by Industry Leaders Worldwide',
@@ -42,7 +42,7 @@ export const translations = {
     diffTitleHighlight: 'choose Building Connections',
     diffItems: [
       { title: "Elite Network", desc: "Access to decision-makers that aren't on any public directory." },
-      { title: "Deep Domain Expertise", desc: "Decades of experience in mining, energy, and infrastructure." },
+      { title: "Deep Domain Expertise", desc: "Decades of experience in mining, energy, and Government and Public Relations." },
       { title: "Absolute Discretion", desc: "High-stakes strategic work requires the highest level of confidentiality." }
     ],
     yearsExp: 'Years of Strategic Excellence',
@@ -51,7 +51,7 @@ export const translations = {
     locations: ['Colombia', 'Chile', 'Peru', 'Australia', 'Canada', 'South Africa', 'Brazil', 'Mexico', 'USA'],
     ctaTitle: 'Ready to scale your ',
     ctaTitleHighlight: 'global footprint?',
-    ctaSub: 'Join the network of industry pioneers shaping the future of infrastructure.',
+    ctaSub: 'Join the network of industry pioneers shaping the future of Government and Public Relations.',
     ctaBtn: 'Schedule a Strategic Consultation',
     footerDesc: 'Strategic connections for high-impact industries. Global reach, local intelligence, absolute discretion.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. ALL RIGHTS RESERVED.',
@@ -86,7 +86,7 @@ export const translations = {
     heroTitle: 'Construyendo conexiones estratégicas en industrias de ',
     heroTitleHighlight: 'alto impacto',
     heroTitleEnd: '',
-    heroSub: 'Cerramos la brecha entre la visión y la ejecución en minería, energía e infraestructura. Acelerando el crecimiento global a través de redes de élite e inteligencia estratégica.',
+    heroSub: 'Cerramos la brecha entre la visión y la ejecución en minería, energía e Gobierno y relaciones públicas. Acelerando el crecimiento global a través de redes de élite e inteligencia estratégica.',
     getStarted: 'Empezar',
     portfolio: 'Nuestro Portafolio',
     socialProof: 'Con la confianza de líderes de la industria en todo el mundo',
@@ -117,7 +117,7 @@ export const translations = {
     diffTitleHighlight: 'eligen Building Connections',
     diffItems: [
       { title: "Red de Élite", desc: "Acceso a tomadores de decisiones que no están en ningún directorio público." },
-      { title: "Experiencia Profunda", desc: "Décadas de experiencia en minería, energía e infraestructura." },
+      { title: "Experiencia Profunda", desc: "Décadas de experiencia en minería, energía e Gobierno y relaciones públicas." },
       { title: "Discreción Absoluta", desc: "El trabajo estratégico de alto nivel requiere el más alto nivel de confidencialidad." }
     ],
     yearsExp: 'Años de Excelencia Estratégica',
@@ -126,7 +126,7 @@ export const translations = {
     locations: ['Colombia', 'Chile', 'Perú', 'Australia', 'Canadá', 'Sudáfrica', 'Brasil', 'México', 'Estados Unidos'],
     ctaTitle: '¿Listo para escalar su ',
     ctaTitleHighlight: 'huella global?',
-    ctaSub: 'Únase a la red de pioneros de la industria que dan forma al futuro de la infraestructura.',
+    ctaSub: 'Únase a la red de pioneros de la industria que dan forma al futuro de Gobierno y relaciones públicas.',
     ctaBtn: 'Programar una Consulta Estratégica',
     footerDesc: 'Conexiones estratégicas para industrias de alto impacto. Alcance global, inteligencia local, discreción absoluta.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. TODOS LOS DERECHOS RESERVADOS.',

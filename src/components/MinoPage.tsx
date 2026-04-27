@@ -29,37 +29,37 @@ const MinoPage = () => {
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className={`relative z-10 w-full max-w-md p-10 rounded-sm shadow-2xl border ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10' : 'bg-white border-slate-200'}`}
+        className={`relative z-10 w-full max-w-md p-12 shadow-3xl border transition-all duration-500 ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10 rounded-lg' : 'bg-white border-slate-200/60 rounded-2xl'}`}
       >
-        <div className="text-center mb-10">
-          <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}>
-            <Logo className={`w-10 h-10 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
+        <div className="text-center mb-12">
+          <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-8 transition-all ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}>
+            <Logo className={`w-12 h-12 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
           </div>
-          <h1 className={`text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+          <h1 className={`text-4xl font-helvetica font-black tracking-tighter uppercase mb-3 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
             {isRegistering ? minoT.registerTitle : minoT.welcome}
           </h1>
-          <p className={`text-xs font-bold uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
+          <p className={`text-[11px] font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>
             {isRegistering ? minoT.registerSub : minoT.sub}
           </p>
         </div>
 
         {!isRegistering ? (
           <>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="space-y-2">
-                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.email}</label>
-                <input type="email" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="name@company.com" required />
+            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+              <div className="space-y-3">
+                <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.email}</label>
+                <input type="email" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} placeholder="name@company.com" required />
               </div>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.password}</label>
-                  <button type="button" onClick={() => setIsForgotOpen(true)} className={`text-[10px] font-black uppercase tracking-widest hover:underline ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>
+                  <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.password}</label>
+                  <button type="button" onClick={() => setIsForgotOpen(true)} className={`text-[11px] font-black uppercase tracking-widest hover:translate-x-1 transition-transform ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>
                     {minoT.forgot}
                   </button>
                 </div>
-                <input type="password" className={`w-full px-4 py-4 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} placeholder="••••••••" required />
+                <input type="password" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} placeholder="••••••••" required />
               </div>
-              <button type="submit" className={`w-full py-5 font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl active:scale-[0.98] ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
+              <button type="submit" className={theme === 'dark' ? 'btn-gold w-full py-5' : 'btn-primary-light w-full py-5'}>
                 {minoT.login}
               </button>
             </form>
@@ -75,32 +75,32 @@ const MinoPage = () => {
           </>
         ) : (
           <>
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.fullName}</label>
-                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.fullName}</label>
+                  <input type="text" className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                 </div>
-                <div className="space-y-1">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.email}</label>
-                  <input type="email" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.company}</label>
-                <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.camara}</label>
-                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
-                </div>
-                <div className="space-y-1">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{minoT.rut}</label>
-                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                <div className="space-y-2">
+                  <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.email}</label>
+                  <input type="email" className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                 </div>
               </div>
-              <button type="submit" className={`w-full py-5 mt-4 font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl active:scale-[0.98] ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
+              <div className="space-y-2">
+                <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.company}</label>
+                <input type="text" className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
+              </div>
+              <div className="grid grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.camara}</label>
+                  <input type="text" className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
+                </div>
+                <div className="space-y-2">
+                  <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.rut}</label>
+                  <input type="text" className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
+                </div>
+              </div>
+              <button type="submit" className={theme === 'dark' ? 'btn-gold w-full mt-4 py-5' : 'btn-primary-light w-full mt-4 py-5'}>
                 {minoT.submitRequest}
               </button>
             </form>

@@ -10,7 +10,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
   const { theme, lang } = useContext(AppContext);
   const t = lang === 'es' ? {
     title: 'Mino - Registro Inicial',
-    sub: 'Únete a la red estratégica de minería e infraestructura.',
+    sub: 'Únete a la red estratégica de minería e Gobierno y relaciones públicas.',
     name: 'Nombre Completo',
     email: 'Correo Electrónico',
     company: 'Empresa',
@@ -19,7 +19,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     close: 'Cerrar'
   } : {
     title: 'Mino - Initial Registration',
-    sub: 'Join the strategic network of mining and infrastructure.',
+    sub: 'Join the strategic network of mining and Government and Public Relations.',
     name: 'Full Name',
     email: 'Email Address',
     company: 'Company',
@@ -43,43 +43,43 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className={`relative w-full max-w-2xl overflow-hidden rounded-sm shadow-2xl ${theme === 'dark' ? 'bg-charcoal border border-white/10' : 'bg-white border border-slate-200'}`}
+            className={`relative w-full max-w-2xl overflow-hidden shadow-3xl ${theme === 'dark' ? 'bg-charcoal border border-white/10 rounded-lg' : 'bg-white border border-slate-200/60 rounded-2xl'}`}
           >
-            <div className={`h-32 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}>
+            <div className={`h-36 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}>
               <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl" />
               <div className="relative z-10">
-                <h2 className={`text-3xl font-helvetica font-black tracking-tighter uppercase ${theme === 'dark' ? 'text-black' : 'text-white'}`}>{t.title}</h2>
-                <p className={`font-bold text-xs uppercase tracking-widest ${theme === 'dark' ? 'text-black/60' : 'text-white/60'}`}>{t.sub}</p>
+                <h2 className={`text-4xl font-helvetica font-black tracking-tighter uppercase mb-1 ${theme === 'dark' ? 'text-black' : 'text-white'}`}>{t.title}</h2>
+                <p className={`font-bold text-xs uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-black/50' : 'text-white/60'}`}>{t.sub}</p>
               </div>
               <button 
                 onClick={onClose}
-                className={`absolute top-6 right-6 p-2 rounded-full transition-colors ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}
+                className={`absolute top-8 right-8 p-3 rounded-full transition-all hover:scale-110 active:scale-90 ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="p-10">
-              <form className="grid gap-6" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.name}</label>
-                    <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+            <div className="p-12">
+              <form className="grid gap-8" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.name}</label>
+                    <input type="text" placeholder="John Doe" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                   </div>
-                  <div className="space-y-2">
-                    <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.email}</label>
-                    <input type="email" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                  <div className="space-y-3">
+                    <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.email}</label>
+                    <input type="email" placeholder="john@company.com" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.company}</label>
-                  <input type="text" className={`w-full px-4 py-3 rounded-sm border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                <div className="space-y-3">
+                  <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.company}</label>
+                  <input type="text" placeholder="Your Company Ltd." className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                 </div>
-                <div className="space-y-2">
-                  <label className={`text-[10px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-400'}`}>{t.message}</label>
-                  <textarea rows={3} className={`w-full px-4 py-3 rounded-sm border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'}`} required />
+                <div className="space-y-3">
+                  <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.message}</label>
+                  <textarea rows={4} placeholder="How can we help you?" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
                 </div>
-                <button type="submit" className={`w-full py-5 font-black uppercase tracking-widest text-sm rounded-sm transition-all shadow-xl active:scale-[0.98] ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
+                <button type="submit" className={theme === 'dark' ? 'btn-gold w-full mt-2' : 'btn-primary-light w-full mt-2'}>
                   {t.submit}
                 </button>
               </form>
@@ -179,13 +179,13 @@ const Navbar = () => {
 
               <button 
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`p-2 rounded-full transition-all ${theme === 'dark' ? 'hover:bg-white/5 text-white/70' : 'hover:bg-slate-100 text-slate-600'}`}
+                className={`p-3 rounded-xl transition-all ${theme === 'dark' ? 'hover:bg-white/5 text-white/70' : 'hover:bg-slate-100 text-slate-600'}`}
                 title="Toggle Theme"
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4 text-gold" /> : <Moon className="w-4 h-4 text-gold-deep" />}
               </button>
 
-              <button className={`px-6 py-2.5 font-bold text-sm rounded-sm transition-all shadow-lg active:scale-95 ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/10 hover:shadow-gold/20' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
+              <button className={theme === 'dark' ? 'btn-gold !px-8 !py-3' : 'btn-primary-light !px-8 !py-3'}>
                 {t.contact}
               </button>
             </div>
@@ -250,7 +250,7 @@ const Navbar = () => {
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             </div>
-            <button className={`w-full py-4 font-bold rounded-sm shadow-xl active:scale-95 ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-200'}`}>
+            <button className={`w-full py-5 font-bold rounded-xl shadow-xl active:scale-95 transition-all ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-300'}`}>
               {t.contact}
             </button>
           </motion.div>
@@ -285,11 +285,11 @@ const Hero = () => {
           <p className={`text-lg md:text-xl mb-12 leading-relaxed max-w-2xl transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
             {t.heroSub}
           </p>
-          <div className="flex flex-col sm:flex-row gap-5">
-            <button className={`px-10 py-4.5 font-bold rounded-sm flex items-center justify-center gap-2 transition-all group shadow-xl active:scale-95 ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/10 hover:shadow-gold/25' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
-              {t.getStarted} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <div className="flex flex-col sm:flex-row gap-6 mt-4">
+            <button className={theme === 'dark' ? 'btn-gold flex items-center justify-center gap-2 group !px-12 !py-5' : 'btn-primary-light flex items-center justify-center gap-2 group !px-12 !py-5'}>
+              {t.getStarted} <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </button>
-            <button className={`px-10 py-4.5 border font-bold rounded-sm transition-all active:scale-95 ${theme === 'dark' ? 'border-white/20 hover:bg-white/5 text-white' : 'border-slate-200 hover:bg-slate-50 text-slate-900'}`}>
+            <button className={`px-12 py-5 border-2 font-bold rounded-lg transition-all active:scale-95 text-lg ${theme === 'dark' ? 'border-white/20 hover:bg-white/5 text-white' : 'border-slate-200 hover:bg-slate-50 text-slate-900 shadow-sm'}`}>
               {t.portfolio}
             </button>
           </div>
@@ -519,7 +519,7 @@ const FinalCTA = () => {
           {t.ctaTitle}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{t.ctaTitleHighlight}</span>
         </h2>
         <p className={`text-xl mb-16 transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>{t.ctaSub}</p>
-        <button className={`px-14 py-6 font-bold text-xl rounded-sm transition-all shadow-2xl active:scale-95 ${theme === 'dark' ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'}`}>
+        <button className={theme === 'dark' ? 'btn-gold !px-20 !py-6 !text-2xl mt-4' : 'btn-primary-light !px-20 !py-6 !text-2xl mt-4'}>
           {t.ctaBtn}
         </button>
       </div>
@@ -550,7 +550,7 @@ const Footer = () => {
             <ul className={`space-y-5 text-sm transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-600 font-bold'}`}>
               <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Mining</a></li>
               <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Energy</a></li>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Infrastructure</a></li>
+              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Government & Relations</a></li>
             </ul>
           </div>
           <div>
