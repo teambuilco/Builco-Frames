@@ -7,6 +7,7 @@ export const translations = {
   en: {
     nav: ['Solutions', 'Industries', 'Process', 'About'],
     contact: 'Contact Us',
+    solutions: ['Mining', 'Energy', 'Government and Public Relations'],
     badge: 'Global Strategic Partner',
     heroTitle: 'Building strategic connections in ',
     heroTitleHighlight: 'high-impact',
@@ -48,13 +49,50 @@ export const translations = {
     yearsExp: 'Years of Strategic Excellence',
     whereWeAre: 'Where we are',
     clients: ['Anglo American', 'BHP', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia', 'Barrick Gold', 'Newmont'],
-    locations: ['Colombia', 'Chile', 'Peru', 'Australia', 'Canada', 'South Africa', 'Brazil', 'Mexico', 'USA'],
+    locations: ['Colombia', 'Peru', 'Mexico', 'USA'],
     ctaTitle: 'Ready to scale your ',
     ctaTitleHighlight: 'global footprint?',
     ctaSub: 'Join the network of industry pioneers shaping the future of Government and Public Relations.',
     ctaBtn: 'Schedule a Strategic Consultation',
     footerDesc: 'Strategic connections for high-impact industries. Global reach, local intelligence, absolute discretion.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. ALL RIGHTS RESERVED.',
+    contactForm: {
+      title: 'Contact Our Strategy Team',
+      sub: 'Direct line to global expertise',
+      name: 'Full Name',
+      email: 'Institutional Email',
+      message: 'Strategic Inquiry',
+      submit: 'Send Inquiry',
+      successTitle: 'Inquiry Received',
+      successMessage: 'Our strategy team has received your message. A partner will contact you shortly to discuss your requirements.',
+      close: 'Close'
+    },
+    privacy: {
+      title: 'Habeas Data & Privacy Policy',
+      sub: 'International Standard for Information Security and Privacy Compliance',
+      content: [
+        {
+          title: '1. Legal Basis & International Compliance',
+          text: 'BUILDING CONNECTIONS STRATEGIC PARTNERS (BUILCO) operates under a global compliance framework, adhering to GDPR (EU), CCPA (USA), and International Habeas Data principles. This policy governs the processing of personal and corporate data with absolute integrity and legal certainty.'
+        },
+        {
+          title: '2. User Rights (Habeas Data)',
+          text: 'Under international law, you maintain the inalienable right to access, update, rectify, and delete your data from our systems. We provide a transparent process for users to know how their information is being stored and used in accordance with the International Covenant on Civil and Political Rights regarding privacy.'
+        },
+        {
+          title: '3. Strategic Data Processing',
+          text: 'We collect high-level business intelligence data solely to facilitate elite networking and strategic industrial partnerships. This data is subject to strict non-disclosure protocols and is never processed for automated advertising or third-party commercial exploitation.'
+        },
+        {
+          title: '4. Zero-Trust Security Infrastructure',
+          text: 'Our Mino platform utilizes a Zero-Trust security model. All data is encrypted at rest and in transit using military-grade standards (AES-256). Access is restricted to authenticated entities with specific strategic clearance.'
+        },
+        {
+          title: '5. Institutional Contact',
+          text: 'For official inquiries regarding data sovereignty or to exercise your rights, please contact our Legal & Compliance department at team@builco.co'
+        }
+      ]
+    },
     mino: {
       welcome: 'Welcome to Mino',
       sub: 'Exclusive access to the strategic network',
@@ -82,6 +120,7 @@ export const translations = {
   es: {
     nav: ['Soluciones', 'Industrias', 'Proceso', 'Nosotros'],
     contact: 'Contáctanos',
+    solutions: ['Minería', 'Energía', 'Gobierno y relaciones públicas'],
     badge: 'Socio Estratégico Global',
     heroTitle: 'Construyendo conexiones estratégicas en industrias de ',
     heroTitleHighlight: 'alto impacto',
@@ -123,13 +162,50 @@ export const translations = {
     yearsExp: 'Años de Excelencia Estratégica',
     whereWeAre: 'En donde estamos',
     clients: ['Anglo American', 'BHP', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia', 'Barrick Gold', 'Newmont'],
-    locations: ['Colombia', 'Chile', 'Perú', 'Australia', 'Canadá', 'Sudáfrica', 'Brasil', 'México', 'Estados Unidos'],
+    locations: ['Colombia', 'Perú', 'México', 'Estados Unidos'],
     ctaTitle: '¿Listo para escalar su ',
     ctaTitleHighlight: 'huella global?',
     ctaSub: 'Únase a la red de pioneros de la industria que dan forma al futuro de Gobierno y relaciones públicas.',
     ctaBtn: 'Programar una Consulta Estratégica',
     footerDesc: 'Conexiones estratégicas para industrias de alto impacto. Alcance global, inteligencia local, discreción absoluta.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. TODOS LOS DERECHOS RESERVADOS.',
+    contactForm: {
+      title: 'Contacte a nuestro Equipo Estratégico',
+      sub: 'Línea directa con expertos globales',
+      name: 'Nombre Completo',
+      email: 'Correo Institucional',
+      message: 'Consulta Estratégica',
+      submit: 'Enviar Consulta',
+      successTitle: 'Consulta Recibida',
+      successMessage: 'Nuestro equipo estratégico ha recibido su mensaje. Un socio se pondrá en contacto con usted a la brevedad para discutir sus requerimientos.',
+      close: 'Cerrar'
+    },
+    privacy: {
+      title: 'Habeas Data y Política de Privacidad',
+      sub: 'Estándar Internacional para la Seguridad de la Información y Cumplimiento de Privacidad',
+      content: [
+        {
+          title: '1. Base Legal y Cumplimiento Internacional',
+          text: 'BUILDING CONNECTIONS STRATEGIC PARTNERS (BUILCO) opera bajo un marco de cumplimiento global, adhiriéndose al RGPD (UE), CCPA (EE. UU.) y los principios internacionales de Habeas Data. Esta política rige el procesamiento de datos personales y corporativos con absoluta integridad y certeza legal.'
+        },
+        {
+          title: '2. Derechos del Usuario (Habeas Data)',
+          text: 'Bajo el derecho internacional, usted mantiene el derecho inalienable de acceder, actualizar, rectificar y eliminar sus datos de nuestros sistemas. Proporcionamos un proceso transparente para que los usuarios sepan cómo se almacena y utiliza su información de acuerdo con el Pacto Internacional de Derechos Civiles y Políticos respecto a la privacidad.'
+        },
+        {
+          title: '3. Procesamiento Estratégico de Datos',
+          text: 'Recopilamos datos de inteligencia empresarial de alto nivel únicamente para facilitar redes de élite y asociaciones industriales estratégicas. Estos datos están sujetos a estrictos protocolos de confidencialidad y nunca se procesan para publicidad automatizada o explotación comercial por terceros.'
+        },
+        {
+          title: '4. Infraestructura de Seguridad Zero-Trust',
+          text: 'Nuestra plataforma Mino utiliza un modelo de seguridad Zero-Trust. Todos los datos están encriptados en reposo y en tránsito utilizando estándares de grado militar (AES-256). El acceso está restringido a entidades autenticadas con autorización estratégica específica.'
+        },
+        {
+          title: '5. Contacto Institucional',
+          text: 'Para consultas oficiales sobre la soberanía de los datos o para ejercer sus derechos, póngase en contacto con nuestro departamento de Legal y Cumplimiento en team@builco.co'
+        }
+      ]
+    },
     mino: {
       welcome: 'Bienvenido a Mino',
       sub: 'Acceso exclusivo a la red estratégica',
@@ -163,19 +239,29 @@ export const AppContext = createContext<{
   setTheme: (t: Theme) => void;
   t: typeof translations.en;
   setIsMinoModalOpen: (open: boolean) => void;
+  isPrivacyModalOpen: boolean;
+  setIsPrivacyModalOpen: (open: boolean) => void;
+  isContactModalOpen: boolean;
+  setIsContactModalOpen: (open: boolean) => void;
 }>({
   lang: 'en',
   setLang: () => {},
   theme: 'dark',
   setTheme: () => {},
   t: translations.en,
-  setIsMinoModalOpen: () => {}
+  setIsMinoModalOpen: () => {},
+  isPrivacyModalOpen: false,
+  setIsPrivacyModalOpen: () => {},
+  isContactModalOpen: false,
+  setIsContactModalOpen: () => {}
 });
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [lang, setLang] = useState<Language>('en');
   const [theme, setTheme] = useState<Theme>('dark');
   const [isMinoModalOpen, setIsMinoModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -184,7 +270,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const t = translations[lang];
 
   return (
-    <AppContext.Provider value={{ lang, setLang, theme, setTheme, t, setIsMinoModalOpen }}>
+    <AppContext.Provider value={{ 
+      lang, 
+      setLang, 
+      theme, 
+      setTheme, 
+      t, 
+      setIsMinoModalOpen,
+      isPrivacyModalOpen,
+      setIsPrivacyModalOpen,
+      isContactModalOpen,
+      setIsContactModalOpen 
+    }}>
       {children}
     </AppContext.Provider>
   );

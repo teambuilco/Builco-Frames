@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { NetworkBackground } from './NetworkBackground';
 import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown, Check } from 'lucide-react';
 import Logo from './Logo';
+import { PrivacyModal } from './PrivacyModal';
+
+import { ContactModal } from './ContactModal';
 
 import { AppContext, Language, Theme } from '../context/AppContext';
 
@@ -10,7 +13,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
   const { theme, lang } = useContext(AppContext);
   const t = lang === 'es' ? {
     title: 'Mino - Registro Inicial',
-    sub: 'Únete a la red estratégica de minería e Gobierno y relaciones públicas.',
+    sub: 'Únete a la red estratégica de minería, energía e Gobierno y relaciones públicas.',
     name: 'Nombre Completo',
     email: 'Correo Electrónico',
     company: 'Empresa',
@@ -19,7 +22,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     close: 'Cerrar'
   } : {
     title: 'Mino - Initial Registration',
-    sub: 'Join the strategic network of mining and Government and Public Relations.',
+    sub: 'Join the strategic network of mining, energy, and Government and Public Relations.',
     name: 'Full Name',
     email: 'Email Address',
     company: 'Company',
@@ -95,7 +98,7 @@ const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const { lang, setLang, theme, setTheme, t, setIsMinoModalOpen } = useContext(AppContext);
+  const { lang, setLang, theme, setTheme, t, setIsMinoModalOpen, setIsContactModalOpen } = useContext(AppContext);
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${theme === 'dark' ? 'glass-dark' : 'glass-light'}`}>
@@ -185,7 +188,10 @@ const Navbar = () => {
                 {theme === 'dark' ? <Sun className="w-4 h-4 text-gold" /> : <Moon className="w-4 h-4 text-gold-deep" />}
               </button>
 
-              <button className={theme === 'dark' ? 'btn-gold !px-8 !py-3' : 'btn-primary-light !px-8 !py-3'}>
+              <button 
+                onClick={() => setIsContactModalOpen(true)}
+                className={theme === 'dark' ? 'btn-gold !px-8 !py-3' : 'btn-primary-light !px-8 !py-3'}
+              >
                 {t.contact}
               </button>
             </div>
@@ -250,7 +256,10 @@ const Navbar = () => {
                 {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             </div>
-            <button className={`w-full py-5 font-bold rounded-xl shadow-xl active:scale-95 transition-all ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-300'}`}>
+            <button 
+              onClick={() => { setIsOpen(false); setIsContactModalOpen(true); }}
+              className={`w-full py-5 font-bold rounded-xl shadow-xl active:scale-95 transition-all ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-300'}`}
+            >
               {t.contact}
             </button>
           </motion.div>
@@ -261,7 +270,7 @@ const Navbar = () => {
 };
 
 const Hero = () => {
-  const { t, theme } = useContext(AppContext);
+  const { t, theme, setIsMinoModalOpen } = useContext(AppContext);
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -286,7 +295,10 @@ const Hero = () => {
             {t.heroSub}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 mt-4">
-            <button className={theme === 'dark' ? 'btn-gold flex items-center justify-center gap-2 group !px-12 !py-5' : 'btn-primary-light flex items-center justify-center gap-2 group !px-12 !py-5'}>
+            <button 
+              onClick={() => setIsMinoModalOpen(true)}
+              className={theme === 'dark' ? 'btn-gold flex items-center justify-center gap-2 group !px-12 !py-5' : 'btn-primary-light flex items-center justify-center gap-2 group !px-12 !py-5'}
+            >
               {t.getStarted} <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </button>
             <button className={`px-12 py-5 border-2 font-bold rounded-lg transition-all active:scale-95 text-lg ${theme === 'dark' ? 'border-white/20 hover:bg-white/5 text-white' : 'border-slate-200 hover:bg-slate-50 text-slate-900 shadow-sm'}`}>
@@ -511,7 +523,7 @@ const Differentiation = () => {
 };
 
 const FinalCTA = () => {
-  const { t, theme } = useContext(AppContext);
+  const { t, theme, setIsContactModalOpen } = useContext(AppContext);
   return (
     <section className={`py-40 border-t transition-all duration-500 ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-slate-50 border-slate-200'}`}>
       <div className="max-w-4xl mx-auto px-6 text-center">
@@ -519,7 +531,10 @@ const FinalCTA = () => {
           {t.ctaTitle}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{t.ctaTitleHighlight}</span>
         </h2>
         <p className={`text-xl mb-16 transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>{t.ctaSub}</p>
-        <button className={theme === 'dark' ? 'btn-gold !px-20 !py-6 !text-2xl mt-4' : 'btn-primary-light !px-20 !py-6 !text-2xl mt-4'}>
+        <button 
+          onClick={() => setIsContactModalOpen(true)}
+          className={theme === 'dark' ? 'btn-gold !px-20 !py-6 !text-2xl mt-4' : 'btn-primary-light !px-20 !py-6 !text-2xl mt-4'}
+        >
           {t.ctaBtn}
         </button>
       </div>
@@ -528,7 +543,7 @@ const FinalCTA = () => {
 };
 
 const Footer = () => {
-  const { t, theme } = useContext(AppContext);
+  const { t, theme, setIsPrivacyModalOpen, setIsContactModalOpen } = useContext(AppContext);
   return (
     <footer className={`py-24 border-t transition-colors duration-500 ${theme === 'dark' ? 'bg-black border-white/5' : 'bg-white border-slate-200'}`}>
       <div className="max-w-7xl mx-auto px-6">
@@ -548,17 +563,17 @@ const Footer = () => {
           <div>
             <h5 className={`font-black mb-8 uppercase text-[10px] tracking-[0.3em] ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>Solutions</h5>
             <ul className={`space-y-5 text-sm transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-600 font-bold'}`}>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Mining</a></li>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Energy</a></li>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Government & Relations</a></li>
+              {t.solutions.map((sol, i) => (
+                <li key={i}><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>{sol}</a></li>
+              ))}
             </ul>
           </div>
           <div>
             <h5 className={`font-black mb-8 uppercase text-[10px] tracking-[0.3em] ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>Company</h5>
             <ul className={`space-y-5 text-sm transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-600 font-bold'}`}>
               <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>About Us</a></li>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Contact</a></li>
-              <li><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Privacy Policy</a></li>
+              <li><button onClick={() => setIsContactModalOpen(true)} className={`transition-colors cursor-pointer ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Contact</button></li>
+              <li><button onClick={() => setIsPrivacyModalOpen(true)} className={`transition-colors cursor-pointer ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>Privacy Policy</button></li>
             </ul>
           </div>
         </div>
@@ -576,7 +591,7 @@ const Footer = () => {
 };
 
 export default function LandingPage() {
-  const { theme, isMinoModalOpen, setIsMinoModalOpen } = useContext(AppContext);
+  const { theme, isMinoModalOpen, setIsMinoModalOpen, isPrivacyModalOpen, setIsPrivacyModalOpen, isContactModalOpen, setIsContactModalOpen } = useContext(AppContext);
 
   return (
     <div className={`min-h-screen transition-colors duration-300 relative ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
@@ -591,6 +606,8 @@ export default function LandingPage() {
       <FinalCTA />
       <Footer />
       <MinoModal isOpen={isMinoModalOpen} onClose={() => setIsMinoModalOpen(false)} />
+      <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );
 }
