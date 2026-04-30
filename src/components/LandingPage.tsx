@@ -4,8 +4,8 @@ import { NetworkBackground } from './NetworkBackground';
 import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown, Check } from 'lucide-react';
 import Logo from './Logo';
 import { PrivacyModal } from './PrivacyModal';
-
 import { ContactModal } from './ContactModal';
+import { VideoStrip } from './VideoStrip';
 
 import { AppContext, Language, Theme } from '../context/AppContext';
 
@@ -598,6 +598,7 @@ export default function LandingPage() {
       <NetworkBackground />
       <Navbar />
       <Hero />
+      <VideoStrip />
       <SocialProof />
       <Services />
       <LocationMarquee />
