@@ -1,7 +1,57 @@
 import React, { useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle2, Mail, User, MessageSquare } from 'lucide-react';
+import { X, Send, CheckCircle2, Mail, User, MessageSquare, Loader2 } from 'lucide-react';
 import { AppContext } from '../context/AppContext';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db, auth } from '../lib/firebase';
+
+enum OperationType {
+  CREATE = 'create',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  LIST = 'list',
+  GET = 'get',
+  WRITE = 'write',
+}
+
+interface FirestoreErrorInfo {
+  error: string;
+  operationType: OperationType;
+  path: string | null;
+  authInfo: {
+    userId?: string | null;
+    email?: string | null;
+    emailVerified?: boolean | null;
+    isAnonymous?: boolean | null;
+    tenantId?: string | null;
+    providerInfo?: {
+      providerId?: string | null;
+      email?: string | null;
+    }[];
+  }
+}
+
+function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const errInfo: FirestoreErrorInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: auth.currentUser?.uid,
+      email: auth.currentUser?.email,
+      emailVerified: auth.currentUser?.emailVerified,
+      isAnonymous: auth.currentUser?.isAnonymous,
+      tenantId: auth.currentUser?.tenantId,
+      providerInfo: auth.currentUser?.providerData?.map(provider => ({
+        providerId: provider.providerId,
+        email: provider.email,
+      })) || []
+    },
+    operationType,
+    path
+  }
+  const errorJson = JSON.stringify(errInfo);
+  console.error('Firestore Error: ', errorJson);
+  throw new Error(errorJson);
+}
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -11,17 +61,40 @@ interface ContactModalProps {
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const { theme, t } = useContext(AppContext);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  
   const ct = t.contactForm;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    
+    const path = 'contactInquiries';
+    try {
+      await addDoc(collection(db, path), {
+        ...formData,
+        createdAt: serverTimestamp()
+      });
+      setIsSubmitted(true);
+    } catch (error) {
+      handleFirestoreError(error, OperationType.WRITE, path);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClose = () => {
     onClose();
     // Reset submission state shortly after closing to avoid flicker
-    setTimeout(() => setIsSubmitted(false), 300);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({ name: '', email: '', message: '' });
+    }, 300);
   };
 
   return (
@@ -74,12 +147,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       </label>
                       <input 
                         type="text" 
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="Your Name" 
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
                             : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
                         }`} 
+                        disabled={isSubmitting}
                         required 
                       />
                     </div>
@@ -90,12 +166,15 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       </label>
                       <input 
                         type="email" 
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="name@company.com" 
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
                             : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
                         }`} 
+                        disabled={isSubmitting}
                         required 
                       />
                     </div>
@@ -106,23 +185,35 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       </label>
                       <textarea 
                         rows={4} 
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="How can we assist you strategically?" 
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
                             : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
                         }`} 
+                        disabled={isSubmitting}
                         required 
                       />
                     </div>
 
                     <button 
                       type="submit" 
+                      disabled={isSubmitting}
                       className={`flex items-center justify-center gap-3 w-full py-5 font-black uppercase tracking-widest text-sm rounded-xl transition-all shadow-xl active:scale-[0.98] ${
                         theme === 'dark' ? 'btn-gold' : 'btn-primary-light'
-                      }`}
+                      } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                      {ct.submit} <Send className="w-4 h-4" />
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                        </>
+                      ) : (
+                        <>
+                          {ct.submit} <Send className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </div>
