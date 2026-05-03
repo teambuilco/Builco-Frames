@@ -271,6 +271,26 @@ const Navbar = () => {
 
 const Hero = () => {
   const { t, theme, setIsMinoModalOpen } = useContext(AppContext);
+  const renderLinkedText = (text: string) => {
+    const parts = text.split(/(mining|minería)/gi);
+    return parts.map((part, i) => {
+      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+        return (
+          <a 
+            key={i} 
+            href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -292,7 +312,7 @@ const Hero = () => {
             {t.heroTitle}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{t.heroTitleHighlight}</span>{t.heroTitleEnd}
           </h1>
           <p className={`text-lg md:text-xl mb-12 leading-relaxed max-w-2xl transition-colors ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
-            {t.heroSub}
+            {renderLinkedText(t.heroSub)}
           </p>
           <div className="flex flex-col sm:flex-row gap-6 mt-4">
             <button 
@@ -414,6 +434,26 @@ const Services = () => {
     <Shield className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'} />
   ];
 
+  const renderLinkedText = (text: string) => {
+    const parts = text.split(/(mining|minería)/gi);
+    return parts.map((part, i) => {
+      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+        return (
+          <a 
+            key={i} 
+            href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <section id="solutions" className={`py-32 transition-colors duration-500 ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-6">
@@ -437,7 +477,7 @@ const Services = () => {
               </div>
               <h3 className={`text-2xl font-bold mb-5 relative z-10 transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{service.title}</h3>
               <p className={`leading-relaxed relative z-10 transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-500 font-medium'}`}>
-                {service.description}
+                {renderLinkedText(service.description)}
               </p>
             </motion.div>
           ))}
@@ -478,6 +518,27 @@ const Process = () => {
 
 const Differentiation = () => {
   const { t, theme } = useContext(AppContext);
+
+  const renderLinkedText = (text: string) => {
+    const parts = text.split(/(mining|minería)/gi);
+    return parts.map((part, i) => {
+      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+        return (
+          <a 
+            key={i} 
+            href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <section className={`py-32 transition-colors duration-500 ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-6">
@@ -498,7 +559,7 @@ const Differentiation = () => {
                   <div className={`mt-1 p-2 rounded-lg ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}><ChevronRight className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'} /></div>
                   <div>
                     <h4 className={`text-xl font-bold mb-3 transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>{item.title}</h4>
-                    <p className={`text-lg transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-500 font-medium'}`}>{item.desc}</p>
+                    <p className={`text-lg transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-500 font-medium'}`}>{renderLinkedText(item.desc)}</p>
                   </div>
                 </motion.div>
               ))}
@@ -564,7 +625,16 @@ const Footer = () => {
             <h5 className={`font-black mb-8 uppercase text-[10px] tracking-[0.3em] ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>Solutions</h5>
             <ul className={`space-y-5 text-sm transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-600 font-bold'}`}>
               {t.solutions.map((sol, i) => (
-                <li key={i}><a href="#" className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}>{sol}</a></li>
+                <li key={i}>
+                  <a 
+                    href={sol.toLowerCase() === 'mining' || sol.toLowerCase() === 'minería' ? "/mining" : "#"} 
+                    target={sol.toLowerCase() === 'mining' || sol.toLowerCase() === 'minería' ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}
+                  >
+                    {sol}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
