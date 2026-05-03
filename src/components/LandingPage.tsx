@@ -3,282 +3,46 @@ import { motion, AnimatePresence } from 'motion/react';
 import { NetworkBackground } from './NetworkBackground';
 import { ArrowRight, Globe, Zap, Shield, ChevronRight, Menu, X, Sun, Moon, Languages, ChevronDown, Check } from 'lucide-react';
 import Logo from './Logo';
-import { PrivacyModal } from './PrivacyModal';
 
-import { ContactModal } from './ContactModal';
-
-import { AppContext, Language, Theme } from '../context/AppContext';
-
-const MinoModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
-  const { theme, lang } = useContext(AppContext);
-  const t = lang === 'es' ? {
-    title: 'Mino - Registro Inicial',
-    sub: 'Únete a la red estratégica de minería, energía e Gobierno y relaciones públicas.',
-    name: 'Nombre Completo',
-    email: 'Correo Electrónico',
-    company: 'Empresa',
-    message: 'Mensaje / Interés',
-    submit: 'Enviar Registro',
-    close: 'Cerrar'
-  } : {
-    title: 'Mino - Initial Registration',
-    sub: 'Join the strategic network of mining, energy, and Government and Public Relations.',
-    name: 'Full Name',
-    email: 'Email Address',
-    company: 'Company',
-    message: 'Message / Interest',
-    submit: 'Submit Registration',
-    close: 'Close'
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className={`relative w-full max-w-2xl overflow-hidden shadow-3xl ${theme === 'dark' ? 'bg-charcoal border border-white/10 rounded-lg' : 'bg-white border border-slate-200/60 rounded-2xl'}`}
-          >
-            <div className={`h-36 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}>
-              <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl" />
-              <div className="relative z-10">
-                <h2 className={`text-4xl font-helvetica font-black tracking-tighter uppercase mb-1 ${theme === 'dark' ? 'text-black' : 'text-white'}`}>{t.title}</h2>
-                <p className={`font-bold text-xs uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-black/50' : 'text-white/60'}`}>{t.sub}</p>
-              </div>
-              <button 
-                onClick={onClose}
-                className={`absolute top-8 right-8 p-3 rounded-full transition-all hover:scale-110 active:scale-90 ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="p-12">
-              <form className="grid gap-8" onSubmit={(e) => { e.preventDefault(); onClose(); }}>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-3">
-                    <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.name}</label>
-                    <input type="text" placeholder="John Doe" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
-                  </div>
-                  <div className="space-y-3">
-                    <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.email}</label>
-                    <input type="email" placeholder="john@company.com" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.company}</label>
-                  <input type="text" placeholder="Your Company Ltd." className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
-                </div>
-                <div className="space-y-3">
-                  <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.message}</label>
-                  <textarea rows={4} placeholder="How can we help you?" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} required />
-                </div>
-                <button type="submit" className={theme === 'dark' ? 'btn-gold w-full mt-2' : 'btn-primary-light w-full mt-2'}>
-                  {t.submit}
-                </button>
-              </form>
-            </div>
-          </motion.div>
-        </div>
-      )}
-    </AnimatePresence>
-  );
-};
-
-
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const { lang, setLang, theme, setTheme, t, setIsMinoModalOpen, setIsContactModalOpen } = useContext(AppContext);
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${theme === 'dark' ? 'glass-dark' : 'glass-light'}`}>
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div 
-            className="flex items-center gap-3 group cursor-pointer"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          >
-            <Logo className={`w-9 h-9 group-hover:scale-110 transition-transform ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-            <span className={`text-2xl font-helvetica font-bold tracking-tighter transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>BUILDING CONNECTIONS</span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8">
-            {t.nav.map((item, i) => {
-              const isAbout = i === 3;
-              if (isAbout) {
-                return (
-                  <div 
-                    key={i} 
-                    className="relative"
-                    onMouseEnter={() => setIsAboutOpen(true)}
-                    onMouseLeave={() => setIsAboutOpen(false)}
-                  >
-                    <button 
-                      className={`flex items-center gap-1 text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:text-gold' : 'text-slate-600 hover:text-gold-deep'}`}
-                      onClick={() => setIsAboutOpen(!isAboutOpen)}
-                    >
-                      {item} <ChevronDown className={`w-4 h-4 transition-transform ${isAboutOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    <AnimatePresence>
-                      {isAboutOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className={`absolute top-full right-0 mt-2 w-48 rounded-sm shadow-2xl border overflow-hidden ${theme === 'dark' ? 'bg-charcoal border-white/10' : 'bg-white border-slate-200'}`}
-                        >
-                          <a 
-                            href="/about" 
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`block px-6 py-4 text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:bg-white/5 hover:text-gold' : 'text-slate-600 hover:bg-slate-50 hover:text-gold-deep'}`}
-                            onClick={() => setIsAboutOpen(false)}
-                          >
-                            {item}
-                          </a>
-                          <a 
-                            href="/mino" 
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`block px-6 py-4 text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:bg-white/5 hover:text-gold' : 'text-slate-600 hover:bg-slate-50 hover:text-gold-deep'}`}
-                            onClick={() => setIsAboutOpen(false)}
-                          >
-                            Mino
-                          </a>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
-              return (
-                <a key={i} href={`#${['solutions', 'industries', 'process', 'about'][i]}`} className={`text-sm font-bold transition-colors ${theme === 'dark' ? 'text-white/70 hover:text-gold' : 'text-slate-600 hover:text-gold-deep'}`}>
-                  {item}
-                </a>
-              );
-            })}
-            
-            <div className={`flex items-center gap-4 border-l pl-8 ml-4 ${theme === 'dark' ? 'border-white/10' : 'border-slate-200'}`}>
-              <button 
-                onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
-                className={`p-2 rounded-full transition-all ${theme === 'dark' ? 'hover:bg-white/5 text-white/70' : 'hover:bg-slate-100 text-slate-600'}`}
-                title="Change Language"
-              >
-                <div className="flex items-center gap-1.5">
-                  <Languages className={`w-4 h-4 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-                  <span className="text-xs font-bold uppercase tracking-wider">{lang}</span>
-                </div>
-              </button>
-
-              <button 
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className={`p-3 rounded-xl transition-all ${theme === 'dark' ? 'hover:bg-white/5 text-white/70' : 'hover:bg-slate-100 text-slate-600'}`}
-                title="Toggle Theme"
-              >
-                {theme === 'dark' ? <Sun className="w-4 h-4 text-gold" /> : <Moon className="w-4 h-4 text-gold-deep" />}
-              </button>
-
-              <button 
-                onClick={() => setIsContactModalOpen(true)}
-                className={theme === 'dark' ? 'btn-gold !px-8 !py-3' : 'btn-primary-light !px-8 !py-3'}
-              >
-                {t.contact}
-              </button>
-            </div>
-          </div>
-
-        <button className={`md:hidden p-2 rounded-lg ${theme === 'dark' ? 'text-white hover:bg-white/5' : 'text-slate-900 hover:bg-slate-100'}`} onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className={`md:hidden border-b overflow-hidden shadow-2xl ${theme === 'dark' ? 'bg-charcoal border-white/5' : 'bg-white border-slate-200'} px-6 py-8 flex flex-col gap-6`}
-          >
-            {t.nav.map((item, i) => {
-              const isAbout = i === 3;
-              if (isAbout) {
-                return (
-                  <div key={i} className="flex flex-col gap-4">
-                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`}>
-                      {item}
-                    </div>
-                    <div className="flex flex-col gap-4 pl-4 border-l-2 border-gold/30">
-                      <a 
-                        href="/about" 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`} 
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item}
-                      </a>
-                      <a 
-                        href="/mino" 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        Mino
-                      </a>
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <a key={i} href={`#${['solutions', 'industries', 'process', 'about'][i]}`} className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`} onClick={() => setIsOpen(false)}>
-                  {item}
-                </a>
-              );
-            })}
-            <div className={`flex items-center justify-between pt-6 border-t ${theme === 'dark' ? 'border-white/10' : 'border-slate-100'}`}>
-              <button onClick={() => setLang(lang === 'en' ? 'es' : 'en')} className="flex items-center gap-2 text-gold font-bold text-sm uppercase tracking-widest">
-                <Languages className="w-5 h-5" /> {lang === 'en' ? 'Español' : 'English'}
-              </button>
-              <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className={`p-3 rounded-full transition-colors ${theme === 'dark' ? 'bg-white/5 text-white' : 'bg-slate-100 text-slate-900'}`}>
-                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-              </button>
-            </div>
-            <button 
-              onClick={() => { setIsOpen(false); setIsContactModalOpen(true); }}
-              className={`w-full py-5 font-bold rounded-xl shadow-xl active:scale-95 transition-all ${theme === 'dark' ? 'bg-gold text-black shadow-gold/20' : 'bg-slate-900 text-white shadow-slate-300'}`}
-            >
-              {t.contact}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-};
+import { AppContext } from '../context/AppContext';
 
 const Hero = () => {
   const { t, theme, setIsMinoModalOpen } = useContext(AppContext);
   const renderLinkedText = (text: string) => {
-    const parts = text.split(/(mining|minería)/gi);
+    const parts = text.split(/(mining|minería|energy|energía|Government and Public Relations|Gobierno y Relaciones Públicas)/gi);
     return parts.map((part, i) => {
-      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+      const lower = part.toLowerCase();
+      if (lower === 'mining' || lower === 'minería') {
         return (
           <a 
             key={i} 
             href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'energy' || lower === 'energía') {
+        return (
+          <a 
+            key={i} 
+            href="/energy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'government and public relations' || lower === 'gobierno y relaciones públicas') {
+        return (
+          <a 
+            key={i} 
+            href="/government" 
             target="_blank" 
             rel="noopener noreferrer"
             className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
@@ -435,13 +199,40 @@ const Services = () => {
   ];
 
   const renderLinkedText = (text: string) => {
-    const parts = text.split(/(mining|minería)/gi);
+    const parts = text.split(/(mining|minería|energy|energía|Government and Public Relations|Gobierno y Relaciones Públicas)/gi);
     return parts.map((part, i) => {
-      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+      const lower = part.toLowerCase();
+      if (lower === 'mining' || lower === 'minería') {
         return (
           <a 
             key={i} 
             href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'energy' || lower === 'energía') {
+        return (
+          <a 
+            key={i} 
+            href="/energy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'government and public relations' || lower === 'gobierno y relaciones públicas') {
+        return (
+          <a 
+            key={i} 
+            href="/government" 
             target="_blank" 
             rel="noopener noreferrer"
             className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
@@ -520,13 +311,40 @@ const Differentiation = () => {
   const { t, theme } = useContext(AppContext);
 
   const renderLinkedText = (text: string) => {
-    const parts = text.split(/(mining|minería)/gi);
+    const parts = text.split(/(mining|minería|energy|energía|Government and Public Relations|Gobierno y Relaciones Públicas)/gi);
     return parts.map((part, i) => {
-      if (part.toLowerCase() === 'mining' || part.toLowerCase() === 'minería') {
+      const lower = part.toLowerCase();
+      if (lower === 'mining' || lower === 'minería') {
         return (
           <a 
             key={i} 
             href="/mining" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'energy' || lower === 'energía') {
+        return (
+          <a 
+            key={i} 
+            href="/energy" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
+          >
+            {part}
+          </a>
+        );
+      }
+      if (lower === 'government and public relations' || lower === 'gobierno y relaciones públicas') {
+        return (
+          <a 
+            key={i} 
+            href="/government" 
             target="_blank" 
             rel="noopener noreferrer"
             className={`font-bold transition-all border-b border-gold/30 hover:border-gold hover:text-gold cursor-pointer`}
@@ -624,18 +442,30 @@ const Footer = () => {
           <div>
             <h5 className={`font-black mb-8 uppercase text-[10px] tracking-[0.3em] ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>Solutions</h5>
             <ul className={`space-y-5 text-sm transition-colors ${theme === 'dark' ? 'text-white/50' : 'text-slate-600 font-bold'}`}>
-              {t.solutions.map((sol, i) => (
-                <li key={i}>
-                  <a 
-                    href={sol.toLowerCase() === 'mining' || sol.toLowerCase() === 'minería' ? "/mining" : "#"} 
-                    target={sol.toLowerCase() === 'mining' || sol.toLowerCase() === 'minería' ? "_blank" : "_self"}
-                    rel="noopener noreferrer"
-                    className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}
-                  >
-                    {sol}
-                  </a>
-                </li>
-              ))}
+              {t.solutions.map((sol, i) => {
+                const lower = sol.toLowerCase();
+                const isMining = lower === 'mining' || lower === 'minería';
+                const isEnergy = lower === 'energy' || lower === 'energía';
+                const isGov = lower === 'government and public relations' || lower === 'gobierno y relaciones públicas';
+                
+                let href = "#";
+                if (isMining) href = "/mining";
+                else if (isEnergy) href = "/energy";
+                else if (isGov) href = "/government";
+
+                return (
+                  <li key={i}>
+                    <a 
+                      href={href} 
+                      target={isMining || isEnergy || isGov ? "_blank" : "_self"}
+                      rel="noopener noreferrer"
+                      className={`transition-colors ${theme === 'dark' ? 'hover:text-gold' : 'hover:text-gold-deep'}`}
+                    >
+                      {sol}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div>
@@ -661,12 +491,11 @@ const Footer = () => {
 };
 
 export default function LandingPage() {
-  const { theme, isMinoModalOpen, setIsMinoModalOpen, isPrivacyModalOpen, setIsPrivacyModalOpen, isContactModalOpen, setIsContactModalOpen } = useContext(AppContext);
+  const { theme } = useContext(AppContext);
 
   return (
     <div className={`min-h-screen transition-colors duration-300 relative ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
       <NetworkBackground />
-      <Navbar />
       <Hero />
       <SocialProof />
       <Services />
@@ -675,9 +504,6 @@ export default function LandingPage() {
       <Differentiation />
       <FinalCTA />
       <Footer />
-      <MinoModal isOpen={isMinoModalOpen} onClose={() => setIsMinoModalOpen(false)} />
-      <PrivacyModal isOpen={isPrivacyModalOpen} onClose={() => setIsPrivacyModalOpen(false)} />
-      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );
 }

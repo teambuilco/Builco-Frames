@@ -239,6 +239,7 @@ export const AppContext = createContext<{
   setTheme: (t: Theme) => void;
   t: typeof translations.en;
   setIsMinoModalOpen: (open: boolean) => void;
+  isMinoModalOpen: boolean;
   isPrivacyModalOpen: boolean;
   setIsPrivacyModalOpen: (open: boolean) => void;
   isContactModalOpen: boolean;
@@ -250,6 +251,7 @@ export const AppContext = createContext<{
   setTheme: () => {},
   t: translations.en,
   setIsMinoModalOpen: () => {},
+  isMinoModalOpen: false,
   isPrivacyModalOpen: false,
   setIsPrivacyModalOpen: () => {},
   isContactModalOpen: false,
@@ -276,6 +278,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       theme, 
       setTheme, 
       t, 
+      isMinoModalOpen,
       setIsMinoModalOpen,
       isPrivacyModalOpen,
       setIsPrivacyModalOpen,

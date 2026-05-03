@@ -4,14 +4,11 @@ import { X, Shield, Lock, FileText, Globe, CheckCircle2, AlertCircle } from 'luc
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 
-interface PrivacyModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) => {
-  const { theme, t } = useContext(AppContext);
+export const PrivacyModal: React.FC = () => {
+  const { theme, t, isPrivacyModalOpen, setIsPrivacyModalOpen } = useContext(AppContext);
   const pt = t.privacy;
+
+  const onClose = () => setIsPrivacyModalOpen(false);
 
   const getIcon = (index: number) => {
     switch (index) {
@@ -26,7 +23,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({ isOpen, onClose }) =
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isPrivacyModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
           <motion.div
             initial={{ opacity: 0 }}

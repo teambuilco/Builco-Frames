@@ -53,15 +53,12 @@ function handleFirestoreError(error: unknown, operationType: OperationType, path
   throw new Error(errorJson);
 }
 
-interface ContactModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
-  const { theme, t } = useContext(AppContext);
+export const ContactModal: React.FC = () => {
+  const { theme, t, isContactModalOpen, setIsContactModalOpen } = useContext(AppContext);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const onClose = () => setIsContactModalOpen(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -99,7 +96,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isContactModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
