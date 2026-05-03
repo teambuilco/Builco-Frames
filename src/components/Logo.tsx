@@ -14,7 +14,7 @@ const Logo = ({ className = "w-8 h-8", src }: { className?: string, src?: string
           WebkitMaskRepeat: 'no-repeat',
           maskRepeat: 'no-repeat',
           WebkitMaskPosition: 'center',
-          maskPosition: 'center',
+          maskPosition: 'center', 
         }}
         role="img"
         aria-label="Partner Logo"
