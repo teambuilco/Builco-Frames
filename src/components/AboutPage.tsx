@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Globe, Users, Target, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 
 const AboutPage = () => {
-  const { theme } = useContext(AppContext);
+  const { theme, lang } = useContext(AppContext);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -13,6 +14,36 @@ const AboutPage = () => {
       videoRef.current.playbackRate = 0.5;
     }
   }, []);
+
+  const content = lang === 'es' ? {
+    back: 'Regresar al Inicio',
+    headlinePre: 'Nuestra ',
+    headlineHighlight: 'Historia',
+    intro: 'Builco nació en las profundidades de la tierra, donde el esfuerzo humano se encuentra con la riqueza mineral.',
+    originTitle: 'El Origen',
+    originDesc: 'Fundada en 2015, Building Connections (Builco) surgió de una necesidad crítica en el sector minero: la falta de una red estratégica que conectara a los actores clave con tecnología de vanguardia y servicios de consultoría de alto nivel.',
+    peopleTitle: 'Nuestra Gente',
+    peopleDesc: 'Creemos que el corazón de la minería no son las máquinas, sino las personas. Por eso, nuestra plataforma Mino está diseñada para empoderar a cada trabajador, desde el tajo hasta la gerencia, facilitando una comunicación transparente y eficiente.',
+    globalTitle: 'Impacto Global',
+    globalDesc: 'Lo que comenzó como una iniciativa local en las regiones mineras de Colombia, hoy se proyecta como un estándar internacional de conectividad y eficiencia operativa en la industria extractiva global.',
+    commitmentTitle: 'Compromiso',
+    commitmentDesc: 'Nuestro compromiso es con la seguridad, la sostenibilidad y la innovación. Cada conexión que construimos es un paso hacia una minería más humana y tecnológicamente avanzada.',
+    footerText: 'Building Connections © 2026 - Forjando el Futuro'
+  } : {
+    back: 'Back to Home',
+    headlinePre: 'Our ',
+    headlineHighlight: 'Story',
+    intro: 'Builco was born in the depths of the earth, where human endeavor converges with strategic mineral wealth.',
+    originTitle: 'The Origin',
+    originDesc: 'Founded in 2015, Building Connections (Builco) emerged from a critical imperative across the industrial sector: the absence of a strategic network connecting key decision-makers with state-of-the-art technology and high-level advisory.',
+    peopleTitle: 'Our People',
+    peopleDesc: 'We believe that the true pulse of high-impact industries lies in people, not machinery. That is why our proprietary Mino platform is engineered to empower teams from frontline operations to sovereign boardrooms, fostering transparent and high-speed execution.',
+    globalTitle: 'Global Impact',
+    globalDesc: 'What originated as a focused initiative in the mineral corridors of Latin America has expanded into an international standard for strategic connectivity and operational excellence across global markets.',
+    commitmentTitle: 'Institutional Commitment',
+    commitmentDesc: 'Our commitment is anchored in sovereign discretion, ESG sustainability, and transformative technology. Every alliance we architect is a step toward more resilient, transparent, and forward-looking industrial sectors.',
+    footerText: 'Building Connections © 2026 - Shaping the Future'
+  };
 
   return (
     <div className={`relative min-h-screen overflow-hidden font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FCFCFB] text-slate-900'}`}>
@@ -43,16 +74,18 @@ const AboutPage = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-30 max-w-5xl mx-auto px-6 py-20">
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          onClick={() => window.close()}
-          className={`flex items-center gap-3 transition-all mb-16 px-6 py-3 rounded-full border-2 group hover:scale-105 active:scale-95 ${theme === 'dark' ? 'border-gold/30 text-gold hover:border-gold hover:text-white bg-gold/5' : 'border-slate-200 text-slate-700 hover:border-slate-900 hover:text-slate-900 bg-white shadow-sm'}`}
+      <div className="relative z-30 max-w-5xl mx-auto px-6 py-12">
+        <Link
+          to="/"
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider mb-12 transition-all duration-200 ${
+            theme === 'dark'
+              ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 shadow-sm'
+          }`}
         >
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-xs font-black uppercase tracking-[0.2em]">Regresar</span>
-        </motion.button>
+          <ArrowLeft className="w-4 h-4" />
+          <span>{content.back}</span>
+        </Link>
 
         <header className="mb-32">
           <motion.div
@@ -66,11 +99,11 @@ const AboutPage = () => {
               <span className={`text-2xl font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/50' : 'text-slate-400'}`}>Builco</span>
             </div>
             <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-10">
-              Nuestra <span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>Historia</span>
+              {content.headlinePre}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{content.headlineHighlight}</span>
             </h1>
             <div className={`w-40 h-2.5 mb-12 rounded-full ${theme === 'dark' ? 'bg-gold shadow-[0_0_20px_rgba(225,180,109,0.3)]' : 'bg-gold-deep'}`} />
             <p className={`text-2xl md:text-3xl max-w-3xl font-medium leading-[1.4] ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
-              Builco nació en las profundidades de la tierra, donde el esfuerzo humano se encuentra con la riqueza mineral.
+              {content.intro}
             </p>
           </motion.div>
         </header>
@@ -82,21 +115,21 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="space-y-10"
           >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Target className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> El Origen
+                <Target className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.originTitle}
               </h2>
               <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
-                Fundada en 2015, Building Connections (Builco) surgió de una necesidad crítica en el sector minero: la falta de una red estratégica que conectara a los actores clave con tecnología de vanguardia y servicios de consultoría de alto nivel.
+                {content.originDesc}
               </p>
             </div>
 
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Users className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Nuestra Gente
+                <Users className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.peopleTitle}
               </h2>
               <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
-                Creemos que el corazón de la minería no son las máquinas, sino las personas. Por eso, nuestra plataforma Mino está diseñada para empoderar a cada trabajador, desde el tajo hasta la gerencia, facilitando una comunicación transparente y eficiente.
+                {content.peopleDesc}
               </p>
             </div>
           </motion.div>
@@ -108,21 +141,21 @@ const AboutPage = () => {
             transition={{ delay: 0.2 }}
             className="space-y-10"
           >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Globe className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Impacto Global
+                <Globe className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.globalTitle}
               </h2>
               <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
-                Lo que comenzó como una iniciativa local en las regiones mineras de Colombia, hoy se proyecta como un estándar internacional de conectividad y eficiencia operativa en la industria extractiva global.
+                {content.globalDesc}
               </p>
             </div>
 
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/60 bg-white/80 shadow-lg shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Shield className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> Compromiso
+                <Shield className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.commitmentTitle}
               </h2>
               <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
-                Nuestro compromiso es con la seguridad, la sostenibilidad y la innovación. Cada conexión que construimos es un paso hacia una minería más humana y tecnológicamente avanzada.
+                {content.commitmentDesc}
               </p>
             </div>
           </motion.div>
@@ -138,7 +171,7 @@ const AboutPage = () => {
             <Logo className={`w-10 h-10 opacity-50 grayscale ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
           </div>
           <p className={`text-sm font-black uppercase tracking-[0.5em] ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>
-            Building Connections &copy; 2026 - Forjando el Futuro
+            {content.footerText}
           </p>
         </motion.footer>
       </div>

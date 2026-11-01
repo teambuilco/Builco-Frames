@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { motion } from 'motion/react';
-import { Globe, ArrowRight, Zap, Shield, Database, LayoutPanelTop, BarChart3 } from 'lucide-react';
+import { Globe, ArrowRight, ArrowLeft, Zap, Shield, Database, LayoutPanelTop, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { NetworkBackground } from './NetworkBackground';
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
+import { TerritorialFormalization } from './TerritorialFormalization';
+import { MinoAppLoop } from './MinoAppLoop';
 
 const MiningPage = () => {
-  const { theme, lang } = useContext(AppContext);
+  const { theme, lang, setIsContactModalOpen } = useContext(AppContext);
   
   const content = lang === 'es' ? {
     badge: 'Experiencia Sectorial',
@@ -15,7 +18,7 @@ const MiningPage = () => {
     sub: 'Liderando la transformación digital del sector extractivo a través de inteligencia estratégica y soluciones tecnológicas de vanguardia.',
     experienceTitle: 'Nuestra Trayectoria',
     experienceText: 'Con décadas de experiencia en el territorio colombiano, hemos navegado los desafíos complejos de la minería de oro, carbón y esmeraldas, conectando a los grandes actores con oportunidades de alto impacto.',
-    minoTitle: 'Mino: El Marketplace Industrial',
+    minoTitle: 'Mino™: Marketplace Industrial',
     minoSub: 'Plataforma líder para el sector minero-industrial',
     minoText: 'Desarrollamos "Mino", un ecosistema digital diseñado específicamente para optimizar la cadena de suministro y la gestión de activos en el sector industrial y minero. Mino permite una conexión eficiente entre proveedores, operadores e inversionistas, garantizando transparencia y eficiencia operativa.',
     features: [
@@ -30,7 +33,7 @@ const MiningPage = () => {
     sub: 'Leading the digital transformation of the extractive sector through strategic intelligence and cutting-edge technological solutions.',
     experienceTitle: 'Our Track Record',
     experienceText: 'With decades of experience in Colombian territory, we have navigated the complex challenges of gold, coal, and emerald mining, connecting major players with high-impact opportunities.',
-    minoTitle: 'Mino: The Industrial Marketplace',
+    minoTitle: 'Mino™: Industrial Marketplace',
     minoSub: 'Leading platform for the mining-industrial sector',
     minoText: 'We developed "Mino", a digital ecosystem specifically designed to optimize the supply chain and asset management in the industrial and mining sector. Mino enables efficient connection between suppliers, operators, and investors, ensuring transparency and operational efficiency.',
     features: [
@@ -44,17 +47,29 @@ const MiningPage = () => {
     <div className={`min-h-screen transition-colors duration-500 overflow-hidden ${theme === 'dark' ? 'bg-charcoal text-white' : 'bg-white text-slate-900'}`}>
       <NetworkBackground />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
+        <Link
+          to="/"
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider mb-12 transition-all duration-200 ${
+            theme === 'dark'
+              ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 shadow-sm'
+          }`}
+        >
+          <ArrowLeft className="w-4 h-4" />
+          {lang === 'es' ? 'Volver al Inicio' : 'Back to Home'}
+        </Link>
+
         <div className="flex flex-col items-center text-center mb-24">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className={`p-4 rounded-2xl mb-8 ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}
+            className={`p-4 rounded-2xl mb-8 ${theme === 'dark' ? 'bg-gold/10' : 'bg-[#F9F6F0] border border-[#E8DCC4]'}`}
           >
             <Logo className={`w-16 h-16 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
           </motion.div>
           
-          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-8 text-[10px] transition-colors ${theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-gold-soft border border-gold-deep/20 text-gold-deep'}`}>
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-8 text-[10px] transition-colors ${theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F9F6F0] border border-[#E8DCC4] text-gold-deep'}`}>
             {content.badge}
           </div>
           
@@ -62,7 +77,7 @@ const MiningPage = () => {
             {content.title}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{content.titleHighlight}</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-white/60 max-w-3xl leading-relaxed">
+          <p className={`text-xl md:text-2xl max-w-3xl leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-600 font-medium'}`}>
             {content.sub}
           </p>
         </div>
@@ -74,7 +89,7 @@ const MiningPage = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold mb-8 uppercase tracking-tighter">{content.experienceTitle}</h2>
-            <div className="w-20 h-1.5 bg-gold mb-8 rounded-full"></div>
+            <div className={`w-20 h-1.5 ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'} mb-8 rounded-full`}></div>
             <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-600'}`}>
               {content.experienceText}
             </p>
@@ -88,9 +103,9 @@ const MiningPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`p-8 border rounded-sm ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-slate-50 border-slate-200'}`}
+                className={`p-8 border rounded-2xl transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200/80 shadow-xs hover:border-[#926E24]/30'}`}
               >
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-6 ${theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-gold-soft text-gold-deep'}`}>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'}`}>
                   {feature.icon}
                 </div>
                 <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
@@ -100,33 +115,37 @@ const MiningPage = () => {
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className={`p-16 rounded-sm border relative overflow-hidden ${theme === 'dark' ? 'bg-black border-gold/20' : 'bg-gold-soft border-gold-deep/20'}`}
-        >
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 -mr-48 -mt-48 rounded-full blur-3xl"></div>
-          <div className="relative z-10 flex flex-col md:flex-row gap-16 items-center">
-            <div className="flex-1 text-center md:text-left">
-              <div className="flex items-center gap-4 mb-6 justify-center md:justify-start">
-                <Database className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'} />
-                <h3 className="text-3xl font-black uppercase tracking-tighter">{content.minoTitle}</h3>
-              </div>
-              <p className={`text-lg font-bold mb-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>{content.minoSub}</p>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-700 font-medium'}`}>
-                {content.minoText}
-              </p>
+        {/* Mino Web App Live Interactive Loop Showcase */}
+        <div className="mb-32">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-4 text-[10px] ${
+              theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F9F6F0] border border-[#E8DCC4] text-gold-deep'
+            }`}>
+              <Database className="w-3.5 h-3.5" />
+              <span>{content.minoSub}</span>
             </div>
-            
-            <div className="flex-shrink-0">
-               <div className={`w-64 h-64 border-4 rounded-3xl flex flex-col items-center justify-center gap-6 ${theme === 'dark' ? 'bg-charcoal border-white/10' : 'bg-white border-gold/30'}`}>
-                  <Logo className={`w-24 h-24 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-                  <span className="font-helvetica font-black text-2xl tracking-widest text-gold text-center">MINO</span>
-               </div>
-            </div>
+            <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
+              {content.minoTitle}
+            </h2>
+            <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
+              {content.minoText}
+            </p>
           </div>
-        </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <MinoAppLoop />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Dedicated Remote Mining Formalization Section */}
+      <div className="relative z-10 -mx-6 sm:-mx-0">
+        <TerritorialFormalization />
       </div>
     </div>
   );

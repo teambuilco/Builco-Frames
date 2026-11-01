@@ -10,14 +10,27 @@ export const PrivacyModal: React.FC = () => {
 
   const onClose = () => setIsPrivacyModalOpen(false);
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isPrivacyModalOpen) {
+        onClose();
+      }
+    };
+    if (isPrivacyModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isPrivacyModalOpen]);
+
   const getIcon = (index: number) => {
+    const iconClass = `w-6 h-6 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`;
     switch (index) {
-      case 0: return <Globe className="w-6 h-6 text-gold" />;
-      case 1: return <CheckCircle2 className="w-6 h-6 text-gold" />;
-      case 2: return <FileText className="w-6 h-6 text-gold" />;
-      case 3: return <Lock className="w-6 h-6 text-gold" />;
-      case 4: return <AlertCircle className="w-6 h-6 text-gold" />;
-      default: return <Shield className="w-6 h-6 text-gold" />;
+      case 0: return <Globe className={iconClass} />;
+      case 1: return <CheckCircle2 className={iconClass} />;
+      case 2: return <FileText className={iconClass} />;
+      case 3: return <Lock className={iconClass} />;
+      case 4: return <AlertCircle className={iconClass} />;
+      default: return <Shield className={iconClass} />;
     }
   };
 
@@ -40,7 +53,7 @@ export const PrivacyModal: React.FC = () => {
             className={`relative w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-[0_32px_64px_-12px_rgba(0,0,0,0.5)] ${
               theme === 'dark' 
                 ? 'bg-charcoal border border-white/10 rounded-lg' 
-                : 'bg-white border border-slate-200/60 rounded-2xl'
+                : 'bg-white border border-slate-200/80 rounded-2xl'
             }`}
           >
             {/* Header */}
@@ -48,19 +61,19 @@ export const PrivacyModal: React.FC = () => {
               theme === 'dark' ? 'border-white/10 bg-white/[0.02]' : 'border-slate-100 bg-slate-50/50'
             }`}>
               <div className="flex flex-col md:flex-row md:items-center gap-6 relative z-10">
-                <div className={`p-4 rounded-2xl w-fit ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}>
+                <div className={`p-4 rounded-2xl w-fit ${theme === 'dark' ? 'bg-gold/10' : 'bg-[#F9F6F0] border border-[#E8DCC4]'}`}>
                   <Shield className={`w-10 h-10 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
                 </div>
                 <div>
                   <h2 className={`text-3xl md:text-4xl font-helvetica font-black tracking-tighter uppercase mb-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-slate-900'
+                    theme === 'dark' ? 'text-white' : 'text-slate-950'
                   }`}>
                     {pt.title}
                   </h2>
                   <div className="flex items-center gap-3">
                     <div className={`h-px w-8 ${theme === 'dark' ? 'bg-gold/30' : 'bg-gold-deep/30'}`} />
                     <p className={`text-[11px] font-black uppercase tracking-[0.3em] ${
-                      theme === 'dark' ? 'text-gold/60' : 'text-gold-deep/70'
+                      theme === 'dark' ? 'text-gold/60' : 'text-gold-deep'
                     }`}>
                       {pt.sub}
                     </p>
@@ -69,8 +82,14 @@ export const PrivacyModal: React.FC = () => {
               </div>
               
               <button 
-                onClick={onClose}
-                className={`absolute top-8 right-8 p-3 rounded-full transition-all hover:scale-110 active:scale-95 ${
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onClose();
+                }}
+                aria-label="Cerrar ventana"
+                className={`absolute top-6 right-6 z-30 p-3 rounded-full cursor-pointer transition-all hover:scale-110 active:scale-95 ${
                   theme === 'dark' ? 'bg-white/5 hover:bg-white/10 text-white' : 'bg-slate-200 hover:bg-slate-300 text-slate-800'
                 }`}
               >

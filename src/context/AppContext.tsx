@@ -12,10 +12,97 @@ export const translations = {
     heroTitle: 'Building strategic connections in ',
     heroTitleHighlight: 'high-impact',
     heroTitleEnd: ' industries',
-    heroSub: 'We bridge the gap between vision and execution in mining, energy, and Government and Public Relations. Accelerating global growth through elite networking and strategic intelligence.',
-    getStarted: 'Get Started',
-    portfolio: 'Our Portfolio',
-    socialProof: 'Trusted by Industry Leaders Worldwide',
+    heroSub: 'We partner closely with leaders and institutions to transform bold vision into tangible reality across mining, energy, and Government and Public Relations. We forge strategic bridges and guide high-stakes decisions with rigorous precision, authentic proximity, and absolute discretion.',
+    getStarted: 'Schedule Advisory',
+    portfolio: 'Explore Verticals',
+    socialProof: 'Trusted by Sovereign Entities & Industry Pioneers Worldwide',
+    metrics: [
+      { value: "$100M+", label: "Capital & Assets Advised" },
+      { value: "15+", label: "Years Strategic Advisory" },
+      { value: "4", label: "Strategic Countries" },
+      { value: "100%", label: "Strict Sovereign Discretion" }
+    ],
+    corridorWidget: {
+      tag: "LIVE STRATEGIC TELEMETRY",
+      status: "SECURE LINK ACTIVE",
+      corridors: [
+        {
+          id: "mining",
+          industry: "Mining & Critical Minerals",
+          hubs: "Bogotá, Sur de Córdoba, Bajo Cauca Antioqueño",
+          focus: "Gold, Concessions & Regulation",
+          security: "Active Advisory",
+          milestones: [
+            { title: "Mining Formalization", desc: "Legal transition of regional operations into traceable, bankable, and ESG-compliant concessions." },
+            { title: "Social Responsibility in Mining Regions", desc: "High-trust community compacts, local coexistence, and shared socioeconomic value." },
+            { title: "Self-Sustaining Project Development", desc: "Circular economic initiatives, regional bioeconomy, and regenerative post-extractive stewardship." }
+          ]
+        },
+        {
+          id: "energy",
+          industry: "Energy Transition & Infrastructure",
+          hubs: "Medellín ↔ Houston ↔ Zurich",
+          focus: "Grid Modernization, Solar & Green H2",
+          security: "Sovereign Framework • Active Advisory",
+          milestones: [
+            { title: "Just Energy Transition", desc: "Solar park and green hydrogen corridors structured with community alignment." },
+            { title: "Grid Modernization & Resilience", desc: "High-capacity transmission lines integrated into regional energy markets." },
+            { title: "Self-Sustaining Green Capital", desc: "Surplus generation reinvested into decentralized local productive autonomy." }
+          ]
+        },
+        {
+          id: "government",
+          industry: "Government & Public Relations",
+          hubs: "Bogotá ↔ Washington DC ↔ CDMX",
+          focus: "Bilateral Alliances & Regulatory Navigation",
+          security: "High Protocol • Institutional Clearance",
+          milestones: [
+            { title: "Bilateral Sovereign Pacts", desc: "High-protocol alignment between ministries, regulatory agencies, and institutional investors." },
+            { title: "Legal Certainty & Permitting", desc: "Transparent compliance frameworks for long-term direct foreign investment." },
+            { title: "Sustainable Territorial Governance", desc: "Structured prior-consultation mechanisms fostering durable regional progress." }
+          ]
+        }
+      ]
+    },
+    divisionsTitle: "Business Verticals",
+    divisionsSub: "Specialized verticals engineered to navigate complex regulatory architectures, sovereign alignment, and capital deployment.",
+    divisions: [
+      {
+        id: "mining",
+        path: "/mining",
+        badge: "Critical Minerals",
+        title: "Mining & Natural Resources",
+        desc: "Unlocking mineral potential across Latin America and global markets under sustainable ESG frameworks and institutional governance.",
+        stat: "98% Regulatory Clearance Rate"
+      },
+      {
+        id: "energy",
+        path: "/energy",
+        badge: "Clean Transition",
+        title: "Energy & Infrastructure",
+        desc: "Connecting institutional capital with strategic energy assets to accelerate grid modernization, renewables, and decarbonization corridors.",
+        stat: "GW-Scale Corridors Mapped"
+      },
+      {
+        id: "government",
+        path: "/government",
+        badge: "Institutional Protocol",
+        title: "Government & Public Relations",
+        desc: "Fostering high-trust public-private alliances, legislative compliance, and bilateral diplomatic relationships.",
+        stat: "Tier-1 Stakeholder Direct Access"
+      }
+    ],
+    minoSpotlight: {
+      badge: "Proprietary Sovereign Tech",
+      title: "Mino™ - Technology for responsible mining.",
+      desc: "AI-powered marketplace for mineral management. Our encrypted digital ecosystem optimizes traceability, confidential asset exchange, and industrial supply chains with predictive intelligence and Zero-Trust architecture.",
+      cta: "Request Terminal Access",
+      features: [
+        "Encrypted Asset Directory",
+        "Direct Bilateral Dealflow",
+        "Verified Institutional Counterparts"
+      ]
+    },
     servicesTitle: 'Expertise that drives ',
     servicesTitleHighlight: 'global impact',
     services: [
@@ -25,7 +112,7 @@ export const translations = {
       },
       {
         title: "Strategic Networking",
-        description: "Direct access to key stakeholders, government officials, and industry pioneers across three continents."
+        description: "Direct access to key stakeholders, government officials, and industry pioneers."
       },
       {
         title: "Asset Optimization",
@@ -48,7 +135,7 @@ export const translations = {
     ],
     yearsExp: 'Years of Strategic Excellence',
     whereWeAre: 'Where we are',
-    clients: ['Alcaldía de Medellín', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia'],
+    clients: ['Alcaldía de Medellín', 'Agencia Nacional de Minería', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia'],
     locations: ['Colombia', 'Peru', 'Mexico', 'USA'],
     ctaTitle: 'Ready to scale your ',
     ctaTitleHighlight: 'global footprint?',
@@ -125,10 +212,97 @@ export const translations = {
     heroTitle: 'Construyendo conexiones estratégicas en industrias de ',
     heroTitleHighlight: 'alto impacto',
     heroTitleEnd: '',
-    heroSub: 'Cerramos la brecha entre la visión y la ejecución en minería, energía e Gobierno y relaciones públicas. Acelerando el crecimiento global a través de redes de élite e inteligencia estratégica.',
-    getStarted: 'Empezar',
-    portfolio: 'Nuestro Portafolio',
-    socialProof: 'Con la confianza de líderes de la industria en todo el mundo',
+    heroSub: 'Acompañamos de cerca a líderes y organizaciones a convertir grandes visiones en realidades tangibles en minería, energía y Gobierno y Relaciones Públicas. Construimos puentes estratégicos y facilitamos decisiones de alto impacto con rigor técnico, cercanía humana y absoluta confidencialidad.',
+    getStarted: 'Solicitar Asesoría',
+    portfolio: 'Ver Verticales',
+    socialProof: 'Con la confianza de entidades soberanas y líderes industriales en todo el mundo',
+    metrics: [
+      { value: "$100M+", label: "Capital y Activos Asesorados" },
+      { value: "15+", label: "Años de Asesoría Estratégica" },
+      { value: "4", label: "Países Estratégicos" },
+      { value: "100%", label: "Discreción y Confidencialidad" }
+    ],
+    corridorWidget: {
+      tag: "TELEMETRÍA ESTRATÉGICA EN VIVO",
+      status: "ENLACE SEGURO ACTIVO",
+      corridors: [
+        {
+          id: "mining",
+          industry: "Minería y Minerales Críticos",
+          hubs: "Bogotá, Sur de Córdoba, Bajo Cauca Antioqueño",
+          focus: "Oro, concesiones y regulación",
+          security: "Asesoría Activa",
+          milestones: [
+            { title: "Formalización Minera", desc: "Transición legal de operaciones hacia esquemas concesionados, bancarizables y con estricta trazabilidad." },
+            { title: "Responsabilidad Social en Zonas Mineras", desc: "Pactos comunitarios de alto impacto, convivencia en territorio y creación de valor compartido." },
+            { title: "Creación de Proyectos Autosostenibles", desc: "Encadenamientos productivos circulares, bioeconomía regional y regeneración ambiental post-extracción." }
+          ]
+        },
+        {
+          id: "energy",
+          industry: "Transición Energética e Infraestructura",
+          hubs: "Medellín ↔ Houston ↔ Zúrich",
+          focus: "Modernización de Red, Solar e Hidrógeno Verde",
+          security: "Marco Soberano • Asesoría Activa",
+          milestones: [
+            { title: "Transición Energética Justa", desc: "Despliegue de parques solares y corredores de hidrógeno verde con licencia social activa." },
+            { title: "Modernización de Red e Interconexión", desc: "Líneas de transmisión de alta capacidad integradas a mercados regionales." },
+            { title: "Fondos de Desarrollo Autosostenible", desc: "Reinversión de excedentes en autonomía productiva local y descarbonización." }
+          ]
+        },
+        {
+          id: "government",
+          industry: "Gobierno y Relaciones Públicas",
+          hubs: "Bogotá ↔ Washington DC ↔ CDMX",
+          focus: "Alianzas Bilaterales y Navegación Regulatoria",
+          security: "Alto Protocolo • Autorización Institucional",
+          milestones: [
+            { title: "Pactos Soberanos Bilaterales", desc: "Articulación de alto protocolo entre ministerios, agencias reguladoras y capital institucional." },
+            { title: "Seguridad Jurídica y Licenciamiento", desc: "Estructuración de garantías de estabilidad para inversión extranjera directa." },
+            { title: "Gobernanza Territorial Sostenible", desc: "Mecanismos transparentes de diálogo social y acuerdos territoriales duraderos." }
+          ]
+        }
+      ]
+    },
+    divisionsTitle: "Verticales de Negocio",
+    divisionsSub: "Divisiones especializadas diseñadas para navegar la complejidad regulatoria, el despliegue de capital y la ejecución en territorio.",
+    divisions: [
+      {
+        id: "mining",
+        path: "/mining",
+        badge: "Minerales Críticos",
+        title: "Minería y Recursos Naturales",
+        desc: "Desbloqueando el potencial mineral en las Américas bajo estándares ESG sostenibles y respaldo institucional de primer orden.",
+        stat: "98% Tasa de Aprobación Regulatoria"
+      },
+      {
+        id: "energy",
+        path: "/energy",
+        badge: "Transición Limpia",
+        title: "Energía e Infraestructura",
+        desc: "Conectando capital institucional con activos soberanos para acelerar la expansión de redes, granjas solares y corredores de descarbonización.",
+        stat: "Corredores Mapeados a Escala GW"
+      },
+      {
+        id: "government",
+        path: "/government",
+        badge: "Protocolo Institucional",
+        title: "Gobierno y Relaciones Públicas",
+        desc: "Construyendo pactos público-privados de alta confianza, cumplimiento legislativo y relaciones diplomáticas bilaterales.",
+        stat: "Acceso Directo a Actores Clave"
+      }
+    ],
+    minoSpotlight: {
+      badge: "Tecnología Soberana Propietaria",
+      title: "Mino™ - Tecnología para una minería responsable",
+      desc: "Marketplace con AI para gestión de minerales. Nuestro ecosistema digital cifrado optimiza la trazabilidad, el intercambio confidencial de activos y la cadena de suministro con inteligencia artificial y arquitectura Zero-Trust.",
+      cta: "Solicitar Acceso a la Terminal",
+      features: [
+        "Directorio Seguro de Activos",
+        "Flujo Directo de Acuerdos Bilaterales",
+        "Contrapartes Institucionales Verificadas"
+      ]
+    },
     servicesTitle: 'Experiencia que impulsa el ',
     servicesTitleHighlight: 'impacto global',
     services: [
@@ -138,7 +312,7 @@ export const translations = {
       },
       {
         title: "Redes Estratégicas",
-        description: "Acceso directo a partes interesadas clave, funcionarios gubernamentales y pioneros de la industria en tres continentes."
+        description: "Acceso directo a partes interesadas clave, funcionarios gubernamentales y pioneros de la industria."
       },
       {
         title: "Optimización de Activos",
@@ -161,7 +335,7 @@ export const translations = {
     ],
     yearsExp: 'Años de Excelencia Estratégica',
     whereWeAre: 'En donde estamos',
-    clients: ['Alcaldía de Medellín', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia'],
+    clients: ['Alcaldía de Medellín', 'Agencia Nacional de Minería', 'Cámara de Comercio de Bogotá', 'Cisne', 'Novira', 'Congreso de la república de Colombia'],
     locations: ['Colombia', 'Perú', 'México', 'Estados Unidos'],
     ctaTitle: '¿Listo para escalar su ',
     ctaTitleHighlight: 'huella global?',
@@ -259,15 +433,46 @@ export const AppContext = createContext<{
 });
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [lang, setLang] = useState<Language>('en');
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [lang, setLang] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('builco_lang_v2') as Language | null;
+      if (saved === 'en' || saved === 'es') return saved;
+    }
+    return 'en'; // default to English as requested
+  });
+
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('builco_theme') as Theme | null;
+      if (saved === 'dark' || saved === 'light') return saved;
+    }
+    return 'dark';
+  });
+
   const [isMinoModalOpen, setIsMinoModalOpen] = useState(false);
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    const isDark = theme === 'dark';
+    document.documentElement.classList.toggle('dark', isDark);
+    document.documentElement.classList.toggle('light', !isDark);
+    document.documentElement.style.colorScheme = theme;
+    try {
+      localStorage.setItem('builco_theme', theme);
+    } catch {
+      // ignore
+    }
   }, [theme]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('builco_lang_v2', lang);
+      document.documentElement.lang = lang;
+    } catch {
+      // ignore
+    }
+  }, [lang]);
 
   const t = translations[lang];
 

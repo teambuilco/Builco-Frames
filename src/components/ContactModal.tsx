@@ -94,6 +94,18 @@ export const ContactModal: React.FC = () => {
     }, 300);
   };
 
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isContactModalOpen) {
+        handleClose();
+      }
+    };
+    if (isContactModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isContactModalOpen]);
+
   return (
     <AnimatePresence>
       {isContactModalOpen && (
@@ -103,7 +115,7 @@ export const ContactModal: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/80 backdrop-blur-md cursor-pointer"
           />
           
           <motion.div
@@ -113,24 +125,30 @@ export const ContactModal: React.FC = () => {
             className={`relative w-full max-w-xl overflow-hidden shadow-3xl ${
               theme === 'dark' 
                 ? 'bg-charcoal border border-white/10 rounded-lg' 
-                : 'bg-white border border-slate-200/60 rounded-2xl'
+                : 'bg-white border border-slate-200/80 rounded-2xl'
             }`}
           >
             {!isSubmitted ? (
               <>
-                <div className={`h-36 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}>
-                  <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl" />
+                <div className={`h-36 relative flex items-center px-10 overflow-hidden ${theme === 'dark' ? 'bg-gold' : 'bg-linear-to-r from-[#926E24] via-[#A67E2D] to-[#805F1C]'}`}>
+                  <div className="absolute right-0 top-0 w-64 h-64 bg-black/10 rounded-full -mr-20 -mt-20 blur-3xl pointer-events-none" />
                   <div className="relative z-10">
                     <h2 className={`text-3xl md:text-4xl font-helvetica font-black tracking-tighter uppercase mb-1 ${theme === 'dark' ? 'text-black' : 'text-white'}`}>
                       {ct.title}
                     </h2>
-                    <p className={`font-bold text-[10px] uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-black/50' : 'text-white/60'}`}>
+                    <p className={`font-bold text-[10px] uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-black/50' : 'text-white/80'}`}>
                       {ct.sub}
                     </p>
                   </div>
                   <button 
-                    onClick={handleClose}
-                    className={`absolute top-8 right-8 p-3 rounded-full transition-all hover:scale-110 active:scale-90 ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'}`}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleClose();
+                    }}
+                    aria-label="Cerrar ventana"
+                    className={`absolute top-6 right-6 z-30 p-3 rounded-full transition-all hover:scale-110 active:scale-90 cursor-pointer ${theme === 'dark' ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/15 hover:bg-white/25 text-white'}`}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -150,7 +168,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
+                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -169,7 +187,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
+                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -188,7 +206,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'
+                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -233,8 +251,13 @@ export const ContactModal: React.FC = () => {
                   </p>
                 </div>
                 <button 
-                  onClick={handleClose}
-                  className={`px-12 py-5 font-black uppercase tracking-widest text-sm rounded-xl transition-all ${
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleClose();
+                  }}
+                  className={`px-12 py-5 font-black uppercase tracking-widest text-sm rounded-xl transition-all cursor-pointer ${
                     theme === 'dark' ? 'btn-gold' : 'btn-primary-light'
                   }`}
                 >

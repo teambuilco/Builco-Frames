@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Check } from 'lucide-react';
+import { X, Check, ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { NetworkBackground } from './NetworkBackground';
 import Logo from './Logo';
 
 import { AppContext } from '../context/AppContext';
 
 const MinoPage = () => {
-  const { theme, t } = useContext(AppContext);
+  const { theme, lang, t } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
   const [isForgotOpen, setIsForgotOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
@@ -21,18 +22,32 @@ const MinoPage = () => {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-6 relative overflow-hidden ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
+    <div className={`min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden ${theme === 'dark' ? 'bg-charcoal' : 'bg-white'}`}>
       <NetworkBackground />
       
+      <div className="relative z-20 w-full max-w-md mb-6">
+        <Link
+          to="/"
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+            theme === 'dark'
+              ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
+              : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 shadow-sm'
+          }`}
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>{lang === 'es' ? 'Volver al Inicio' : 'Back to Home'}</span>
+        </Link>
+      </div>
+
       <motion.div
         key={isRegistering ? 'register' : 'login'}
         initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className={`relative z-10 w-full max-w-md p-12 shadow-3xl border transition-all duration-500 ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10 rounded-lg' : 'bg-white border-slate-200/60 rounded-2xl'}`}
+        className={`relative z-10 w-full max-w-md p-12 shadow-3xl border transition-all duration-500 ${theme === 'dark' ? 'bg-black/40 backdrop-blur-xl border-white/10 rounded-lg' : 'bg-white border-slate-200/80 shadow-2xl rounded-2xl'}`}
       >
         <div className="text-center mb-12">
-          <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-8 transition-all ${theme === 'dark' ? 'bg-gold/10' : 'bg-gold-soft'}`}>
+          <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl mb-8 transition-all ${theme === 'dark' ? 'bg-gold/10' : 'bg-[#F9F6F0] border border-[#E8DCC4]'}`}>
             <Logo className={`w-12 h-12 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
           </div>
           <h1 className={`text-4xl font-helvetica font-black tracking-tighter uppercase mb-3 ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
@@ -48,7 +63,7 @@ const MinoPage = () => {
             <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
               <div className="space-y-3">
                 <label className={`text-[11px] font-black uppercase tracking-widest ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{minoT.email}</label>
-                <input type="email" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} placeholder="name@company.com" required />
+                <input type="email" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} placeholder="name@company.com" required />
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -57,7 +72,7 @@ const MinoPage = () => {
                     {minoT.forgot}
                   </button>
                 </div>
-                <input type="password" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold focus:bg-white'}`} placeholder="••••••••" required />
+                <input type="password" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} placeholder="••••••••" required />
               </div>
               <button type="submit" className={theme === 'dark' ? 'btn-gold w-full py-5' : 'btn-primary-light w-full py-5'}>
                 {minoT.login}

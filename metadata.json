@@ -1,5 +1,6 @@
 {
-  "name": "Building Conenctions - Strategic Connections in High-Impact Industries",
+  "name": "Building Connections - Strategic Connections in High-Impact Industries",
   "description": "Premium platform for global mining, energy, and Government and Public Relations strategic networking.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

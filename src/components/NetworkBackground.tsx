@@ -24,11 +24,11 @@ export const NetworkBackground: React.FC = () => {
     const mouseConnectionDistance = 250;
     
     // Theme-dependent colors
-    const themeColor = isDark ? '#E1B46D' : '#C59B5F';
-    const lineColor = isDark ? '225, 180, 109' : '197, 155, 95';
+    const themeColor = isDark ? '#E5B86C' : '#D97706';
+    const lineColor = isDark ? '229, 184, 108' : '148, 163, 184';
     const blobColors = isDark 
-      ? ['rgba(225, 180, 109, 0.03)', 'rgba(225, 180, 109, 0.02)'] 
-      : ['rgba(197, 155, 95, 0.08)', 'rgba(225, 180, 109, 0.04)', 'rgba(240, 240, 240, 0.5)'];
+      ? ['rgba(229, 184, 108, 0.04)', 'rgba(229, 184, 108, 0.02)'] 
+      : ['rgba(245, 158, 11, 0.04)', 'rgba(56, 189, 248, 0.03)', 'rgba(16, 185, 129, 0.02)'];
 
     class Blob {
       x: number;
@@ -178,8 +178,8 @@ export const NetworkBackground: React.FC = () => {
             ctx.moveTo(p.x, drawY1);
             ctx.lineTo(p2.x, drawY2);
             const opacity = 1 - dist / connectionDistance;
-            ctx.strokeStyle = `rgba(${lineColor}, ${opacity * (isDark ? 0.2 : 0.1)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(${lineColor}, ${opacity * (isDark ? 0.22 : 0.2)})`;
+            ctx.lineWidth = isDark ? 0.6 : 0.75;
             ctx.stroke();
           }
         }
