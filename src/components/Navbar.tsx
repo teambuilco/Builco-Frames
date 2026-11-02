@@ -23,6 +23,12 @@ const Navbar = () => {
               ? 'text-white/70 hover:text-white hover:bg-white/5' 
               : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
           }`}
+          onClick={(e) => {
+            if (href === '#' || href === '#top') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
           {...props}
         >
           {children}
@@ -37,6 +43,9 @@ const Navbar = () => {
             ? 'text-white/70 hover:text-white hover:bg-white/5' 
             : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
         }`}
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        }}
         {...props}
       >
         {children}
@@ -113,7 +122,10 @@ const Navbar = () => {
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
                                 : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
                             }`}
-                            onClick={() => setIsIndustriesOpen(false)}
+                            onClick={() => {
+                              setIsIndustriesOpen(false);
+                              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                            }}
                           >
                             <span className="w-2 h-2 rounded-full bg-gold-deep" />
                             {lang === 'es' ? 'Minería y Recursos' : 'Mining & Resources'}
@@ -125,7 +137,10 @@ const Navbar = () => {
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
                                 : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
                             }`}
-                            onClick={() => setIsIndustriesOpen(false)}
+                            onClick={() => {
+                              setIsIndustriesOpen(false);
+                              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                            }}
                           >
                             <span className="w-2 h-2 rounded-full bg-emerald-500" />
                             {lang === 'es' ? 'Energía y Transición' : 'Energy & Transition'}
@@ -137,7 +152,10 @@ const Navbar = () => {
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
                                 : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
                             }`}
-                            onClick={() => setIsIndustriesOpen(false)}
+                            onClick={() => {
+                              setIsIndustriesOpen(false);
+                              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                            }}
                           >
                             <span className="w-2 h-2 rounded-full bg-blue-500" />
                             {lang === 'es' ? 'Relaciones Públicas' : 'Public Relations'}
@@ -188,7 +206,10 @@ const Navbar = () => {
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
                                 : 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
                             }`}
-                            onClick={() => setIsAboutOpen(false)}
+                            onClick={() => {
+                              setIsAboutOpen(false);
+                              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                            }}
                           >
                             {item}
                           </Link>
@@ -199,7 +220,10 @@ const Navbar = () => {
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
                                 : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
                             }`}
-                            onClick={() => setIsAboutOpen(false)}
+                            onClick={() => {
+                              setIsAboutOpen(false);
+                              window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                            }}
                           >
                             <span>Mino™ Platform</span>
                             <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]">VIP</span>
@@ -286,21 +310,30 @@ const Navbar = () => {
                       <Link 
                         to="/mining" 
                         className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                        }}
                       >
                         {lang === 'es' ? 'Minería' : 'Mining'}
                       </Link>
                       <Link 
                         to="/energy" 
                         className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                        }}
                       >
                         {lang === 'es' ? 'Energía' : 'Energy'}
                       </Link>
                       <Link 
                         to="/government" 
                         className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                        }}
                       >
                         {lang === 'es' ? 'Relaciones Públicas' : 'Public Relations'}
                       </Link>
@@ -319,14 +352,20 @@ const Navbar = () => {
                       <Link 
                         to="/about" 
                         className={`text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`} 
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                        }}
                       >
                         {item}
                       </Link>
                       <Link 
                         to="/mino" 
                         className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                        }}
                       >
                         Mino
                       </Link>

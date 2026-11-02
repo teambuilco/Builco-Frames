@@ -33,7 +33,6 @@ import { NetworkBackground } from './NetworkBackground';
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 import { MinoAppLoop } from './MinoAppLoop';
-import barequerosImg from '../assets/images/barequeros_desarrollo_1793646598443.jpg';
 import barequeroRealImg from '../assets/images/barequero_batea_real.jpg';
 
 const MinoPage = () => {
@@ -44,10 +43,16 @@ const MinoPage = () => {
   const [isResetSent, setIsResetSent] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [barequeroGrams, setBarequeroGrams] = useState<number>(15);
-  const [activePhotoTab, setActivePhotoTab] = useState<'real' | 'impact'>('real');
   
   const minoT = t.mino;
   const isDark = theme === 'dark';
+
+  // Ensure page always starts at top when opened
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
 
   const handleResetSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,6 +171,11 @@ const MinoPage = () => {
       <div className="relative z-20 max-w-7xl mx-auto px-6 pt-8 pb-4 flex flex-wrap items-center justify-between gap-4">
         <Link
           to="/"
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+          }}
           className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
             isDark
               ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
@@ -339,31 +349,14 @@ const MinoPage = () => {
                 : 'Artisanal panning with traditional wooden bateas represents the ancestral heritage of subsistence mining in Colombia. Mino™ empowers this ancestral practice by eradicating predatory intermediaries and converting every gram of gold into direct community welfare, healthcare, and solar-powered schools.'}
             </p>
 
-            {/* Photo View Switcher Tabs */}
-            <div className="inline-flex items-center p-1.5 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-md mt-2">
+            {/* Badge: Labor Ancestral */}
+            <div className="inline-flex items-center p-1.5 rounded-2xl border border-gold/30 bg-black/40 backdrop-blur-md mt-2 shadow-lg shadow-gold/5">
               <button
                 type="button"
-                onClick={() => setActivePhotoTab('real')}
-                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-                  activePhotoTab === 'real'
-                    ? 'bg-gold text-black shadow-lg font-bold shadow-gold/20'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
+                className="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 bg-gold text-black shadow-lg font-bold shadow-gold/20 cursor-default"
               >
                 <Award className="w-3.5 h-3.5" />
-                <span>{lang === 'es' ? 'Labor Ancestral en Río (Foto Real)' : 'Ancestral River Labor (Real Photo)'}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActivePhotoTab('impact')}
-                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-                  activePhotoTab === 'impact'
-                    ? 'bg-gold text-black shadow-lg font-bold shadow-gold/20'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                <SunMedium className="w-3.5 h-3.5" />
-                <span>{lang === 'es' ? 'Desarrollo Comunitario' : 'Community Development'}</span>
+                <span>{lang === 'es' ? 'Labor Ancestral' : 'Ancestral Labor'}</span>
               </button>
             </div>
           </div>
@@ -373,55 +366,28 @@ const MinoPage = () => {
             isDark ? 'bg-black/60 border-white/15' : 'bg-white border-slate-200/90 shadow-xl'
           }`}>
             <div className="relative aspect-16/9 sm:aspect-21/9 max-h-[580px] w-full overflow-hidden bg-black">
-              {activePhotoTab === 'real' ? (
-                <motion.img 
-                  key="real-image"
-                  initial={{ opacity: 0, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  src={barequeroRealImg} 
-                  alt={lang === 'es' ? 'Barequero tradicional en el río lavando arena con batea de madera y sombrero tradicional' : 'Traditional barequero panning gold with wooden batea in muddy river wearing traditional straw hat'}
-                  className="w-full h-full object-cover object-center transform hover:scale-[1.01] transition-transform duration-700" 
-                />
-              ) : (
-                <motion.img 
-                  key="impact-image"
-                  initial={{ opacity: 0, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  src={barequerosImg} 
-                  alt={lang === 'es' ? 'Comunidad de barequeros tradicionales en el río con batea y escuela solar al fondo' : 'Traditional Colombian artisanal miners with wooden batea and solar school in background'}
-                  className="w-full h-full object-cover object-center transform hover:scale-[1.01] transition-transform duration-700" 
-                />
-              )}
+              <motion.img 
+                key="real-image"
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                src={barequeroRealImg} 
+                alt={lang === 'es' ? 'Barequero tradicional en el río lavando arena con batea de madera y sombrero tradicional' : 'Traditional barequero panning gold with wooden batea in muddy river wearing traditional straw hat'}
+                className="w-full h-full object-cover object-center transform hover:scale-[1.01] transition-transform duration-700" 
+              />
               
               <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/25 to-black/30 pointer-events-none" />
 
               {/* Badges on top of image */}
               <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-wrap gap-2 z-10 max-w-[60%] sm:max-w-none">
-                {activePhotoTab === 'real' ? (
-                  <>
-                    <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-950/80 backdrop-blur-md text-gold border border-gold/40 flex items-center gap-1.5 shadow-lg">
-                      <Award className="w-3.5 h-3.5" />
-                      {lang === 'es' ? 'Fotografía Real en Territorio' : 'Authentic Field Photography'}
-                    </span>
-                    <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-amber-200 border border-white/20 flex items-center gap-1.5 shadow-lg">
-                      <Droplets className="w-3.5 h-3.5 text-blue-400" />
-                      {lang === 'es' ? 'Batea de Madera Ancestral' : 'Ancestral Wooden Batea'}
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-gold border border-gold/40 flex items-center gap-1.5 shadow-lg">
-                      <Award className="w-3.5 h-3.5" />
-                      {lang === 'es' ? 'Minería Ancestral Formalizada' : 'Formalized Ancestral Mining'}
-                    </span>
-                    <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-950/80 backdrop-blur-md text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5 shadow-lg">
-                      <SunMedium className="w-3.5 h-3.5" />
-                      {lang === 'es' ? 'Energía Solar Comunitaria' : 'Community Solar Energy'}
-                    </span>
-                  </>
-                )}
+                <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-950/80 backdrop-blur-md text-gold border border-gold/40 flex items-center gap-1.5 shadow-lg">
+                  <Award className="w-3.5 h-3.5" />
+                  {lang === 'es' ? 'Labor Ancestral' : 'Ancestral Labor'}
+                </span>
+                <span className="px-3 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-amber-200 border border-white/20 flex items-center gap-1.5 shadow-lg">
+                  <Droplets className="w-3.5 h-3.5 text-blue-400" />
+                  {lang === 'es' ? 'Batea de Madera Ancestral' : 'Ancestral Wooden Batea'}
+                </span>
               </div>
 
               {/* Marca de agua del logo en la parte derecha superior */}
@@ -445,18 +411,12 @@ const MinoPage = () => {
               {/* Caption Overlay at bottom of image */}
               <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-10 text-white space-y-1">
                 <span className="text-[11px] font-mono font-bold text-gold uppercase tracking-wider block">
-                  {activePhotoTab === 'real'
-                    ? (lang === 'es' ? 'Cuencas Aluviales de Colombia • Sabiduría del Río' : 'Colombian River Basins • Ancestral River Knowledge')
-                    : (lang === 'es' ? 'Bajo Cauca Antioqueño & Comunidades Mineras' : 'Bajo Cauca & Mining Communities')}
+                  {lang === 'es' ? 'Cuencas Aluviales de Colombia • Sabiduría del Río' : 'Colombian River Basins • Ancestral River Knowledge'}
                 </span>
                 <p className="text-sm sm:text-base font-bold text-white max-w-3xl drop-shadow-md">
-                  {activePhotoTab === 'real'
-                    ? (lang === 'es'
-                        ? 'La batea de madera en el caudal del río: el trabajo diario del barequero que durante siglos sostuvo la economía sin protección social. Mino™ convierte este sudor en prosperidad garantizada.'
-                        : 'The wooden batea in river currents: traditional subsistence miners who sustained territories for centuries without social safety nets. Mino™ transforms this labor into sovereign prosperity.')
-                    : (lang === 'es'
-                        ? 'Familias barequeras protegidas con seguridad social y dotación técnica, liderando la transformación de sus territorios hacia economías circulares y escuelas equipadas con energía solar.'
-                        : 'Artisanal panning families protected with social security and safety equipment, leading territorial transformation towards circular economies and solar-equipped schools.')}
+                  {lang === 'es'
+                    ? 'La batea de madera en el caudal del río: el trabajo diario del barequero que durante siglos sostuvo la economía sin protección social. Mino™ convierte este sudor en prosperidad garantizada.'
+                    : 'The wooden batea in river currents: traditional subsistence miners who sustained territories for centuries without social safety nets. Mino™ transforms this labor into sovereign prosperity.'}
                 </p>
               </div>
             </div>

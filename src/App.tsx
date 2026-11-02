@@ -11,6 +11,7 @@ import MiningPage from './components/MiningPage';
 import EnergyPage from './components/EnergyPage';
 import GovPage from './components/GovPage';
 import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
 import { ContactModal } from './components/ContactModal';
 import { PrivacyModal } from './components/PrivacyModal';
 import { MinoModal } from './components/MinoModal';
@@ -18,6 +19,7 @@ import { MinoModal } from './components/MinoModal';
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
