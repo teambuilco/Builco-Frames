@@ -33,9 +33,9 @@ export const translations = {
           focus: "Gold, Concessions & Regulation",
           security: "Active Advisory",
           milestones: [
-            { title: "Mining Formalization", desc: "Legal transition of regional operations into traceable, bankable, and ESG-compliant concessions." },
+            { title: "Mining Formalization", desc: "Safe and efficient mining through the legal transition of regional operations into traceable, bankable, and ESG-compliant concessions." },
             { title: "Social Responsibility in Mining Regions", desc: "High-trust community compacts, local coexistence, and shared socioeconomic value." },
-            { title: "Self-Sustaining Project Development", desc: "Circular economic initiatives, regional bioeconomy, and regenerative post-extractive stewardship." }
+            { title: "Self-Sustaining Project Development", desc: "Creation of diversified economic environments, circular economic initiatives, regional bioeconomy, and regenerative post-extractive stewardship." }
           ]
         },
         {
@@ -72,7 +72,7 @@ export const translations = {
         path: "/mining",
         badge: "Critical Minerals",
         title: "Mining & Natural Resources",
-        desc: "Unlocking mineral potential across Latin America and global markets under sustainable ESG frameworks and institutional governance.",
+        desc: "Unlocking mineral potential across Latin America and global markets through responsible, safe, and efficient mining under sustainable ESG frameworks and institutional governance.",
         stat: "98% Regulatory Clearance Rate"
       },
       {
@@ -143,6 +143,14 @@ export const translations = {
     ctaBtn: 'Schedule a Strategic Consultation',
     footerDesc: 'Strategic connections for high-impact industries. Global reach, local intelligence, absolute discretion.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. ALL RIGHTS RESERVED.',
+    footerPrivacySegment: {
+      badge: 'Institutional Governance & Regulatory Compliance',
+      title: 'Privacy Policy & Habeas Data',
+      desc: 'Access our official data protection framework and Habeas Data policy in accordance with Colombian Statutory Law 1581 of 2012, Regulatory Decree 1377 of 2013, and international privacy standards.',
+      viewPdf: 'View Official PDF Document',
+      downloadPdf: 'Download PDF',
+      lawTag: 'Statutory Law 1581 of 2012 • Habeas Data'
+    },
     contactForm: {
       title: 'Contact Our Strategy Team',
       sub: 'Direct line to global expertise',
@@ -233,9 +241,9 @@ export const translations = {
           focus: "Oro, concesiones y regulación",
           security: "Asesoría Activa",
           milestones: [
-            { title: "Formalización Minera", desc: "Transición legal de operaciones hacia esquemas concesionados, bancarizables y con estricta trazabilidad." },
+            { title: "Formalización Minera", desc: "Minería segura y eficiente mediante la transición legal de operaciones hacia esquemas concesionados, bancarizables y con estricta trazabilidad." },
             { title: "Responsabilidad Social en Zonas Mineras", desc: "Pactos comunitarios de alto impacto, convivencia en territorio y creación de valor compartido." },
-            { title: "Creación de Proyectos Autosostenibles", desc: "Encadenamientos productivos circulares, bioeconomía regional y regeneración ambiental post-extracción." }
+            { title: "Creación de Proyectos Autosostenibles", desc: "Creación de entornos económicos diversificados, encadenamientos productivos circulares, bioeconomía regional y regeneración ambiental post-extracción." }
           ]
         },
         {
@@ -272,7 +280,7 @@ export const translations = {
         path: "/mining",
         badge: "Minerales Críticos",
         title: "Minería y Recursos Naturales",
-        desc: "Desbloqueando el potencial mineral en las Américas bajo estándares ESG sostenibles y respaldo institucional de primer orden.",
+        desc: "Desbloqueando el potencial mineral en las Américas mediante una minería responsable, segura y eficiente, bajo estándares ESG sostenibles y respaldo institucional de primer orden.",
         stat: "98% Tasa de Aprobación Regulatoria"
       },
       {
@@ -343,6 +351,14 @@ export const translations = {
     ctaBtn: 'Programar una Consulta Estratégica',
     footerDesc: 'Conexiones estratégicas para industrias de alto impacto. Alcance global, inteligencia local, discreción absoluta.',
     footerRights: '© 2026 BUILDING CONNECTIONS STRATEGIC PARTNERS. TODOS LOS DERECHOS RESERVADOS.',
+    footerPrivacySegment: {
+      badge: 'Gobernanza Institucional & Cumplimiento Regulatorio',
+      title: 'Políticas de Privacidad y Habeas Data',
+      desc: 'Consulte nuestro marco oficial de protección de datos personales y política de Habeas Data conforme a la Ley Estatutaria 1581 de 2012, Decreto Reglamentario 1377 de 2013 y estándares internacionales de privacidad.',
+      viewPdf: 'Ver Documento Oficial en PDF',
+      downloadPdf: 'Descargar PDF',
+      lawTag: 'Ley Estatutaria 1581 de 2012 • Habeas Data'
+    },
     contactForm: {
       title: 'Contacte a nuestro Equipo Estratégico',
       sub: 'Línea directa con expertos globales',

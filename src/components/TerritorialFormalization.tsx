@@ -49,7 +49,7 @@ export const TerritorialFormalization = () => {
           techIntervention: "Plantas piloto comunitarias de beneficio cerrado con circuito cerrado de agua y energía fotovoltaica híbrida.",
           sustainability: "Programas de apicultura en zonas de exclusión minera, reforestación de riberas y seguridad alimentaria local.",
           stats: [
-            { label: "Familias con Ingresos Bancarizados", value: "+820" },
+            { label: "Familias con Ingresos Bancarizados", value: "+100" },
             { label: "Hectáreas en Reforestación Activa", value: "+40 ha" },
             { label: "Tasa de Cumplimiento Regulatorio", value: "99.2%" }
           ]
@@ -75,7 +75,7 @@ export const TerritorialFormalization = () => {
         {
           step: "01",
           title: "Inmersión & Censo en Terreno",
-          desc: "Ingresamos físicamente a las veredas y cuencas apartadas para censar unidades de producción, mapear actores y levantar coordenadas georreferenciadas con ingenieros y sociólogos locales."
+          desc: "Ingresamos físicamente a las veredas y cuencas apartadas para censar unidades de producción, mapear actores y levantar coordenadas georreferenciadas con ingenieros, sociólogos y juntas de acción comunal."
         },
         {
           step: "02",
@@ -84,13 +84,13 @@ export const TerritorialFormalization = () => {
         },
         {
           step: "03",
-          title: "Transferencia Técnica & Cero Mercurio",
-          desc: "Dotamos a las asociaciones de tecnologías gravimétricas y retortas selladas. Certificamos la trazabilidad digital del mineral desde boca de mina mediante la plataforma Mino™."
+          title: "Dotación Tecnológica & Reducción de Mercurio",
+          desc: "Ayudamos a dotar a las asociaciones con tecnologías para la reducción del uso del mercurio, certificando la trazabilidad digital del mineral desde boca de mina mediante la plataforma Mino™."
         },
         {
           step: "04",
           title: "Autosostenibilidad & Bancarización",
-          desc: "Conectamos al minero formalizado con el sistema financiero y comercializadores internacionales, destinando un porcentaje de utilidad a proyectos agroforestales y fondos de retiro."
+          desc: "Conectamos al minero formalizado con el sistema financiero y comercializadores, destinando un porcentaje de utilidad a proyectos agroforestales y fondos de retiro."
         }
       ]
     },
@@ -118,7 +118,7 @@ export const TerritorialFormalization = () => {
           techIntervention: "Community-operated closed-circuit recovery plants with 100% water recirculation and hybrid solar power.",
           sustainability: "Apiculture and honey production in mining exclusion corridors, riparian reforesting, and food security.",
           stats: [
-            { label: "Banked Households with Clean Income", value: "+820" },
+            { label: "Banked Households with Clean Income", value: "+100" },
             { label: "Active Reforestation Corridors", value: "+40 ha" },
             { label: "Regulatory Compliance Rate", value: "99.2%" }
           ]
@@ -144,7 +144,7 @@ export const TerritorialFormalization = () => {
         {
           step: "01",
           title: "Field Immersion & Census",
-          desc: "We travel directly to remote hamlets to map production units, register traditional miners, and conduct georeferenced surveys alongside local community leaders."
+          desc: "We travel directly to remote hamlets to map production units, register traditional miners, and conduct georeferenced surveys alongside engineers, sociologists, and community action boards (JAC)."
         },
         {
           step: "02",
@@ -153,13 +153,13 @@ export const TerritorialFormalization = () => {
         },
         {
           step: "03",
-          title: "Tech Transfer & Zero Mercury",
-          desc: "We outfit cooperatives with chemical-free gravimetric equipment and sealed retorts, ensuring full digital custody from pithead via the Mino™ platform."
+          title: "Tech Deployment & Mercury Reduction",
+          desc: "We help equip mining associations with technologies for mercury reduction, certifying the mineral's digital traceability from the pithead through the Mino™ platform."
         },
         {
           step: "04",
           title: "Self-Sustaining Economy & Banking",
-          desc: "We bridge formalized miners to tier-1 banks and international buyers, reinvesting margins into agroforestry, fish farming, and regional development."
+          desc: "We bridge formalized miners to tier-1 banks and buyers, reinvesting margins into agroforestry, fish farming, and regional development."
         }
       ]
     }
@@ -362,7 +362,7 @@ export const TerritorialFormalization = () => {
                     <FileCheck2 className="w-5 h-5" />
                   </div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-                    {lang === 'es' ? 'Mecanismo Jurídico Formal' : 'Legal Formalization Structure'}
+                    {lang === 'es' ? 'Fortalecimiento Institucional para la Gobernanza' : 'Institutional Strengthening for Governance'}
                   </span>
                   <h4 className={`text-base font-bold mb-2.5 transition-colors duration-200 ${
                     isDark ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
@@ -371,8 +371,8 @@ export const TerritorialFormalization = () => {
                   </h4>
                   <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                     {lang === 'es' 
-                      ? 'Estructuración directa de garantías legales, contratos de formalización y articulación con titulares mineros y la ANM.'
-                      : 'Direct structuring of legal guarantees, formalization contracts, and alignment with concession holders and the ANM.'}
+                      ? 'Fortalecimiento institucional para la gobernanza, estructuración directa de garantías legales, contratos de formalización y articulación con titulares mineros y la ANM.'
+                      : 'Institutional strengthening for governance, direct structuring of legal guarantees, formalization contracts, and alignment with concession holders and the ANM.'}
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/5 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 transition-transform duration-200 group-hover:translate-x-1">

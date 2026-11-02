@@ -13,7 +13,8 @@ import {
   Radio,
   ArrowUpRight,
   ShieldCheck,
-  CheckCircle2
+  CheckCircle2,
+  FileText
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
@@ -239,7 +240,7 @@ const StrategicDivisions = () => {
         },
         { 
           title: lang === 'es' ? "Creación de Proyectos Autosostenibles" : "Self-Sustaining Project Development", 
-          desc: lang === 'es' ? "Encadenamientos productivos circulares, bioeconomía y regeneración ambiental." : "Circular economic models, regional bioeconomy, and regenerative stewardship." 
+          desc: lang === 'es' ? "Creación de entornos económicos diversificados, encadenamientos productivos circulares, bioeconomía y regeneración ambiental." : "Creation of diversified economic environments, circular economic models, regional bioeconomy, and regenerative stewardship." 
         }
       ]
     },
@@ -372,7 +373,7 @@ const StrategicDivisions = () => {
             <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gold/10' : 'bg-gold/10'}`} />
 
             {/* Console Top Bar */}
-            <div className="flex items-center justify-between pb-6 border-b border-slate-200/80 dark:border-white/10 relative z-10">
+            <div className="flex flex-wrap items-center justify-between pb-6 border-b border-slate-200/80 dark:border-white/10 relative z-10 gap-3">
               <div className="flex items-center gap-2.5">
                 <Radio className={`w-4 h-4 animate-pulse ${isDark ? 'text-gold' : 'text-gold-deep'}`} />
                 <span className={`text-[10px] font-extrabold tracking-widest uppercase ${
@@ -384,14 +385,27 @@ const StrategicDivisions = () => {
                   }
                 </span>
               </div>
-              <span className={`text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
-                isDark ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-              }`}>
-                {isMining 
-                  ? (t.corridorWidget?.status || (lang === 'es' ? "ENLACE COP / USD ACTIVO" : "LIVE COP / USD FEED"))
-                  : (lang === 'es' ? "CORREDOR ACTIVO" : "ACTIVE CORRIDOR")
-                }
-              </span>
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/mino"
+                  className={`text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 transition-all cursor-pointer ${
+                    isDark 
+                      ? 'bg-gold/15 text-gold border border-gold/30 hover:bg-gold/25 hover:border-gold/50 shadow-xs' 
+                      : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4] hover:bg-[#F2EADA] shadow-xs'
+                  }`}
+                >
+                  <span>{lang === 'es' ? 'Abrir Mino™ Platform' : 'Open Mino™ Platform'}</span>
+                  <ArrowUpRight className="w-2.5 h-2.5" />
+                </Link>
+                <span className={`text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
+                  isDark ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                }`}>
+                  {isMining 
+                    ? (t.corridorWidget?.status || (lang === 'es' ? "ENLACE COP / USD ACTIVO" : "LIVE COP / USD FEED"))
+                    : (lang === 'es' ? "CORREDOR ACTIVO" : "ACTIVE CORRIDOR")
+                  }
+                </span>
+              </div>
             </div>
 
             {/* Corridor Selector Tabs */}
@@ -557,14 +571,15 @@ const StrategicDivisions = () => {
                   : (lang === 'es' ? 'Cifrado Institucional Zero-Trust • Monitoreo y Supervisión de Corredores en Tiempo Real' : 'Zero-Trust Institutional Encryption • Real-Time Corridor Tracking & Supervision')
                 }
               </span>
-              <button
-                onClick={() => setIsMinoModalOpen(true)}
-                className={`font-bold hover:underline cursor-pointer text-left sm:text-right ${
-                  isDark ? 'text-gold' : 'text-gold-deep hover:text-slate-950'
+              <Link
+                to="/mino"
+                className={`inline-flex items-center gap-1.5 font-bold hover:underline cursor-pointer text-left sm:text-right transition-colors ${
+                  isDark ? 'text-gold hover:text-gold-hover' : 'text-gold-deep hover:text-slate-950'
                 }`}
               >
-                {lang === 'es' ? 'Acceso Terminal Mino™' : 'Mino™ Terminal Access'}
-              </button>
+                <span>{lang === 'es' ? 'Abrir Mino™ Platform' : 'Open Mino™ Platform'}</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
         </div>
@@ -763,14 +778,14 @@ const MinoSpotlight = () => {
             </div>
 
             <div className="pt-2">
-              <button
-                onClick={() => setIsMinoModalOpen(true)}
-                className={`${
+              <Link
+                to="/mino"
+                className={`inline-flex items-center justify-center ${
                   isDark ? 'btn-gold' : 'btn-primary-light'
                 } !px-8 !py-4 text-sm font-bold shadow-lg`}
               >
                 {spotlight.cta}
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -1033,13 +1048,14 @@ const FinalCTA = () => {
 const Footer = () => {
   const { t, theme, lang, setIsPrivacyModalOpen, setIsContactModalOpen } = useContext(AppContext);
   const isDark = theme === 'dark';
+  const privacySeg = t.footerPrivacySegment;
 
   return (
     <footer className={`py-20 border-t transition-colors duration-300 ${
       isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-white border-slate-200'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
+        <div className="grid md:grid-cols-4 gap-12 mb-14">
           <div className="col-span-2 space-y-6">
             <div 
               className="flex items-center gap-3.5 cursor-pointer group"
@@ -1119,12 +1135,66 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => setIsPrivacyModalOpen(true)} 
-                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
+                  className={`transition-colors font-medium text-left cursor-pointer flex items-center gap-2 group ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
                 >
-                  {lang === 'es' ? 'Políticas de Privacidad' : 'Privacy Policy'}
+                  <FileText className="w-3.5 h-3.5 text-gold opacity-90 group-hover:scale-110 transition-transform" />
+                  <span>{lang === 'es' ? 'Políticas de Privacidad y Habeas Data (PDF)' : 'Privacy Policy & Habeas Data (PDF)'}</span>
                 </button>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Dedicated Regulatory Privacy & Habeas Data Segment */}
+        <div className={`mb-14 p-6 sm:p-8 rounded-2xl border transition-all duration-300 relative overflow-hidden ${
+          isDark 
+            ? 'bg-gradient-to-r from-[#111622]/90 via-[#0d121c]/90 to-[#141b29]/90 border-gold/30 shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
+            : 'bg-gradient-to-r from-slate-50 via-[#fcfaf5] to-slate-50 border-[#E8DCC4] shadow-sm'
+        }`}>
+          <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider ${
+                  isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F4EDE0] text-gold-deep border border-[#E0D2B8]'
+                }`}>
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  {privacySeg?.badge || 'Gobernanza Institucional & Habeas Data'}
+                </span>
+                <span className={`text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded border ${
+                  isDark ? 'border-white/10 text-slate-300 bg-white/5' : 'border-slate-200 text-slate-700 bg-white'
+                }`}>
+                  {privacySeg?.lawTag || 'Ley Estatutaria 1581 de 2012'}
+                </span>
+              </div>
+
+              <h4 className={`text-xl sm:text-2xl font-helvetica font-black tracking-tight ${
+                isDark ? 'text-white' : 'text-slate-950'
+              }`}>
+                {privacySeg?.title || (lang === 'es' ? 'Políticas de Privacidad y Habeas Data' : 'Privacy Policy & Habeas Data')}
+              </h4>
+
+              <p className={`text-sm leading-relaxed ${
+                isDark ? 'text-slate-300' : 'text-slate-700'
+              }`}>
+                {privacySeg?.desc || (lang === 'es'
+                  ? 'Consulte nuestro marco oficial de protección de datos personales y política de Habeas Data conforme a la Ley Estatutaria 1581 de 2012, Decreto 1377 de 2013 y estándares internacionales de privacidad.'
+                  : 'Access our official data protection framework and Habeas Data policy in accordance with Colombian Statutory Law 1581/2012, Decree 1377/2013, and international privacy standards.')}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setIsPrivacyModalOpen(true)}
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-gold to-[#d4af37] hover:from-[#e5c158] hover:to-[#c59e2b] text-black font-bold text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-gold/20 active:scale-95 cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                <span>{privacySeg?.viewPdf || (lang === 'es' ? 'Ver Documento Oficial en PDF' : 'View Official PDF Document')}</span>
+                <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -1132,7 +1202,14 @@ const Footer = () => {
           isDark ? 'border-gold/20 text-gold' : 'border-slate-200 text-black'
         }`}>
           <p className={isDark ? 'text-gold' : 'text-black'}>{t.footerRights}</p>
-          <div className={`flex gap-6 font-semibold ${isDark ? 'text-gold' : 'text-black'}`}>
+          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 font-semibold ${isDark ? 'text-gold' : 'text-black'}`}>
+            <button
+              onClick={() => setIsPrivacyModalOpen(true)}
+              className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity flex items-center gap-1.5"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>{lang === 'es' ? 'Políticas & Habeas Data (PDF)' : 'Privacy & Habeas Data (PDF)'}</span>
+            </button>
             {['LinkedIn', 'Twitter', lang === 'es' ? 'Directorio Mino' : 'Mino Directory'].map(item => (
               <span key={item} className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity">
                 {item}
