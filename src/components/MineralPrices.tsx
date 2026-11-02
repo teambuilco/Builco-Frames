@@ -104,6 +104,8 @@ interface MineralPricesProps {
 
 export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) => {
   const [minerals, setMinerals] = useState<MineralQuote[]>(INITIAL_MINERALS);
+  const [currency, setCurrency] = useState<'USD' | 'COP'>('USD');
+  const [usdToCop, setUsdToCop] = useState<number>(4200);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastSync, setLastSync] = useState<Date>(new Date());
   const [flashMap, setFlashMap] = useState<Record<string, 'up' | 'down'>>({});
@@ -125,17 +127,29 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
     }, 1200);
   }, []);
 
-  // Fetch real-time market spot data from external keyless open endpoints
+  // Fetch real-time market spot data and official TRM exchange rate
   const fetchPrices = useCallback(async (isManual: boolean = false) => {
     if (isManual) setIsLoading(true);
 
     try {
-      // Parallel fetch for Gold, Silver, Platinum from api.gold-api.com
-      const [goldRes, silverRes, platRes] = await Promise.allSettled([
+      // Parallel fetch for Gold, Silver, Platinum and USD/COP exchange rate
+      const [goldRes, silverRes, platRes, fxRes] = await Promise.allSettled([
         fetch('https://api.gold-api.com/price/XAU'),
         fetch('https://api.gold-api.com/price/XAG'),
-        fetch('https://api.gold-api.com/price/XPT')
+        fetch('https://api.gold-api.com/price/XPT'),
+        fetch('https://open.er-api.com/v6/latest/USD')
       ]);
+
+      if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
+        try {
+          const fxData = await fxRes.value.json();
+          if (typeof fxData?.rates?.COP === 'number' && fxData.rates.COP > 3000) {
+            setUsdToCop(Math.round(fxData.rates.COP));
+          }
+        } catch {
+          // keep fallback
+        }
+      }
 
       let liveGoldPrice: number | null = null;
       let liveSilverPrice: number | null = null;
@@ -276,72 +290,116 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
     }
   };
 
-  const formatPrice = (val: number, id: string) => {
+  const formatPrice = (usdVal: number, id: string, curr: 'COP' | 'USD') => {
+    if (curr === 'COP') {
+      const copVal = Math.round(usdVal * usdToCop);
+      return '$ ' + copVal.toLocaleString('es-CO') + ' COP';
+    }
     const decimals = id === 'copper' ? 3 : 2;
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals
-    }).format(val);
+    }).format(usdVal);
+  };
+
+  const formatSecondaryPrice = (usdVal: number, id: string, curr: 'COP' | 'USD') => {
+    if (curr === 'COP') {
+      const decimals = id === 'copper' ? 3 : 2;
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      }).format(usdVal) + ' USD';
+    } else {
+      const copVal = Math.round(usdVal * usdToCop);
+      return '$ ' + copVal.toLocaleString('es-CO') + ' COP';
+    }
   };
 
   return (
-    <div className={`flex flex-col rounded-2xl border transition-all ${
+    <div className={`flex flex-col h-full rounded-2xl border transition-all ${
       isDark 
         ? 'bg-black/50 border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)]' 
         : 'bg-white/80 border-slate-200/90 shadow-sm'
     }`}>
-      {/* Header with Live Automatic Ticker Status */}
-      <div className="flex items-center justify-between px-3.5 py-2.5 border-b border-slate-200/70 dark:border-white/10">
+      {/* Header with Live Automatic Ticker Status & Currency Switcher */}
+      <div className="flex items-center justify-between p-4 border-b border-slate-200/70 dark:border-white/10">
         <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
           </span>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider ${
+              <span className={`text-[11px] font-black uppercase tracking-wider ${
                 isDark ? 'text-white' : 'text-slate-900'
               }`}>
-                {lang === 'es' ? 'Precios Minerales (USD)' : 'Live Mineral Spot (USD)'}
+                {lang === 'es' ? 'Precios Minerales' : 'Live Mineral Spot'}
               </span>
-              <span className="inline-flex items-center gap-1 text-[7.5px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
-                {lang === 'es' ? 'En Vivo' : 'Live'}
+              <span className="inline-flex items-center gap-1 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                {lang === 'es' ? 'Auto • En Vivo' : 'Auto • Live'}
               </span>
             </div>
-            <span className={`text-[7.5px] font-mono tracking-tight block ${
+            <span className={`text-[8px] font-mono tracking-tight block ${
               isDark ? 'text-slate-400' : 'text-slate-500'
             }`}>
-              {lang === 'es' ? 'Sincronizado cada 2.5s' : 'Streamed every 2.5s'}
+              {lang === 'es' 
+                ? `TRM: $${usdToCop.toLocaleString('es-CO')} COP/USD` 
+                : `FX: $${usdToCop.toLocaleString('en-US')} COP/USD`}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
-          <span className={`text-[8.5px] font-mono hidden sm:inline ${
-            isDark ? 'text-slate-400' : 'text-slate-500'
+        <div className="flex items-center gap-2">
+          {/* Currency Toggle Switcher (USD / COP) */}
+          <div className={`flex items-center p-0.5 rounded-lg border text-[9px] font-mono font-bold ${
+            isDark ? 'bg-white/5 border-white/10' : 'bg-slate-100 border-slate-200'
           }`}>
-            {lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-          </span>
+            <button
+              type="button"
+              onClick={() => setCurrency('USD')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                currency === 'USD'
+                  ? (isDark ? 'bg-gold text-slate-950 font-black shadow-xs' : 'bg-white text-slate-950 font-black shadow-xs ring-1 ring-black/5')
+                  : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900')
+              }`}
+            >
+              USD
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrency('COP')}
+              className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
+                currency === 'COP'
+                  ? (isDark ? 'bg-gold text-slate-950 font-black shadow-xs' : 'bg-white text-slate-950 font-black shadow-xs ring-1 ring-black/5')
+                  : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-slate-900')
+              }`}
+            >
+              COP
+            </button>
+          </div>
+
           <button
             onClick={() => fetchPrices(true)}
             disabled={isLoading}
             title={lang === 'es' ? 'Forzar sincronización inmediata' : 'Force immediate sync'}
-            className={`p-1 rounded-md border transition-all cursor-pointer ${
+            className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
               isDark 
                 ? 'bg-white/5 border-white/10 text-slate-300 hover:text-gold hover:bg-white/10' 
                 : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-950 hover:bg-slate-200'
             }`}
           >
-            <RefreshCw className={`w-2.5 h-2.5 ${isLoading ? 'animate-spin text-gold' : ''}`} />
+            <RefreshCw className={`w-3 h-3 ${isLoading ? 'animate-spin text-gold' : ''}`} />
           </button>
         </div>
       </div>
 
       {/* Grid of Minerals with Real-time Tick Flashes */}
-      <div className="p-2 divide-y divide-slate-100 dark:divide-white/5 flex flex-col">
+      <div className="p-3.5 divide-y divide-slate-100 dark:divide-white/5 flex-1 flex flex-col justify-between">
         {minerals.map((m) => {
           const isPositive = m.change24h >= 0;
           const flash = flashMap[m.id];
@@ -349,7 +407,7 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
           return (
             <div 
               key={m.id} 
-              className={`py-1.5 px-2 flex items-center justify-between rounded-lg transition-all duration-300 group ${
+              className={`py-2 px-2.5 flex items-center justify-between rounded-xl transition-all duration-300 group ${
                 flash === 'up'
                   ? (isDark ? 'bg-emerald-500/15 ring-1 ring-emerald-500/30' : 'bg-emerald-50 ring-1 ring-emerald-300')
                   : flash === 'down'
@@ -357,26 +415,26 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
                   : 'hover:bg-slate-500/5'
               }`}
             >
-              <div className="flex items-center gap-2">
-                <div className={`p-1 rounded-md border transition-colors ${
+              <div className="flex items-center gap-2.5">
+                <div className={`p-1.5 rounded-lg border transition-colors ${
                   isDark ? 'bg-white/5 border-white/10' : 'bg-[#F9F6F0] border-[#E8DCC4]'
                 }`}>
                   {renderIcon(m.iconType)}
                 </div>
                 <div>
-                  <div className="flex items-center gap-1">
-                    <span className={`text-[11px] font-bold leading-none ${
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-xs font-bold leading-none ${
                       isDark ? 'text-white' : 'text-slate-900'
                     }`}>
                       {lang === 'es' ? m.nameEs : m.nameEn}
                     </span>
-                    <span className={`text-[8px] font-mono font-semibold px-1 py-0.2 rounded ${
+                    <span className={`text-[9px] font-mono font-semibold px-1 py-0.5 rounded ${
                       isDark ? 'bg-white/10 text-gold-light' : 'bg-slate-100 text-slate-600'
                     }`}>
                       {m.symbol}
                     </span>
                   </div>
-                  <span className={`text-[8px] tracking-tight block mt-0.5 ${
+                  <span className={`text-[9px] tracking-tight block mt-0.5 ${
                     isDark ? 'text-slate-500' : 'text-slate-600'
                   }`}>
                     {m.benchmark}
@@ -386,32 +444,40 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
 
               <div className="text-right">
                 <div className="flex items-baseline justify-end gap-1">
-                  <span className={`text-xs font-mono font-bold tracking-tight transition-colors duration-200 ${
+                  <span className={`text-xs sm:text-sm font-mono font-bold tracking-tight transition-colors duration-200 ${
                     flash === 'up'
                       ? 'text-emerald-500 font-extrabold scale-105 inline-block origin-right'
                       : flash === 'down'
                       ? 'text-rose-500 font-extrabold scale-105 inline-block origin-right'
                       : (isDark ? 'text-white' : 'text-slate-950')
                   }`}>
-                    {formatPrice(m.price, m.id)}
+                    {formatPrice(m.price, m.id, currency)}
                   </span>
-                  <span className={`text-[8px] font-mono ${
+                  <span className={`text-[9px] font-mono ${
                     isDark ? 'text-slate-400' : 'text-slate-600'
                   }`}>
                     /{lang === 'es' ? m.unitEs : m.unitEn}
                   </span>
                 </div>
-                <div className="flex items-center justify-end gap-1 mt-0.5">
-                  {isPositive ? (
-                    <TrendingUp className="w-2 h-2 text-emerald-500" />
-                  ) : (
-                    <TrendingDown className="w-2 h-2 text-rose-500" />
-                  )}
-                  <span className={`text-[8.5px] font-mono font-semibold ${
-                    isPositive ? 'text-emerald-500' : 'text-rose-500'
+                <div className="flex items-center justify-end gap-1.5 mt-0.5">
+                  <span className={`text-[9px] font-mono font-medium ${
+                    isDark ? 'text-gold/90' : 'text-gold-deep'
                   }`}>
-                    {isPositive ? '+' : ''}{m.change24h.toFixed(2)}%
+                    ≈ {formatSecondaryPrice(m.price, m.id, currency)}
                   </span>
+                  <span className="text-[8px] opacity-30">•</span>
+                  <div className="flex items-center gap-0.5">
+                    {isPositive ? (
+                      <TrendingUp className="w-2.5 h-2.5 text-emerald-500" />
+                    ) : (
+                      <TrendingDown className="w-2.5 h-2.5 text-rose-500" />
+                    )}
+                    <span className={`text-[9px] font-mono font-semibold ${
+                      isPositive ? 'text-emerald-500' : 'text-rose-500'
+                    }`}>
+                      {isPositive ? '+' : ''}{m.change24h.toFixed(2)}%
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -420,17 +486,17 @@ export const MineralPrices: React.FC<MineralPricesProps> = ({ isDark, lang }) =>
       </div>
 
       {/* Footer Info with Auto-Update Confirmation */}
-      <div className={`p-1.5 px-3 border-t text-[8px] flex items-center justify-between ${
+      <div className={`p-2.5 px-3.5 border-t text-[9px] flex items-center justify-between ${
         isDark ? 'border-white/10 bg-white/2 text-slate-400' : 'border-slate-200/70 bg-slate-50/50 text-slate-600'
       }`}>
-        <div className="flex items-center gap-1">
-          <Zap className="w-2.5 h-2.5 text-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-1.5">
+          <Zap className="w-3 h-3 text-emerald-500 animate-pulse" />
           <span className="font-semibold text-emerald-600 dark:text-emerald-400">
-            {lang === 'es' ? 'Transmisión continua activa' : 'Auto-streaming active'}
+            {lang === 'es' ? 'Cotización dual COP / USD en tiempo real' : 'Dual COP / USD live quotes'}
           </span>
         </div>
-        <span className="font-mono text-[7.5px] uppercase tracking-wider opacity-75">
-          USD • SPOT 24/7
+        <span className="font-mono text-[8px] uppercase tracking-wider opacity-75">
+          TRM: ${usdToCop.toLocaleString('es-CO')} • SPOT 24/7
         </span>
       </div>
     </div>

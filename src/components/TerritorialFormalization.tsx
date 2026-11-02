@@ -50,7 +50,7 @@ export const TerritorialFormalization = () => {
           sustainability: "Programas de apicultura en zonas de exclusión minera, reforestación de riberas y seguridad alimentaria local.",
           stats: [
             { label: "Familias con Ingresos Bancarizados", value: "+820" },
-            { label: "Hectáreas en Reforestación Activa", value: "340 ha" },
+            { label: "Hectáreas en Reforestación Activa", value: "+40 ha" },
             { label: "Tasa de Cumplimiento Regulatorio", value: "99.2%" }
           ]
         },
@@ -119,7 +119,7 @@ export const TerritorialFormalization = () => {
           sustainability: "Apiculture and honey production in mining exclusion corridors, riparian reforesting, and food security.",
           stats: [
             { label: "Banked Households with Clean Income", value: "+820" },
-            { label: "Active Reforestation Corridors", value: "340 ha" },
+            { label: "Active Reforestation Corridors", value: "+40 ha" },
             { label: "Regulatory Compliance Rate", value: "99.2%" }
           ]
         },

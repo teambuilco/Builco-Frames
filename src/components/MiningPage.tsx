@@ -103,13 +103,27 @@ const MiningPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`p-8 border rounded-2xl transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200/80 shadow-xs hover:border-[#926E24]/30'}`}
+                className={`p-8 border rounded-2xl transition-all duration-300 cursor-default group hover:-translate-y-1.5 ${
+                  theme === 'dark' 
+                    ? 'bg-white/5 border-white/10 hover:bg-white/[0.08] hover:border-gold/60 hover:shadow-[0_16px_40px_rgba(229,184,108,0.18)] hover:ring-1 hover:ring-gold/30' 
+                    : 'bg-white border-slate-200/80 shadow-xs hover:border-[#926E24]/60 hover:shadow-[0_16px_40px_rgba(146,110,36,0.14)] hover:ring-1 hover:ring-[#926E24]/20'
+                }`}
               >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'}`}>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${
+                  theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                }`}>
                   {feature.icon}
                 </div>
-                <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
-                <p className={`text-sm ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{feature.desc}</p>
+                <h4 className={`text-xl font-bold mb-2 transition-colors duration-200 ${
+                  theme === 'dark' ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
+                }`}>
+                  {feature.title}
+                </h4>
+                <p className={`text-sm transition-colors duration-200 ${
+                  theme === 'dark' ? 'text-white/40 group-hover:text-white/70' : 'text-slate-500 group-hover:text-slate-700'
+                }`}>
+                  {feature.desc}
+                </p>
               </motion.div>
             ))}
           </div>

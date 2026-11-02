@@ -29,7 +29,7 @@ export const translations = {
         {
           id: "mining",
           industry: "Mining & Critical Minerals",
-          hubs: "Bogotá, Sur de Córdoba, Bajo Cauca Antioqueño",
+          hubs: "Sur de Córdoba ↔ Bajo Cauca Antioqueño",
           focus: "Gold, Concessions & Regulation",
           security: "Active Advisory",
           milestones: [
@@ -41,7 +41,7 @@ export const translations = {
         {
           id: "energy",
           industry: "Energy Transition & Infrastructure",
-          hubs: "Medellín ↔ Houston ↔ Zurich",
+          hubs: "Medellín ↔ Chocó",
           focus: "Grid Modernization, Solar & Green H2",
           security: "Sovereign Framework • Active Advisory",
           milestones: [
@@ -53,7 +53,7 @@ export const translations = {
         {
           id: "government",
           industry: "Government & Public Relations",
-          hubs: "Bogotá ↔ Washington DC ↔ CDMX",
+          hubs: "Bogotá",
           focus: "Bilateral Alliances & Regulatory Navigation",
           security: "High Protocol • Institutional Clearance",
           milestones: [
@@ -149,10 +149,10 @@ export const translations = {
       name: 'Full Name',
       email: 'Institutional Email',
       message: 'Strategic Inquiry',
-      submit: 'Send Inquiry',
-      successTitle: 'Inquiry Received',
-      successMessage: 'Our strategy team has received your message. A partner will contact you shortly to discuss your requirements.',
-      close: 'Close'
+      successTitle: 'Inquiry Submitted',
+      successMessage: 'You will be contacted in the coming days.',
+      close: 'Return to Home',
+      redirecting: 'Returning to home page in a few moments...'
     },
     privacy: {
       title: 'Habeas Data & Privacy Policy',
@@ -229,7 +229,7 @@ export const translations = {
         {
           id: "mining",
           industry: "Minería y Minerales Críticos",
-          hubs: "Bogotá, Sur de Córdoba, Bajo Cauca Antioqueño",
+          hubs: "Sur de Córdoba ↔ Bajo Cauca Antioqueño",
           focus: "Oro, concesiones y regulación",
           security: "Asesoría Activa",
           milestones: [
@@ -241,7 +241,7 @@ export const translations = {
         {
           id: "energy",
           industry: "Transición Energética e Infraestructura",
-          hubs: "Medellín ↔ Houston ↔ Zúrich",
+          hubs: "Medellín ↔ Chocó",
           focus: "Modernización de Red, Solar e Hidrógeno Verde",
           security: "Marco Soberano • Asesoría Activa",
           milestones: [
@@ -253,7 +253,7 @@ export const translations = {
         {
           id: "government",
           industry: "Gobierno y Relaciones Públicas",
-          hubs: "Bogotá ↔ Washington DC ↔ CDMX",
+          hubs: "Bogotá",
           focus: "Alianzas Bilaterales y Navegación Regulatoria",
           security: "Alto Protocolo • Autorización Institucional",
           milestones: [
@@ -350,9 +350,10 @@ export const translations = {
       email: 'Correo Institucional',
       message: 'Consulta Estratégica',
       submit: 'Enviar Consulta',
-      successTitle: 'Consulta Recibida',
-      successMessage: 'Nuestro equipo estratégico ha recibido su mensaje. Un socio se pondrá en contacto con usted a la brevedad para discutir sus requerimientos.',
-      close: 'Cerrar'
+      successTitle: 'Requerimiento Enviado',
+      successMessage: 'Se le contactará en los próximos días.',
+      close: 'Volver al Inicio',
+      redirecting: 'Redirigiendo a la página de inicio...'
     },
     privacy: {
       title: 'Habeas Data y Política de Privacidad',

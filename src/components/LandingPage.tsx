@@ -225,7 +225,7 @@ const StrategicDivisions = () => {
     {
       id: "mining",
       industry: lang === 'es' ? "Minería y Minerales Críticos" : "Mining & Critical Minerals",
-      hubs: "Bogotá, Sur de Córdoba, Bajo Cauca Antioqueño",
+      hubs: "Sur de Córdoba ↔ Bajo Cauca Antioqueño",
       focus: lang === 'es' ? "Oro, concesiones y regulación" : "Gold, Concessions & Regulation",
       security: lang === 'es' ? "Asesoría Activa" : "Active Advisory",
       milestones: [
@@ -246,7 +246,7 @@ const StrategicDivisions = () => {
     {
       id: "energy",
       industry: lang === 'es' ? "Transición Energética e Infraestructura" : "Clean Energy & Infrastructure",
-      hubs: "Medellín ↔ Houston ↔ Zúrich",
+      hubs: "Medellín ↔ Chocó",
       focus: lang === 'es' ? "Modernización de Red, Solar e H2" : "Grid Expansion, Solar & Green H2",
       security: lang === 'es' ? "Marco Soberano • Asesoría Activa" : "Sovereign Framework • Active",
       milestones: [
@@ -267,7 +267,7 @@ const StrategicDivisions = () => {
     {
       id: "government",
       industry: lang === 'es' ? "Gobierno y Relaciones Públicas" : "Government & Public Relations",
-      hubs: "Bogotá ↔ Washington DC ↔ CDMX",
+      hubs: "Bogotá",
       focus: lang === 'es' ? "Alianzas Bilaterales y Navegación Regulatoria" : "Bilateral Pacts & Regulatory Navigation",
       security: lang === 'es' ? "Alto Protocolo • Autorización Institucional" : "High Protocol • Institutional Clearance",
       milestones: [
@@ -288,6 +288,7 @@ const StrategicDivisions = () => {
   ];
 
   const activeCorridor = corridors[activeCorridorIdx] || corridors[0];
+  const isMining = activeCorridor.id === 'mining';
 
   const corridorLinks: Record<string, string> = {
     mining: '/mining',
@@ -377,13 +378,19 @@ const StrategicDivisions = () => {
                 <span className={`text-[10px] font-extrabold tracking-widest uppercase ${
                   isDark ? 'text-gold/90' : 'text-gold-deep'
                 }`}>
-                  {t.corridorWidget?.tag || (lang === 'es' ? "TELEMETRÍA ESTRATÉGICA & PRECIOS MINERALES EN VIVO" : "STRATEGIC TELEMETRY & LIVE MINERAL COMMODITIES")}
+                  {isMining 
+                    ? (t.corridorWidget?.tag || (lang === 'es' ? "TELEMETRÍA ESTRATÉGICA & PRECIOS MINERALES EN VIVO (COP / USD)" : "STRATEGIC TELEMETRY & LIVE MINERAL COMMODITIES (COP / USD)"))
+                    : (lang === 'es' ? "TELEMETRÍA ESTRATÉGICA & DESPLIEGUE OPERATIVO" : "STRATEGIC TELEMETRY & FIELD OPERATIONS")
+                  }
                 </span>
               </div>
               <span className={`text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider ${
                 isDark ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
               }`}>
-                {t.corridorWidget?.status || (lang === 'es' ? "ENLACE USD ACTIVO" : "LIVE USD FEED")}
+                {isMining 
+                  ? (t.corridorWidget?.status || (lang === 'es' ? "ENLACE COP / USD ACTIVO" : "LIVE COP / USD FEED"))
+                  : (lang === 'es' ? "CORREDOR ACTIVO" : "ACTIVE CORRIDOR")
+                }
               </span>
             </div>
 
@@ -413,20 +420,29 @@ const StrategicDivisions = () => {
                       }`} />
                       <span className="text-xs font-bold tracking-tight">{c.industry}</span>
                     </div>
-                    <span className={`text-[10px] font-mono font-medium ${
+                    <span className={`text-[10px] font-mono font-medium truncate ${
                       isActive ? (isDark ? 'text-gold' : 'text-gold-deep') : 'opacity-60'
-                    }`}>
-                      {c.hubs.split(/[,↔]/)[0].trim()}
+                    }`} title={c.hubs}>
+                      {c.hubs}
                     </span>
                   </button>
                 );
               })}
             </div>
 
-            {/* Main Interactive Grid: Active Corridor + Live Minerals Column */}
-            <div className="grid lg:grid-cols-12 gap-6 relative z-10 items-start">
-              {/* Active Corridor Card Display */}
-              <div className={`lg:col-span-7 xl:col-span-8 p-6 rounded-2xl border flex flex-col justify-between transition-all ${
+            {/* Main Interactive Grid: Live Minerals Column (Left, Mining Only) + Active Corridor */}
+            <div className="grid lg:grid-cols-12 gap-6 relative z-10 items-stretch">
+              {/* Live Mineral Prices Column (USD) - Left Side (Visible ONLY when Minería y Minerales Críticos is active) */}
+              {isMining && (
+                <div className="lg:col-span-5 xl:col-span-5 w-full flex flex-col">
+                  <MineralPrices isDark={isDark} lang={lang} />
+                </div>
+              )}
+
+              {/* Active Corridor Card Display - Expands to full width (12 cols) when not in Mining */}
+              <div className={`${
+                isMining ? 'lg:col-span-7 xl:col-span-7' : 'lg:col-span-12'
+              } p-6 sm:p-8 rounded-2xl border flex flex-col justify-between transition-all h-full ${
                 isDark 
                   ? 'bg-black/40 border-white/10' 
                   : 'bg-slate-50/80 border-slate-200/80'
@@ -474,11 +490,11 @@ const StrategicDivisions = () => {
                         </span>
                       </div>
 
-                      <div className="space-y-2">
+                      <div className={`grid ${!isMining ? 'grid-cols-1 md:grid-cols-3 gap-4' : 'grid-cols-1 space-y-2'}`}>
                         {activeCorridor.milestones.map((m: any, mIdx: number) => (
                           <div 
                             key={mIdx}
-                            className={`p-2.5 rounded-xl border transition-all ${
+                            className={`p-3 rounded-xl border transition-all ${
                               isDark 
                                 ? 'bg-white/3 border-white/8 hover:border-gold/30 hover:bg-white/5' 
                                 : 'bg-white border-slate-200/80 hover:border-[#926E24]/30 shadow-xs'
@@ -496,7 +512,7 @@ const StrategicDivisions = () => {
                                 }`}>
                                   {m.title}
                                 </h4>
-                                <p className={`text-[11px] leading-relaxed mt-0.5 ${
+                                <p className={`text-[11px] leading-relaxed mt-1 ${
                                   isDark ? 'text-slate-400' : 'text-slate-600'
                                 }`}>
                                   {m.desc}
@@ -531,17 +547,15 @@ const StrategicDivisions = () => {
                   </Link>
                 </div>
               </div>
-
-              {/* Live Mineral Prices Column (USD) - Compact layout */}
-              <div className="lg:col-span-5 xl:col-span-4 w-full">
-                <MineralPrices isDark={isDark} lang={lang} />
-              </div>
             </div>
 
             {/* Console Footnote */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-6 pt-4 border-t border-slate-200/80 dark:border-white/10 text-[10px] relative z-10">
               <span className={isDark ? 'text-slate-400' : 'text-slate-600 font-medium'}>
-                {lang === 'es' ? 'Cifrado Institucional Zero-Trust • Datos de Commodities en Tiempo Real (USD)' : 'Zero-Trust Institutional Encryption • Real-Time Commodities Feed (USD)'}
+                {isMining 
+                  ? (lang === 'es' ? 'Cifrado Institucional Zero-Trust • Datos de Commodities en Tiempo Real (USD)' : 'Zero-Trust Institutional Encryption • Real-Time Commodities Feed (USD)')
+                  : (lang === 'es' ? 'Cifrado Institucional Zero-Trust • Monitoreo y Supervisión de Corredores en Tiempo Real' : 'Zero-Trust Institutional Encryption • Real-Time Corridor Tracking & Supervision')
+                }
               </span>
               <button
                 onClick={() => setIsMinoModalOpen(true)}

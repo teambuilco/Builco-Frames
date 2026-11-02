@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Send, CheckCircle2, Mail, User, MessageSquare, Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../lib/firebase';
@@ -57,6 +58,7 @@ export const ContactModal: React.FC = () => {
   const { theme, t, isContactModalOpen, setIsContactModalOpen } = useContext(AppContext);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
   
   const onClose = () => setIsContactModalOpen(false);
   const [formData, setFormData] = useState({
@@ -66,6 +68,16 @@ export const ContactModal: React.FC = () => {
   });
   
   const ct = t.contactForm;
+
+  const handleRedirectHome = () => {
+    onClose();
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({ name: '', email: '', message: '' });
+    }, 300);
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,7 +106,20 @@ export const ContactModal: React.FC = () => {
     }, 300);
   };
 
-  React.useEffect(() => {
+  // Auto-redirect to home page after 3.5 seconds on successful submission
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isSubmitted && isContactModalOpen) {
+      timer = setTimeout(() => {
+        handleRedirectHome();
+      }, 3500);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [isSubmitted, isContactModalOpen]);
+
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isContactModalOpen) {
         handleClose();
@@ -237,32 +262,50 @@ export const ContactModal: React.FC = () => {
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-16 text-center space-y-8"
+                className="p-10 md:p-14 text-center space-y-6"
               >
-                <div className={`w-24 h-24 rounded-full mx-auto flex items-center justify-center ${theme === 'dark' ? 'bg-gold/20' : 'bg-gold-soft'}`}>
-                  <CheckCircle2 className={`w-12 h-12 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
+                <div className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center ${theme === 'dark' ? 'bg-gold/20 ring-4 ring-gold/10' : 'bg-[#F9F6F0] ring-4 ring-[#926E24]/10'}`}>
+                  <CheckCircle2 className={`w-10 h-10 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
                 </div>
-                <div className="space-y-4">
-                  <h2 className={`text-4xl font-black uppercase tracking-tighter ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                <div className="space-y-3">
+                  <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                     {ct.successTitle}
                   </h2>
-                  <p className={`text-lg font-medium leading-relaxed max-w-sm mx-auto ${theme === 'dark' ? 'text-white/60' : 'text-slate-500'}`}>
+                  <p className={`text-base md:text-lg font-medium leading-relaxed max-w-md mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
                     {ct.successMessage}
                   </p>
                 </div>
-                <button 
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleClose();
-                  }}
-                  className={`px-12 py-5 font-black uppercase tracking-widest text-sm rounded-xl transition-all cursor-pointer ${
-                    theme === 'dark' ? 'btn-gold' : 'btn-primary-light'
-                  }`}
-                >
-                  {ct.close}
-                </button>
+
+                {/* Auto-redirect visual progress bar */}
+                <div className="pt-2 max-w-xs mx-auto">
+                  <p className={`text-[11px] font-mono mb-2 ${theme === 'dark' ? 'text-gold/80' : 'text-[#7E5E1A]'}`}>
+                    {ct.redirecting || 'Redirigiendo a la página de inicio...'}
+                  </p>
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-slate-200'}`}>
+                    <motion.div 
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 3.5, ease: "linear" }}
+                      className={`h-full rounded-full ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button 
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleRedirectHome();
+                    }}
+                    className={`px-10 py-4 font-black uppercase tracking-widest text-xs rounded-xl transition-all cursor-pointer shadow-lg active:scale-95 ${
+                      theme === 'dark' ? 'btn-gold' : 'btn-primary-light'
+                    }`}
+                  >
+                    {ct.close}
+                  </button>
+                </div>
               </motion.div>
             )}
           </motion.div>
