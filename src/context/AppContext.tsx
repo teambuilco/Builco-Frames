@@ -45,7 +45,7 @@ export const translations = {
           focus: "Grid Modernization, Solar & Green H2",
           security: "Sovereign Framework • Active Advisory",
           milestones: [
-            { title: "Just Energy Transition", desc: "Solar park and green hydrogen corridors structured with community alignment." },
+            { title: "Solar Park Deployment & Solar Project Management", desc: "End-to-end structuring, environmental permitting, land management, and EPC/O&M supervision for utility-scale photovoltaic plants and resilient clean energy microgrids." },
             { title: "Grid Modernization & Resilience", desc: "High-capacity transmission lines integrated into regional energy markets." },
             { title: "Self-Sustaining Green Capital", desc: "Surplus generation reinvested into decentralized local productive autonomy." }
           ]
@@ -253,7 +253,7 @@ export const translations = {
           focus: "Modernización de Red, Solar e Hidrógeno Verde",
           security: "Marco Soberano • Asesoría Activa",
           milestones: [
-            { title: "Transición Energética Justa", desc: "Despliegue de parques solares y corredores de hidrógeno verde con licencia social activa." },
+            { title: "Despliegue de parques solares y gestión de proyectos solares", desc: "Estructuración integral, ingeniería, licenciamiento ambiental, gestión predial y supervisión EPC/O&M para plantas fotovoltaicas a gran escala y microrredes energéticas sostenibles." },
             { title: "Modernización de Red e Interconexión", desc: "Líneas de transmisión de alta capacidad integradas a mercados regionales." },
             { title: "Fondos de Desarrollo Autosostenible", desc: "Reinversión de excedentes en autonomía productiva local y descarbonización." }
           ]

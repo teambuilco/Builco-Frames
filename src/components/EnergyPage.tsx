@@ -20,7 +20,7 @@ const EnergyPage = () => {
     connectionSub: 'Puente estratégico para el mercado energético',
     connectionText: 'Actuamos como el catalizador esencial que conecta a proveedores de tecnología y servicios con los clientes finales y desarrolladores de proyectos. Facilitamos acuerdos comerciales sólidos y colaboraciones a largo plazo que fortalecen la infraestructura energética del país.',
     features: [
-      { title: 'Desarrollo de Proyectos', desc: 'Acompañamiento en todas las fases del ciclo de vida del proyecto.', icon: <PlugZap className="w-6 h-6" /> },
+      { title: 'Despliegue y Gestión de Proyectos Solares', desc: 'Despliegue de parques solares y estructuración integral en todas las fases del ciclo de vida del proyecto.', icon: <PlugZap className="w-6 h-6" /> },
       { title: 'Red de Proveedores', desc: 'Acceso a una base seleccionada de proveedores de élite.', icon: <Users className="w-6 h-6" /> },
       { title: 'Marco Regulatorio', desc: 'Navegación experta en el panorama legal y gubernamental.', icon: <Landmark className="w-6 h-6" /> }
     ]
@@ -35,7 +35,7 @@ const EnergyPage = () => {
     connectionSub: 'Strategic bridge for the energy market',
     connectionText: 'We act as the essential catalyst that connects technology and service providers with end clients and project developers. We facilitate solid commercial agreements and long-term collaborations that strengthen the country\'s energy infrastructure.',
     features: [
-      { title: 'Project Development', desc: 'Support in all phases of the project life cycle.', icon: <PlugZap className="w-6 h-6" /> },
+      { title: 'Solar Project Deployment & Management', desc: 'Solar park deployment and end-to-end support across all project lifecycle phases.', icon: <PlugZap className="w-6 h-6" /> },
       { title: 'Supplier Network', desc: 'Access to a selected base of elite suppliers.', icon: <Users className="w-6 h-6" /> },
       { title: 'Regulatory Framework', desc: 'Expert navigation of the legal and government landscape.', icon: <Landmark className="w-6 h-6" /> }
     ]

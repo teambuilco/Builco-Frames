@@ -252,8 +252,8 @@ const StrategicDivisions = () => {
       security: lang === 'es' ? "Marco Soberano • Asesoría Activa" : "Sovereign Framework • Active",
       milestones: [
         { 
-          title: lang === 'es' ? "Transición Energética Justa" : "Just Energy Transition", 
-          desc: lang === 'es' ? "Parques solares y corredores de hidrógeno verde con licencia comunitaria." : "Solar farm and green hydrogen corridors with community compacts." 
+          title: lang === 'es' ? "Despliegue de parques solares y gestión de proyectos solares" : "Solar Park Deployment & Solar Project Management", 
+          desc: lang === 'es' ? "Estructuración integral, ingeniería, licenciamiento ambiental, gestión predial y supervisión EPC/O&M para plantas fotovoltaicas a gran escala y microrredes energéticas sostenibles." : "End-to-end structuring, environmental permitting, land management, and EPC/O&M supervision for utility-scale photovoltaic plants and resilient clean energy microgrids." 
         },
         { 
           title: lang === 'es' ? "Modernización de Red" : "Grid Modernization", 
