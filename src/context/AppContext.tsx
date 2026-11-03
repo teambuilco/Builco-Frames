@@ -42,7 +42,7 @@ export const translations = {
           id: "energy",
           industry: "Energy Transition & Infrastructure",
           hubs: "Medellín ↔ Chocó",
-          focus: "Grid Modernization, Solar & Green H2",
+          focus: "Grid Modernization & Solar Energy",
           security: "Sovereign Framework • Active Advisory",
           milestones: [
             { title: "Solar Park Deployment & Solar Project Management", desc: "End-to-end structuring, environmental permitting, land management, and EPC/O&M supervision for utility-scale photovoltaic plants and resilient clean energy microgrids." },
@@ -250,7 +250,7 @@ export const translations = {
           id: "energy",
           industry: "Transición Energética e Infraestructura",
           hubs: "Medellín ↔ Chocó",
-          focus: "Modernización de Red, Solar e Hidrógeno Verde",
+          focus: "Modernización de Red y Energía Solar",
           security: "Marco Soberano • Asesoría Activa",
           milestones: [
             { title: "Despliegue de parques solares y gestión de proyectos solares", desc: "Estructuración integral, ingeniería, licenciamiento ambiental, gestión predial y supervisión EPC/O&M para plantas fotovoltaicas a gran escala y microrredes energéticas sostenibles." },

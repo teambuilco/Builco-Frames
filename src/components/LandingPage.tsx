@@ -248,7 +248,7 @@ const StrategicDivisions = () => {
       id: "energy",
       industry: lang === 'es' ? "Transición Energética e Infraestructura" : "Clean Energy & Infrastructure",
       hubs: "Medellín ↔ Chocó",
-      focus: lang === 'es' ? "Modernización de Red, Solar e H2" : "Grid Expansion, Solar & Green H2",
+      focus: lang === 'es' ? "Modernización de Red y Energía Solar" : "Grid Expansion & Solar Energy",
       security: lang === 'es' ? "Marco Soberano • Asesoría Activa" : "Sovereign Framework • Active",
       milestones: [
         { 
