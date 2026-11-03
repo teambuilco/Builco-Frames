@@ -61,10 +61,10 @@ const Navbar = () => {
             className="flex items-center gap-3.5 group cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <div className={`p-1.5 rounded-xl transition-transform duration-300 group-hover:scale-105 ${
-              theme === 'dark' ? 'bg-gold/10' : 'bg-black shadow-sm'
+            <div className={`p-1.5 sm:p-2 rounded-xl transition-all duration-300 group-hover:scale-105 flex items-center justify-center ${
+              theme === 'dark' ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-black shadow-md border border-neutral-800'
             }`}>
-              <Logo className="w-8 h-8 text-gold" />
+              <Logo className="w-8 h-8 sm:w-9 sm:h-9" />
             </div>
             <div className="flex flex-col">
               <span className={`text-xl font-helvetica font-bold tracking-tight transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-950'}`}>

@@ -395,8 +395,8 @@ const MinoPage = () => {
                 className="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 pointer-events-none select-none"
                 aria-label="Watermark Mino Logo"
               >
-                <div className="flex items-center gap-2.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-2xl bg-black/55 backdrop-blur-md border border-white/20 shadow-2xl">
-                  <Logo className="w-6 h-6 sm:w-7 sm:h-7 text-gold drop-shadow-[0_2px_10px_rgba(212,175,55,0.6)]" />
+                <div className="flex items-center gap-2.5 px-3.5 sm:px-4 py-2 rounded-2xl bg-black/65 backdrop-blur-md border border-white/20 shadow-2xl">
+                  <Logo className="w-7 h-7 sm:w-8 sm:h-8 drop-shadow-[0_2px_10px_rgba(212,175,55,0.7)]" />
                   <div className="flex flex-col text-left">
                     <span className="text-[10px] sm:text-[11px] font-helvetica font-black tracking-widest uppercase text-white/95 leading-none">
                       MINO<span className="text-gold">™</span>
@@ -864,7 +864,7 @@ const MinoPage = () => {
                 <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 transition-all ${
                   isDark ? 'bg-gold/10 border border-gold/20' : 'bg-[#F9F6F0] border border-[#E8DCC4]'
                 }`}>
-                  <Logo className={`w-10 h-10 ${isDark ? 'text-gold' : 'text-gold-deep'}`} />
+                  <Logo className="w-11 h-11 drop-shadow-sm" />
                 </div>
                 <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${
                   isDark ? 'text-white' : 'text-slate-900'

@@ -105,12 +105,12 @@ const Hero = () => {
           <h1 className={`text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold leading-[1.08] tracking-tight mb-6 transition-colors ${
             isDark ? 'text-white' : 'text-slate-950'
           }`}>
-            <span className={`group/logo relative inline-flex items-center align-middle mr-3 -mt-1 p-2 sm:p-2.5 rounded-2xl cursor-pointer select-none overflow-hidden transition-all duration-300 ease-out active:scale-95 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 before:ease-in-out before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:pointer-events-none bg-black shadow-md ${
+            <span className={`group/logo relative inline-flex items-center justify-center align-middle mr-3 sm:mr-4 -mt-1 p-2 sm:p-2.5 rounded-2xl cursor-pointer select-none overflow-hidden transition-all duration-300 ease-out active:scale-95 before:absolute before:inset-0 before:-translate-x-full hover:before:translate-x-full before:transition-transform before:duration-700 before:ease-in-out before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:pointer-events-none bg-black shadow-lg ${
               isDark 
                 ? 'border border-gold/30 hover:border-gold/60 hover:shadow-[0_0_35px_rgba(229,184,108,0.4)]' 
-                : 'border border-black hover:border-neutral-800 hover:shadow-[0_0_24px_rgba(0,0,0,0.35)]'
+                : 'border border-neutral-900 hover:border-black hover:shadow-[0_0_24px_rgba(0,0,0,0.35)]'
             }`}>
-              <Logo className="w-9 h-9 sm:w-12 sm:h-12 text-gold transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover/logo:scale-115 group-hover/logo:rotate-6 group-hover/logo:drop-shadow-[0_0_16px_rgba(229,184,108,0.7)]" />
+              <Logo className="w-10 h-10 sm:w-13 sm:h-13 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform group-hover/logo:scale-110 group-hover/logo:rotate-3 drop-shadow-[0_2px_12px_rgba(212,175,55,0.5)]" />
             </span>
             {t.heroTitle}
             <span className={isDark ? 'text-gold' : 'text-gold-deep'}>{t.heroTitleHighlight}</span>
@@ -1061,8 +1061,10 @@ const Footer = () => {
               className="flex items-center gap-3.5 cursor-pointer group"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <div className={`p-1.5 rounded-xl ${isDark ? 'bg-gold/10' : 'bg-black shadow-sm'}`}>
-                <Logo className="w-8 h-8 text-gold" />
+              <div className={`p-1.5 sm:p-2 rounded-xl transition-all duration-300 group-hover:scale-105 flex items-center justify-center ${
+                isDark ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-black shadow-md border border-neutral-800'
+              }`}>
+                <Logo className="w-8 h-8 sm:w-9 sm:h-9" />
               </div>
               <div className="flex flex-col">
                 <span className={`text-xl font-helvetica font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
