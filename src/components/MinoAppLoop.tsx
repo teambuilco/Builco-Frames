@@ -388,7 +388,7 @@ export const MinoAppLoop = () => {
                 <div className={`p-3 rounded-xl border ${isDark ? 'bg-white/4 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
                   <span className="text-[9px] font-mono text-slate-400 uppercase block mb-1">04. DESTINO</span>
                   <span className={`text-xs font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>Bóveda Comercial</span>
-                  <span className="text-[10px] font-mono text-gold">Precinto #BR-9941</span>
+                  <span className="text-[10px] font-mono text-gold">Medellín, Antioquia</span>
                 </div>
               </div>
 

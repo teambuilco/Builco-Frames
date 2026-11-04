@@ -49,7 +49,7 @@ export const TerritorialFormalization = () => {
           techIntervention: "Plantas piloto comunitarias de beneficio cerrado con circuito cerrado de agua y energía fotovoltaica híbrida.",
           sustainability: "Programas de apicultura en zonas de exclusión minera, reforestación de riberas y seguridad alimentaria local.",
           stats: [
-            { label: "Familias con Ingresos Bancarizados", value: "+100" },
+            { label: "Familias con Ingresos Bancarizados*", value: "+20" },
             { label: "Hectáreas en Reforestación Activa", value: "+40 ha" },
             { label: "Tasa de Cumplimiento Regulatorio", value: "99.2%" }
           ]
@@ -118,7 +118,7 @@ export const TerritorialFormalization = () => {
           techIntervention: "Community-operated closed-circuit recovery plants with 100% water recirculation and hybrid solar power.",
           sustainability: "Apiculture and honey production in mining exclusion corridors, riparian reforesting, and food security.",
           stats: [
-            { label: "Banked Households with Clean Income", value: "+100" },
+            { label: "Banked Households with Clean Income*", value: "+20" },
             { label: "Active Reforestation Corridors", value: "+40 ha" },
             { label: "Regulatory Compliance Rate", value: "99.2%" }
           ]
@@ -471,6 +471,15 @@ export const TerritorialFormalization = () => {
                 </div>
               ))}
             </div>
+            {activeRegion.stats.some((st: any) => st.label.includes('*')) && (
+              <div className="mt-2.5 px-2 text-right">
+                <span className={`text-[10px] font-mono ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
+                  {lang === 'es' 
+                    ? '* Cifra correspondiente a la primera fase del programa piloto territorial.' 
+                    : '* Figure corresponds to phase one of the territorial pilot program.'}
+                </span>
+              </div>
+            )}
           </motion.div>
         </AnimatePresence>
 

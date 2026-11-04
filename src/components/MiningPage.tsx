@@ -7,6 +7,7 @@ import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 import { TerritorialFormalization } from './TerritorialFormalization';
 import { MinoAppLoop } from './MinoAppLoop';
+import { BarequerosSection } from './BarequerosSection';
 
 const MiningPage = () => {
   const { theme, lang, setIsContactModalOpen } = useContext(AppContext);
@@ -160,6 +161,11 @@ const MiningPage = () => {
       {/* Dedicated Remote Mining Formalization Section */}
       <div className="relative z-10 -mx-6 sm:-mx-0">
         <TerritorialFormalization />
+      </div>
+
+      {/* Comunidades de Barequeros Tradicionales (Abajo de Formalización Minera) */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 pb-32">
+        <BarequerosSection />
       </div>
     </div>
   );
