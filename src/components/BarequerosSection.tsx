@@ -256,8 +256,8 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
 
               <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
                 {lang === 'es'
-                  ? 'Acceso comunitario gratuito a mesas concentradoras y espirales gravimétricas de alta precisión. Aumenta la recuperación de oro fino del 45% al 92% sin usar ni una sola gota de mercurio.'
-                  : 'Free community access to clean gravimetric shaker tables and spirals, increasing fine gold recovery from 45% to over 92% without using toxic mercury or cyanides.'}
+                  ? 'Ayuda para la creación y formalización de acceso gratuito a mesas concentradoras y espirales gravimétricas de alta precisión. Aumenta la recuperación de oro fino del 45% al 92% sin usar ni una sola gota de mercurio.'
+                  : 'Assistance for the creation and formalization of free community access to clean gravimetric shaker tables and spirals, increasing fine gold recovery from 45% to over 92% without using toxic mercury or cyanides.'}
               </p>
             </div>
 
@@ -281,7 +281,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
                   <SunMedium className="w-6 h-6" />
                 </div>
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
-                  {lang === 'es' ? 'Fondo 3% Directo' : 'Direct 3% Trust Fund'}
+                  {lang === 'es' ? 'Fondo 1% Directo' : 'Direct 1% Trust Fund'}
                 </span>
               </div>
 
@@ -505,8 +505,8 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
                   <SunMedium className="w-3.5 h-3.5 shrink-0" />
                   <span>
                     {lang === 'es' 
-                      ? `+$${(barequeroGrams * 360000 * 0.03).toLocaleString('es-CO')} COP aportados al fondo de escuelas solares` 
-                      : `+$${(barequeroGrams * 360000 * 0.03).toLocaleString('es-CO')} COP to solar schools trust`}
+                      ? `+$${(barequeroGrams * 360000 * 0.01).toLocaleString('es-CO')} COP aportados al fondo de escuelas solares` 
+                      : `+$${(barequeroGrams * 360000 * 0.01).toLocaleString('es-CO')} COP to solar schools trust`}
                   </span>
                 </li>
                 <li className="flex items-center gap-2 text-blue-400">

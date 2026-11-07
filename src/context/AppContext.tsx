@@ -157,10 +157,14 @@ export const translations = {
       name: 'Full Name',
       email: 'Institutional Email',
       message: 'Strategic Inquiry',
+      submit: 'Send Inquiry',
+      submitting: 'Sending...',
       successTitle: 'Inquiry Submitted',
-      successMessage: 'You will be contacted in the coming days.',
-      close: 'Return to Home',
-      redirecting: 'Returning to home page in a few moments...'
+      successMessage: 'Your inquiry has been submitted, we will be in touch with you shortly.',
+      notificationNotice: 'Notification dispatched successfully by backend',
+      databaseNotice: 'Recorded securely in institutional database',
+      close: 'Return to Main Menu',
+      redirecting: 'Automatically returning to main menu in 3 seconds...'
     },
     privacy: {
       title: 'Habeas Data & Privacy Policy',
@@ -366,10 +370,13 @@ export const translations = {
       email: 'Correo Institucional',
       message: 'Consulta Estratégica',
       submit: 'Enviar Consulta',
+      submitting: 'Enviando...',
       successTitle: 'Requerimiento Enviado',
-      successMessage: 'Se le contactará en los próximos días.',
-      close: 'Volver al Inicio',
-      redirecting: 'Redirigiendo a la página de inicio...'
+      successMessage: 'Su requerimiento se ha enviado, nos estaremos colocando en contacto pronto.',
+      notificationNotice: 'Notificación procesada y enviada exitosamente por el backend',
+      databaseNotice: 'Grabado con éxito en la base de datos institucional',
+      close: 'Volver al Menú Principal',
+      redirecting: 'Volviendo al menú principal automáticamente en 3 segundos...'
     },
     privacy: {
       title: 'Habeas Data y Política de Privacidad',

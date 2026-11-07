@@ -738,76 +738,53 @@ const MinoSpotlight = () => {
       isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-linear-to-b from-white via-slate-50/40 to-white border-slate-200/80'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          
-          <div className="lg:col-span-7 space-y-6">
-            <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-              isDark ? 'bg-gold/15 text-gold border border-gold/25' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
-            }`}>
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>{spotlight.badge}</span>
-            </div>
-
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ${
-              isDark ? 'text-white' : 'text-slate-950'
-            }`}>
-              {spotlight.title}
-            </h2>
-
-            <p className={`text-lg leading-relaxed ${
-              isDark ? 'text-slate-300' : 'text-slate-700 font-normal'
-            }`}>
-              {spotlight.desc}
-            </p>
-
-            <div className="space-y-3 pt-2">
-              {spotlight.features.map((feature: string, idx: number) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                    isDark ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep'
-                  }`}>
-                    <Check className="w-3 h-3 stroke-[3]" />
-                  </div>
-                  <span className={`text-sm font-semibold ${
-                    isDark ? 'text-slate-200' : 'text-slate-800'
-                  }`}>
-                    {feature}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2">
-              <Link
-                to="/mino"
-                className={`inline-flex items-center justify-center ${
-                  isDark ? 'btn-gold' : 'btn-primary-light'
-                } !px-8 !py-4 text-sm font-bold shadow-lg`}
-              >
-                {spotlight.cta}
-              </Link>
-            </div>
+        <div className="mb-12 max-w-3xl space-y-6">
+          <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+            isDark ? 'bg-gold/15 text-gold border border-gold/25' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+          }`}>
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>{spotlight.badge}</span>
           </div>
 
-          <div className="lg:col-span-5">
-            <div className="space-y-3">
-              {spotlight.features.map((feature: string, idx: number) => (
-                <div key={idx} className="flex items-center gap-3">
-                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                    isDark ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep'
-                  }`}>
-                    <Check className="w-3 h-3 stroke-[3]" />
-                  </div>
-                  <span className={`text-sm font-semibold ${
-                    isDark ? 'text-slate-200' : 'text-slate-800'
-                  }`}>
-                    {feature}
-                  </span>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ${
+            isDark ? 'text-white' : 'text-slate-950'
+          }`}>
+            {spotlight.title}
+          </h2>
+
+          <p className={`text-lg leading-relaxed ${
+            isDark ? 'text-slate-300' : 'text-slate-700 font-normal'
+          }`}>
+            {spotlight.desc}
+          </p>
+
+          <div className="space-y-3 pt-2">
+            {spotlight.features.map((feature: string, idx: number) => (
+              <div key={idx} className="flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
+                  isDark ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep'
+                }`}>
+                  <Check className="w-3 h-3 stroke-[3]" />
                 </div>
-              ))}
-            </div>
+                <span className={`text-sm font-semibold ${
+                  isDark ? 'text-slate-200' : 'text-slate-800'
+                }`}>
+                  {feature}
+                </span>
+              </div>
+            ))}
           </div>
 
+          <div className="pt-2">
+            <Link
+              to="/mino"
+              className={`inline-flex items-center justify-center ${
+                isDark ? 'btn-gold' : 'btn-primary-light'
+              } !px-8 !py-4 text-sm font-bold shadow-lg`}
+            >
+              {spotlight.cta}
+            </Link>
+          </div>
         </div>
 
         {/* Interactive Live Loop of Mino Web Application */}
@@ -1137,10 +1114,9 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => setIsPrivacyModalOpen(true)} 
-                  className={`transition-colors font-medium text-left cursor-pointer flex items-center gap-2 group ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
+                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
                 >
-                  <FileText className="w-3.5 h-3.5 text-gold opacity-90 group-hover:scale-110 transition-transform" />
-                  <span>{lang === 'es' ? 'Políticas de Privacidad y Habeas Data (PDF)' : 'Privacy Policy & Habeas Data (PDF)'}</span>
+                  {lang === 'es' ? 'Políticas de Privacidad y Habeas Data' : 'Privacy Policy & Habeas Data'}
                 </button>
               </li>
             </ul>
@@ -1210,9 +1186,9 @@ const Footer = () => {
               className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity flex items-center gap-1.5"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>{lang === 'es' ? 'Políticas & Habeas Data (PDF)' : 'Privacy & Habeas Data (PDF)'}</span>
+              <span>{lang === 'es' ? 'Políticas & Habeas Data' : 'Privacy & Habeas Data'}</span>
             </button>
-            {['LinkedIn', 'Twitter', lang === 'es' ? 'Directorio Mino' : 'Mino Directory'].map(item => (
+            {['LinkedIn', 'Twitter'].map(item => (
               <span key={item} className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity">
                 {item}
               </span>

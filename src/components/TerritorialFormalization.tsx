@@ -45,7 +45,7 @@ export const TerritorialFormalization = () => {
           geography: "Serranía de San Jerónimo y cuenca del río San Jorge, zona de transición ecológica",
           mineral: "Oro de Aluvión & Depósitos de Veta",
           communities: "Cabildos indígenas Zenú, comunidades afrodescendientes y campesinos tradicionales",
-          legalMechanism: "Pactos de Coexistencia, Contratos de Operación con Titulares y RUDECOL",
+          legalMechanism: "Pactos de Coexistencia y Contratos de Operación con Titulares",
           techIntervention: "Plantas piloto comunitarias de beneficio cerrado con circuito cerrado de agua y energía fotovoltaica híbrida.",
           sustainability: "Programas de apicultura en zonas de exclusión minera, reforestación de riberas y seguridad alimentaria local.",
           stats: [
@@ -114,7 +114,7 @@ export const TerritorialFormalization = () => {
           geography: "San Jerónimo mountain range and San Jorge river basin, ecological transition zone",
           mineral: "Alluvial Gold & Vein Deposits",
           communities: "Zenú indigenous councils, Afro-descendant communities, and traditional agrarian families",
-          legalMechanism: "Territorial Coexistence Pacts, Titleholder Operating Agreements, and RUDECOL",
+          legalMechanism: "Territorial Coexistence Pacts and Titleholder Operating Agreements",
           techIntervention: "Community-operated closed-circuit recovery plants with 100% water recirculation and hybrid solar power.",
           sustainability: "Apiculture and honey production in mining exclusion corridors, riparian reforesting, and food security.",
           stats: [

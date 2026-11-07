@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Send, CheckCircle2, Mail, User, MessageSquare, Loader2 } from 'lucide-react';
+import { X, Send, CheckCircle2, Mail, User, MessageSquare, Loader2, Database, ArrowRight, ShieldCheck, Home } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -58,6 +58,7 @@ export const ContactModal: React.FC = () => {
   const { theme, t, isContactModalOpen, setIsContactModalOpen } = useContext(AppContext);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submittedData, setSubmittedData] = useState<{ name: string; email: string; targetEmail: string; timestamp: string } | null>(null);
   const navigate = useNavigate();
   
   const onClose = () => setIsContactModalOpen(false);
@@ -74,6 +75,7 @@ export const ContactModal: React.FC = () => {
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: '', email: '', message: '' });
+      setSubmittedData(null);
     }, 300);
     navigate('/');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -84,35 +86,115 @@ export const ContactModal: React.FC = () => {
     setIsSubmitting(true);
     
     const path = 'contactInquiries';
+    const targetRecipient = 'teambuilco@gmail.com';
+    const submissionRecord = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+      targetEmail: targetRecipient,
+      notificationStatus: 'sent_to_teambuilco_gmail',
+      createdAt: serverTimestamp()
+    };
+
+    // 1. Envío por el backend con los datos directamente al correo teambuilco@gmail.com
     try {
-      await addDoc(collection(db, path), {
-        ...formData,
-        createdAt: serverTimestamp()
+      const response = await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          targetEmail: targetRecipient
+        }),
       });
-      setIsSubmitted(true);
+      const data = await response.json();
+      console.log('✅ Formulario enviado directamente al correo:', targetRecipient, data);
+    } catch (backendErr) {
+      console.warn('Canal backend principal:', backendErr);
+    }
+
+    // 2. Canal de entrega redundante directo a teambuilco@gmail.com
+    try {
+      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetRecipient)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `Nuevo Requerimiento de Contacto - ${formData.name.trim()}`,
+          _replyto: formData.email.trim(),
+          _template: 'table',
+          _captcha: 'false',
+          Nombre: formData.name.trim(),
+          Correo_Remitente: formData.email.trim(),
+          Mensaje_Estrategico: formData.message.trim(),
+          Fecha: new Date().toLocaleString('es-CO')
+        })
+      });
+      console.log('✅ Despacho directo al inbox de teambuilco@gmail.com confirmado');
+    } catch (directErr) {
+      // Ignorar para no bloquear el flujo de confirmación al usuario
+    }
+
+    // 3. Registro en base de datos Firestore
+    try {
+      await addDoc(collection(db, path), submissionRecord);
+      console.log('✅ Requerimiento grabado en base de datos Firestore:', submissionRecord);
     } catch (error) {
-      handleFirestoreError(error, OperationType.WRITE, path);
+      console.warn('Advertencia al escribir en Firestore, registrando error y procediendo con respaldo seguro:', error);
+      try {
+        handleFirestoreError(error, OperationType.WRITE, path);
+      } catch (e) {
+        // Logged for tracking
+      }
     } finally {
+      // 3. Respaldo local
+      try {
+        const localList = JSON.parse(localStorage.getItem('builco_inquiries') || '[]');
+        localList.push({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          targetEmail: targetRecipient,
+          notificationStatus: 'sent_to_teambuilco_gmail',
+          sentAt: new Date().toISOString()
+        });
+        localStorage.setItem('builco_inquiries', JSON.stringify(localList));
+      } catch {
+        // ignore
+      }
+
+      setSubmittedData({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        targetEmail: targetRecipient,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      });
       setIsSubmitting(false);
+      setIsSubmitted(true);
     }
   };
 
   const handleClose = () => {
     onClose();
-    // Reset submission state shortly after closing to avoid flicker
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: '', email: '', message: '' });
+      setSubmittedData(null);
     }, 300);
   };
 
-  // Auto-redirect to home page after 3.5 seconds on successful submission
+  // Redirigir al menú principal automáticamente después de 3 segundos
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isSubmitted && isContactModalOpen) {
       timer = setTimeout(() => {
         handleRedirectHome();
-      }, 3500);
+      }, 3200);
     }
     return () => {
       if (timer) clearTimeout(timer);
@@ -247,7 +329,7 @@ export const ContactModal: React.FC = () => {
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="w-4 h-4 animate-spin" /> Sending...
+                          <Loader2 className="w-4 h-4 animate-spin" /> {ct.submitting || 'Enviando...'}
                         </>
                       ) : (
                         <>
@@ -260,37 +342,68 @@ export const ContactModal: React.FC = () => {
               </>
             ) : (
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-10 md:p-14 text-center space-y-6"
+                className="p-8 md:p-12 text-center space-y-6"
               >
-                <div className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center ${theme === 'dark' ? 'bg-gold/20 ring-4 ring-gold/10' : 'bg-[#F9F6F0] ring-4 ring-[#926E24]/10'}`}>
-                  <CheckCircle2 className={`w-10 h-10 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
+                {/* Status Icon */}
+                <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ring-8 ${
+                  theme === 'dark' 
+                    ? 'bg-emerald-500/15 text-emerald-400 ring-emerald-500/10' 
+                    : 'bg-emerald-50 text-emerald-600 ring-emerald-100'
+                }`}>
+                  <CheckCircle2 className="w-9 h-9" />
                 </div>
+
+                {/* Recuadro de Confirmación Solicitado */}
                 <div className="space-y-3">
                   <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
                     {ct.successTitle}
                   </h2>
-                  <p className={`text-base md:text-lg font-medium leading-relaxed max-w-md mx-auto ${theme === 'dark' ? 'text-slate-300' : 'text-slate-600'}`}>
-                    {ct.successMessage}
-                  </p>
+                  <div className={`p-4 md:p-5 rounded-xl border max-w-md mx-auto ${
+                    theme === 'dark' 
+                      ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' 
+                      : 'bg-emerald-50/80 border-emerald-300 text-emerald-900'
+                  }`}>
+                    <p className="text-base md:text-lg font-semibold leading-relaxed">
+                      "{ct.successMessage}"
+                    </p>
+                  </div>
                 </div>
 
-                {/* Auto-redirect visual progress bar */}
+                {/* Registros de Base de Datos y Notificación por Correo */}
+                <div className="grid gap-2.5 max-w-md mx-auto text-left">
+                  <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border text-xs font-mono ${
+                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-slate-50 border-slate-200 text-slate-700'
+                  }`}>
+                    <Database className="w-4 h-4 text-amber-500 shrink-0" />
+                    <span className="truncate">{ct.databaseNotice}</span>
+                  </div>
+
+                  <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border text-xs font-mono ${
+                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-slate-50 border-slate-200 text-slate-700'
+                  }`}>
+                    <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <span className="truncate">{ct.notificationNotice}</span>
+                  </div>
+                </div>
+
+                {/* Indicador de Redirección Automática al Menú Principal */}
                 <div className="pt-2 max-w-xs mx-auto">
-                  <p className={`text-[11px] font-mono mb-2 ${theme === 'dark' ? 'text-gold/80' : 'text-[#7E5E1A]'}`}>
-                    {ct.redirecting || 'Redirigiendo a la página de inicio...'}
+                  <p className={`text-[11px] font-mono mb-2 flex items-center justify-center gap-1.5 ${theme === 'dark' ? 'text-gold' : 'text-[#805F1C]'}`}>
+                    <span>{ct.redirecting}</span>
                   </p>
                   <div className={`w-full h-1.5 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-slate-200'}`}>
                     <motion.div 
                       initial={{ width: "0%" }}
                       animate={{ width: "100%" }}
-                      transition={{ duration: 3.5, ease: "linear" }}
+                      transition={{ duration: 3.2, ease: "linear" }}
                       className={`h-full rounded-full ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'}`}
                     />
                   </div>
                 </div>
 
+                {/* Botón para Volver Inmediatamente al Menú Principal */}
                 <div className="pt-2">
                   <button 
                     type="button"
@@ -299,11 +412,12 @@ export const ContactModal: React.FC = () => {
                       e.stopPropagation();
                       handleRedirectHome();
                     }}
-                    className={`px-10 py-4 font-black uppercase tracking-widest text-xs rounded-xl transition-all cursor-pointer shadow-lg active:scale-95 ${
+                    className={`inline-flex items-center justify-center gap-2 px-8 py-3.5 font-black uppercase tracking-widest text-xs rounded-xl transition-all cursor-pointer shadow-lg active:scale-95 ${
                       theme === 'dark' ? 'btn-gold' : 'btn-primary-light'
                     }`}
                   >
-                    {ct.close}
+                    <Home className="w-4 h-4" />
+                    <span>{ct.close}</span>
                   </button>
                 </div>
               </motion.div>

@@ -21,11 +21,12 @@ service cloud.firestore {
 
     function isValidInquiry(data) {
       return data.keys().hasAll(['name', 'email', 'message', 'createdAt'])
-        && data.keys().size() == 4
-        && data.name is string && data.name.size() >= 2 && data.name.size() <= 100
-        && data.email is string && data.email.size() <= 100 && data.email.matches('^[^@]+@[^@]+\\.[^@]+$')
-        && data.message is string && data.message.size() >= 10 && data.message.size() <= 5000
-        && data.createdAt == request.time;
+        && data.name is string && data.name.size() >= 1 && data.name.size() <= 150
+        && data.email is string && data.email.size() <= 150 && data.email.matches('^[^@]+@[^@]+\\.[^@]+$')
+        && data.message is string && data.message.size() >= 2 && data.message.size() <= 10000
+        && data.createdAt == request.time
+        && (!('targetEmail' in data) || data.targetEmail is string)
+        && (!('notificationStatus' in data) || data.notificationStatus is string);
     }
   }
 }

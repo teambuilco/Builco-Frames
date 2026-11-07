@@ -260,7 +260,7 @@ export const MinoAppLoop = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <span className={`text-sm font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                          {lang === 'es' ? 'Oro Fino 99.4% • Sur de Córdoba' : 'Fine Gold 99.4% • South Córdoba'}
+                          {lang === 'es' ? 'Oro Fino 94% • Sur de Córdoba' : 'Fine Gold 94% • South Córdoba'}
                         </span>
                         <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-500 border border-emerald-500/20">
                           {lang === 'es' ? 'Cero Mercurio' : 'Zero Mercury'}
@@ -275,7 +275,7 @@ export const MinoAppLoop = () => {
                   <div className="flex items-center justify-between sm:justify-end gap-4">
                     <div className="text-right">
                       <span className={`text-sm font-mono font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                        $2,009,100 USD
+                        $1,888,554 USD
                       </span>
                       <span className="text-[10px] text-emerald-500 font-mono block">
                         +1.4% {lang === 'es' ? 'vs LBMA' : 'vs LBMA'}
@@ -369,14 +369,14 @@ export const MinoAppLoop = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className={`p-3 rounded-xl border ${isDark ? 'bg-white/4 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
                   <span className="text-[9px] font-mono text-slate-400 uppercase block mb-1">01. ORIGEN</span>
-                  <span className={`text-xs font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>Mina La Esperanza</span>
-                  <span className="text-[10px] font-mono text-emerald-500">Coord: 7.986° N, 75.198° W</span>
+                  <span className={`text-xs font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>Mina Berlín</span>
+                  <span className="text-[10px] font-mono text-emerald-500">San José de Uré</span>
                 </div>
 
                 <div className={`p-3 rounded-xl border ${isDark ? 'bg-white/4 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
                   <span className="text-[9px] font-mono text-slate-400 uppercase block mb-1">02. TITULARIDAD</span>
                   <span className={`text-xs font-bold block ${isDark ? 'text-white' : 'text-slate-900'}`}>Asoc. Minera Formal</span>
-                  <span className="text-[10px] font-mono text-slate-400">RUDECOL #4819-ANM</span>
+                  <span className="text-[10px] font-mono text-slate-400">RUCOM #4819-ANM</span>
                 </div>
 
                 <div className={`p-3 rounded-xl border ${isDark ? 'bg-white/4 border-white/10' : 'bg-slate-50 border-slate-200'}`}>
@@ -440,7 +440,7 @@ export const MinoAppLoop = () => {
                   </h5>
                   <div className="mt-3 pt-3 border-t border-slate-200/60 dark:border-white/5 flex justify-between text-xs font-mono">
                     <span className="text-slate-400">Total Liquidado:</span>
-                    <span className="font-bold text-emerald-500">$2,009,250.00 USD</span>
+                    <span className="font-bold text-emerald-500">$1,888,554.00 USD</span>
                   </div>
                 </div>
 

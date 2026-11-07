@@ -77,24 +77,50 @@ export const MinoModal = () => {
           </div>
 
           <div className="p-12">
-            <form className="grid gap-8" onSubmit={(e) => { e.preventDefault(); setIsMinoModalOpen(false); }}>
+            <form 
+              className="grid gap-8" 
+              onSubmit={async (e) => { 
+                e.preventDefault();
+                const target = e.currentTarget;
+                const name = (target.elements.namedItem('name') as HTMLInputElement)?.value || '';
+                const email = (target.elements.namedItem('email') as HTMLInputElement)?.value || '';
+                const company = (target.elements.namedItem('company') as HTMLInputElement)?.value || '';
+                const message = (target.elements.namedItem('message') as HTMLTextAreaElement)?.value || '';
+                
+                try {
+                  await fetch('/api/send-contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      name,
+                      email,
+                      message: `[Registro Mino - Empresa: ${company}] ${message}`,
+                      targetEmail: 'teambuilco@gmail.com'
+                    })
+                  });
+                } catch {
+                  // ignore
+                }
+                setIsMinoModalOpen(false); 
+              }}
+            >
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-3">
                   <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.name}</label>
-                  <input type="text" placeholder="John Doe" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
+                  <input name="name" type="text" placeholder="John Doe" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
                 </div>
                 <div className="space-y-3">
                   <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.email}</label>
-                  <input type="email" placeholder="john@company.com" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
+                  <input name="email" type="email" placeholder="john@company.com" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
                 </div>
               </div>
               <div className="space-y-3">
                 <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.company}</label>
-                <input type="text" placeholder="Your Company Ltd." className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
+                <input name="company" type="text" placeholder="Your Company Ltd." className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
               </div>
               <div className="space-y-3">
                 <label className={`text-[11px] font-black uppercase tracking-[0.2em] ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>{t.message}</label>
-                <textarea rows={4} placeholder="How can we help you?" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
+                <textarea name="message" rows={4} placeholder="How can we help you?" className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${theme === 'dark' ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'}`} required />
               </div>
               <button type="submit" className={theme === 'dark' ? 'btn-gold w-full mt-2' : 'btn-primary-light w-full mt-2'}>
                 {t.submit}

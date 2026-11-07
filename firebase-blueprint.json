@@ -18,6 +18,14 @@
           "type": "string",
           "description": "The strategic inquiry message"
         },
+        "targetEmail": {
+          "type": "string",
+          "description": "Email address receiving the notification, e.g. contacto@builco.co"
+        },
+        "notificationStatus": {
+          "type": "string",
+          "description": "Status of the email notification sent to builco.co"
+        },
         "createdAt": {
           "type": "string",
           "format": "date-time",

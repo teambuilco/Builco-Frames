@@ -26,7 +26,8 @@ import {
   Wallet,
   CheckCheck,
   Zap,
-  Info
+  Info,
+  FileText
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NetworkBackground } from './NetworkBackground';
@@ -35,14 +36,18 @@ import { AppContext } from '../context/AppContext';
 import { MinoAppLoop } from './MinoAppLoop';
 import { BarequerosSection } from './BarequerosSection';
 import barequeroRealImg from '../assets/images/barequero_batea_real.jpg';
+import { ManagedMarketplace } from './ManagedMarketplace';
 
 const MinoPage = () => {
-  const { theme, lang, t } = useContext(AppContext);
+  const { theme, lang, t, setIsPrivacyModalOpen } = useContext(AppContext);
   const [isRegistering, setIsRegistering] = useState(false);
   const [isForgotOpen, setIsForgotOpen] = useState(false);
   const [resetEmail, setResetEmail] = useState('');
   const [isResetSent, setIsResetSent] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [privacyError, setPrivacyError] = useState(false);
+  const [isMarketplaceUnlocked, setIsMarketplaceUnlocked] = useState(false);
   
   const minoT = t.mino;
   const isDark = theme === 'dark';
@@ -54,14 +59,57 @@ const MinoPage = () => {
     document.body.scrollTop = 0;
   }, []);
 
-  const handleResetSubmit = (e: React.FormEvent) => {
+  const handleResetSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsResetSent(true);
+    const target = e.currentTarget as HTMLFormElement;
+    const email = (target.elements.namedItem('email') as HTMLInputElement)?.value || '';
+    try {
+      await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Usuario Mino (Restablecimiento)',
+          email: email || 'usuario@mino.co',
+          message: `Solicitud de restablecimiento de contraseña para: ${email}`,
+          targetEmail: 'teambuilco@gmail.com'
+        })
+      });
+    } catch {
+      // ignore
+    }
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!termsAccepted) {
+      setPrivacyError(true);
+      return;
+    }
+    setPrivacyError(false);
     setFormSubmitted(true);
+    const target = e.currentTarget as HTMLFormElement;
+    const inputs = target.querySelectorAll('input');
+    const values: Record<string, string> = {};
+    inputs.forEach((input, idx) => {
+      values[input.name || input.placeholder || `campo_${idx}`] = input.value;
+    });
+
+    try {
+      await fetch('/api/send-contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: values['Nombre'] || values['Carlos Restrepo'] || 'Solicitante Terminal Mino',
+          email: values['Correo'] || values['carlos@mineria.com'] || 'contacto@builco.co',
+          message: `Solicitud de acceso a terminal Mino. Datos: ${JSON.stringify(values, null, 2)}`,
+          targetEmail: 'teambuilco@gmail.com'
+        })
+      });
+    } catch {
+      // ignore
+    }
+
     setTimeout(() => {
       setFormSubmitted(false);
     }, 4500);
@@ -332,78 +380,151 @@ const MinoPage = () => {
         {/* ========================================================= */}
         <section id="mino-auth-form" className="pt-6 pb-12 space-y-8 scroll-mt-20">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-black tracking-widest uppercase border bg-gold/10 border-gold/30 text-gold">
-              <Lock className="w-3.5 h-3.5" />
-              <span>{lang === 'es' ? 'Acceso Seguro a la Plataforma' : 'Secure Platform Access'}</span>
+            <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-black tracking-widest uppercase border ${
+              isMarketplaceUnlocked 
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
+                : 'bg-gold/10 border-gold/30 text-gold'
+            }`}>
+              {isMarketplaceUnlocked ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
+              <span>
+                {isMarketplaceUnlocked
+                  ? (lang === 'es' ? 'Documentos Aprobados • Marketplace Gerenciado' : 'Approved Documents • Managed Marketplace')
+                  : (lang === 'es' ? 'Acceso Seguro a la Plataforma' : 'Secure Platform Access')}
+              </span>
             </div>
 
             <h2 className={`text-3xl sm:text-4xl font-helvetica font-black tracking-tighter uppercase ${
               isDark ? 'text-white' : 'text-slate-950'
             }`}>
-              {isRegistering 
-                ? (lang === 'es' ? 'Solicitud de Registro e Ingreso' : 'Access & Registration Request')
-                : (lang === 'es' ? 'Ingreso al Terminal Mino™' : 'Log In to Mino™ Terminal')}
+              {isMarketplaceUnlocked
+                ? (lang === 'es' ? 'Comercialización de Minerales Críticos' : 'Critical Minerals Trading Platform')
+                : (isRegistering 
+                    ? (lang === 'es' ? 'Solicitud de Registro e Ingreso' : 'Access & Registration Request')
+                    : (lang === 'es' ? 'Ingreso al Terminal Mino™' : 'Log In to Mino™ Terminal'))}
             </h2>
 
             <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-              {isRegistering
-                ? (lang === 'es' ? 'Complete sus datos corporativos o institucionales para habilitar su terminal cifrada.' : 'Complete your institutional details to enable your encrypted terminal.')
-                : (lang === 'es' ? 'Ingrese sus credenciales de usuario verificadas para acceder a su espacio de trabajo.' : 'Enter your verified credentials to access your secure workspace.')}
+              {isMarketplaceUnlocked
+                ? (lang === 'es'
+                    ? 'Plataforma comercial para la compraventa de minerales críticos formalizados en Colombia con custodia en bóveda y liquidación en escrow.'
+                    : 'Commercial platform for buying and selling verified critical minerals in Colombia with vault custody and escrow settlement.')
+                : (isRegistering
+                    ? (lang === 'es' ? 'Complete sus datos corporativos o institucionales para habilitar su terminal cifrada.' : 'Complete your institutional details to enable your encrypted terminal.')
+                    : (lang === 'es' ? 'Ingrese sus credenciales de usuario verificadas para acceder a su espacio de trabajo.' : 'Enter your verified credentials to access your secure workspace.'))}
             </p>
           </div>
 
-          {/* Form Card Container */}
-          <div className="flex justify-center">
+          {/* Form Card / Marketplace Container */}
+          <div className="flex justify-center w-full">
             <motion.div
-              key={isRegistering ? 'register' : 'login'}
+              key={isMarketplaceUnlocked ? 'marketplace' : (isRegistering ? 'register' : 'login')}
               initial={{ opacity: 0, scale: 0.98, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className={`relative z-10 w-full max-w-xl p-8 sm:p-12 shadow-3xl border transition-all duration-300 rounded-3xl ${
-                isDark 
-                  ? 'bg-black/60 backdrop-blur-xl border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.8)]' 
-                  : 'bg-white border-slate-200/90 shadow-2xl'
+              className={`relative z-10 w-full transition-all duration-300 rounded-3xl ${
+                isMarketplaceUnlocked
+                  ? 'max-w-6xl p-0 bg-transparent border-0'
+                  : `max-w-xl p-8 sm:p-12 shadow-3xl border ${
+                      isDark 
+                        ? 'bg-black/60 backdrop-blur-xl border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.8)]' 
+                        : 'bg-white border-slate-200/90 shadow-2xl'
+                    }`
               }`}
             >
-              <div className="text-center mb-10">
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 transition-all ${
-                  isDark ? 'bg-gold/10 border border-gold/20' : 'bg-[#F9F6F0] border border-[#E8DCC4]'
-                }`}>
-                  <Logo className="w-11 h-11 drop-shadow-sm" />
-                </div>
-                <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${
-                  isDark ? 'text-white' : 'text-slate-900'
-                }`}>
-                  {isRegistering ? minoT.registerTitle : minoT.welcome}
-                </h3>
-                <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${
-                  isDark ? 'text-white/40' : 'text-slate-400'
-                }`}>
-                  {isRegistering ? minoT.registerSub : minoT.sub}
-                </p>
-              </div>
-
-              {formSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 text-center space-y-4"
-                >
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto ${
-                    isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
-                  }`}>
-                    <Check className="w-8 h-8" />
+              {isMarketplaceUnlocked ? (
+                <ManagedMarketplace 
+                  lang={lang} 
+                  isDark={isDark} 
+                  onExitMarketplace={() => setIsMarketplaceUnlocked(false)} 
+                />
+              ) : (
+                <>
+                  <div className="text-center mb-8">
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 transition-all ${
+                      isDark ? 'bg-gold/10 border border-gold/20' : 'bg-[#F9F6F0] border border-[#E8DCC4]'
+                    }`}>
+                      <Logo className="w-11 h-11 drop-shadow-sm" />
+                    </div>
+                    <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${
+                      isDark ? 'text-white' : 'text-slate-900'
+                    }`}>
+                      {isRegistering ? minoT.registerTitle : minoT.welcome}
+                    </h3>
+                    <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${
+                      isDark ? 'text-white/40' : 'text-slate-400'
+                    }`}>
+                      {isRegistering ? minoT.registerSub : minoT.sub}
+                    </p>
                   </div>
-                  <h4 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                    {lang === 'es' ? 'Solicitud Recibida con Éxito' : 'Request Successfully Received'}
-                  </h4>
-                  <p className={`text-xs max-w-sm mx-auto ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                    {lang === 'es'
-                      ? 'Nuestro equipo de cumplimiento y soporte institucional revisará sus credenciales y se comunicará a la brevedad.'
-                      : 'Our institutional compliance team will review your credentials and reach out shortly.'}
-                  </p>
-                </motion.div>
-              ) : !isRegistering ? (
+
+                  {/* Banner de Acceso con Documentos Aprobados */}
+                  <div className={`mb-8 p-5 rounded-2xl border transition-all text-center ${
+                    isDark 
+                      ? 'bg-emerald-950/20 border-emerald-500/30' 
+                      : 'bg-emerald-50/80 border-emerald-300 shadow-sm'
+                  }`}>
+                    <div className="flex items-center justify-center gap-2 mb-1.5 text-emerald-500 font-bold text-xs uppercase tracking-wider">
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Documentación Aprobada para Comercialización</span>
+                    </div>
+                    <p className={`text-xs mb-3.5 max-w-md mx-auto ${isDark ? 'text-white/80' : 'text-slate-600'}`}>
+                      {lang === 'es'
+                        ? '¿Tus documentos de RUCOM y ANM ya están aprobados? Ingresa a la plataforma para comercializar minerales críticos en Colombia.'
+                        : 'Are your RUCOM and ANM documents approved? Enter the platform to trade critical minerals in Colombia.'}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setIsMarketplaceUnlocked(true)}
+                      className={`w-full py-3.5 px-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 ${
+                        isDark ? 'btn-gold' : 'btn-primary-light'
+                      }`}
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Entrar al Marketplace de Minerales Críticos</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  {formSubmitted ? (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="py-8 text-center space-y-5"
+                    >
+                      <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto ${
+                        isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                      }`}>
+                        <Check className="w-8 h-8" />
+                      </div>
+                      <div>
+                        <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 inline-block mb-3">
+                          ✓ Documentos Pre-Aprobados
+                        </span>
+                        <h4 className={`text-xl font-black uppercase ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                          {lang === 'es' ? 'Acceso Comercial Aprobado' : 'Commercial Access Approved'}
+                        </h4>
+                        <p className={`text-xs max-w-sm mx-auto mt-2 leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+                          {lang === 'es'
+                            ? 'Sus documentos de comercialización han sido aprobados exitosamente. Ya puede entrar al marketplace gerenciado de minerales críticos en Colombia.'
+                            : 'Your commercial documents have been approved successfully. You can now access to buy and sell formalized critical minerals in Colombia.'}
+                        </p>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormSubmitted(false);
+                          setIsMarketplaceUnlocked(true);
+                        }}
+                        className={`w-full py-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 ${
+                          isDark ? 'btn-gold' : 'btn-primary-light'
+                        }`}
+                      >
+                        <span>Ingresar a la Plataforma Marketplace</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </motion.div>
+                  ) : !isRegistering ? (
                 <>
                   <form className="space-y-6" onSubmit={handleFormSubmit}>
                     <div className="space-y-2">
@@ -453,9 +574,89 @@ const MinoPage = () => {
                       />
                     </div>
 
+                    {/* Botón de Aceptación de Términos de Privacidad y Habeas Data */}
+                    <div className="space-y-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTermsAccepted(!termsAccepted);
+                          setPrivacyError(false);
+                        }}
+                        className={`w-full p-4 rounded-xl border text-left transition-all flex items-start gap-3.5 cursor-pointer select-none group ${
+                          termsAccepted
+                            ? isDark
+                              ? 'bg-gold/15 border-gold text-white ring-1 ring-gold/40'
+                              : 'bg-[#FAF6EC] border-[#926E24] text-slate-900 ring-1 ring-[#926E24]/30'
+                            : privacyError
+                              ? 'bg-red-500/10 border-red-500/60 text-red-200 animate-pulse'
+                              : isDark
+                                ? 'bg-white/5 border-white/10 text-white/70 hover:border-white/25 hover:bg-white/8'
+                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-100/80'
+                        }`}
+                      >
+                        <div
+                          className={`w-5 h-5 mt-0.5 rounded-md flex items-center justify-center transition-all shrink-0 border ${
+                            termsAccepted
+                              ? isDark
+                                ? 'bg-gold border-gold text-black shadow-sm'
+                                : 'bg-[#926E24] border-[#926E24] text-white shadow-sm'
+                              : isDark
+                                ? 'border-white/30 bg-black/40 group-hover:border-gold'
+                                : 'border-slate-300 bg-white group-hover:border-[#926E24]'
+                          }`}
+                        >
+                          {termsAccepted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        </div>
+
+                        <div className="flex-1 text-xs leading-relaxed">
+                          <span className="font-bold flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0" />
+                            {lang === 'es'
+                              ? 'Acepto los Términos de Privacidad y Política de Habeas Data'
+                              : 'I accept Privacy Terms and Habeas Data Policy'}
+                          </span>
+                          <span className={`block text-[11px] mt-0.5 ${isDark ? 'text-white/40' : 'text-slate-500'}`}>
+                            {lang === 'es'
+                              ? 'Tratamiento seguro de datos conforme a la Ley 1581 de 2012 y Decreto 1377 de 2013.'
+                              : 'Secure data handling under Statutory Law 1581 of 2012 and international standards.'}
+                          </span>
+                        </div>
+                      </button>
+
+                      <div className="flex items-center justify-between px-1 text-[11px]">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsPrivacyModalOpen(true);
+                          }}
+                          className={`font-semibold hover:underline flex items-center gap-1 cursor-pointer ${
+                            isDark ? 'text-gold hover:text-gold-light' : 'text-[#805F1C] hover:text-[#926E24]'
+                          }`}
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>{lang === 'es' ? 'Ver Políticas y Habeas Data' : 'View Privacy & Habeas Data'}</span>
+                        </button>
+
+                        <span className={`text-[10px] uppercase font-mono tracking-wider ${termsAccepted ? 'text-emerald-400 font-bold' : privacyError ? 'text-red-400 font-bold' : isDark ? 'text-white/30' : 'text-slate-400'}`}>
+                          {termsAccepted ? (lang === 'es' ? '✓ Aceptado' : '✓ Accepted') : (lang === 'es' ? '* Requerido' : '* Required')}
+                        </span>
+                      </div>
+
+                      {privacyError && (
+                        <p className="text-[11px] text-red-400 font-semibold px-1">
+                          {lang === 'es' 
+                            ? 'Por favor acepte los términos de privacidad y Habeas Data para continuar.' 
+                            : 'Please accept the privacy and Habeas Data terms to continue.'}
+                        </p>
+                      )}
+                    </div>
+
                     <button 
                       type="submit" 
                       className={`w-full py-5 rounded-xl font-black uppercase tracking-wider text-xs transition-all shadow-xl cursor-pointer ${
+                        !termsAccepted ? 'opacity-85' : ''
+                      } ${
                         isDark ? 'btn-gold shadow-gold/20' : 'btn-primary-light shadow-slate-300'
                       }`}
                     >
@@ -574,9 +775,89 @@ const MinoPage = () => {
                       </div>
                     </div>
 
+                    {/* Botón de Aceptación de Términos de Privacidad y Habeas Data */}
+                    <div className="space-y-2 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTermsAccepted(!termsAccepted);
+                          setPrivacyError(false);
+                        }}
+                        className={`w-full p-4 rounded-xl border text-left transition-all flex items-start gap-3.5 cursor-pointer select-none group ${
+                          termsAccepted
+                            ? isDark
+                              ? 'bg-gold/15 border-gold text-white ring-1 ring-gold/40'
+                              : 'bg-[#FAF6EC] border-[#926E24] text-slate-900 ring-1 ring-[#926E24]/30'
+                            : privacyError
+                              ? 'bg-red-500/10 border-red-500/60 text-red-200 animate-pulse'
+                              : isDark
+                                ? 'bg-white/5 border-white/10 text-white/70 hover:border-white/25 hover:bg-white/8'
+                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-100/80'
+                        }`}
+                      >
+                        <div
+                          className={`w-5 h-5 mt-0.5 rounded-md flex items-center justify-center transition-all shrink-0 border ${
+                            termsAccepted
+                              ? isDark
+                                ? 'bg-gold border-gold text-black shadow-sm'
+                                : 'bg-[#926E24] border-[#926E24] text-white shadow-sm'
+                              : isDark
+                                ? 'border-white/30 bg-black/40 group-hover:border-gold'
+                                : 'border-slate-300 bg-white group-hover:border-[#926E24]'
+                          }`}
+                        >
+                          {termsAccepted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                        </div>
+
+                        <div className="flex-1 text-xs leading-relaxed">
+                          <span className="font-bold flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0" />
+                            {lang === 'es'
+                              ? 'Acepto los Términos de Privacidad y Política de Habeas Data'
+                              : 'I accept Privacy Terms and Habeas Data Policy'}
+                          </span>
+                          <span className={`block text-[11px] mt-0.5 ${isDark ? 'text-white/40' : 'text-slate-500'}`}>
+                            {lang === 'es'
+                              ? 'Tratamiento seguro de datos conforme a la Ley 1581 de 2012 y Decreto 1377 de 2013.'
+                              : 'Secure data handling under Statutory Law 1581 of 2012 and international standards.'}
+                          </span>
+                        </div>
+                      </button>
+
+                      <div className="flex items-center justify-between px-1 text-[11px]">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsPrivacyModalOpen(true);
+                          }}
+                          className={`font-semibold hover:underline flex items-center gap-1 cursor-pointer ${
+                            isDark ? 'text-gold hover:text-gold-light' : 'text-[#805F1C] hover:text-[#926E24]'
+                          }`}
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>{lang === 'es' ? 'Ver Políticas y Habeas Data' : 'View Privacy & Habeas Data'}</span>
+                        </button>
+
+                        <span className={`text-[10px] uppercase font-mono tracking-wider ${termsAccepted ? 'text-emerald-400 font-bold' : privacyError ? 'text-red-400 font-bold' : isDark ? 'text-white/30' : 'text-slate-400'}`}>
+                          {termsAccepted ? (lang === 'es' ? '✓ Aceptado' : '✓ Accepted') : (lang === 'es' ? '* Requerido' : '* Required')}
+                        </span>
+                      </div>
+
+                      {privacyError && (
+                        <p className="text-[11px] text-red-400 font-semibold px-1">
+                          {lang === 'es' 
+                            ? 'Por favor acepte los términos de privacidad y Habeas Data para continuar.' 
+                            : 'Please accept the privacy and Habeas Data terms to continue.'}
+                        </p>
+                      )}
+                    </div>
+
                     <button 
                       type="submit" 
                       className={`w-full py-5 mt-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all shadow-xl cursor-pointer ${
+                        !termsAccepted ? 'opacity-85' : ''
+                      } ${
                         isDark ? 'btn-gold shadow-gold/20' : 'btn-primary-light shadow-slate-300'
                       }`}
                     >
@@ -596,7 +877,9 @@ const MinoPage = () => {
                   </div>
                 </>
               )}
-            </motion.div>
+            </>
+          )}
+        </motion.div>
           </div>
         </section>
 
