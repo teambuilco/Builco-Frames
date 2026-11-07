@@ -46,7 +46,7 @@ const AboutPage = () => {
   };
 
   return (
-    <div className={`relative min-h-screen overflow-hidden font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FCFCFB] text-slate-900'}`}>
+    <div className={`relative min-h-screen overflow-hidden font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF8F5] text-[#1C1917]'}`}>
       {/* Background Video - Film Strip Style */}
       <div className={`absolute inset-0 z-0 ${theme === 'dark' ? 'opacity-40' : 'opacity-10'}`}>
         <div className={`absolute inset-0 bg-gradient-to-b from-inherit via-transparent to-inherit z-10`} />
@@ -54,7 +54,7 @@ const AboutPage = () => {
         
         {/* Film Strip Overlay Effect */}
         <div className="absolute inset-0 z-20 pointer-events-none opacity-20">
-          <div className={`h-full w-full border-x-[40px] border-dashed ${theme === 'dark' ? 'border-white/10' : 'border-slate-900/10'}`} />
+          <div className={`h-full w-full border-x-[40px] border-dashed ${theme === 'dark' ? 'border-white/10' : 'border-[#1C1917]/10'}`} />
         </div>
 
         <video
@@ -80,7 +80,7 @@ const AboutPage = () => {
           className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider mb-12 transition-all duration-200 ${
             theme === 'dark'
               ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
-              : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 shadow-sm'
+              : 'bg-white hover:bg-[#F4EFE6] text-[#1C1917] border border-[#E8DEC8] shadow-xs'
           }`}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -95,14 +95,14 @@ const AboutPage = () => {
           >
             <div className="flex items-center gap-6 mb-12">
               <Logo className={`w-14 h-14 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-              <div className={`h-14 w-px ${theme === 'dark' ? 'bg-white/20' : 'bg-slate-900/20'}`} />
-              <span className={`text-2xl font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/50' : 'text-slate-400'}`}>Builco</span>
+              <div className={`h-14 w-px ${theme === 'dark' ? 'bg-white/20' : 'bg-[#E8DEC8]'}`} />
+              <span className={`text-2xl font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C]'}`}>Builco</span>
             </div>
             <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-10">
               {content.headlinePre}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{content.headlineHighlight}</span>
             </h1>
             <div className={`w-40 h-2.5 mb-12 rounded-full ${theme === 'dark' ? 'bg-gold shadow-[0_0_20px_rgba(225,180,109,0.3)]' : 'bg-gold-deep'}`} />
-            <p className={`text-2xl md:text-3xl max-w-3xl font-medium leading-[1.4] ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
+            <p className={`text-2xl md:text-3xl max-w-3xl font-medium leading-[1.4] ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C]'}`}>
               {content.intro}
             </p>
           </motion.div>
@@ -115,20 +115,20 @@ const AboutPage = () => {
             viewport={{ once: true }}
             className="space-y-10"
           >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
                 <Target className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.originTitle}
               </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
                 {content.originDesc}
               </p>
             </div>
 
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
                 <Users className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.peopleTitle}
               </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
                 {content.peopleDesc}
               </p>
             </div>
@@ -141,20 +141,20 @@ const AboutPage = () => {
             transition={{ delay: 0.2 }}
             className="space-y-10"
           >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
                 <Globe className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.globalTitle}
               </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
                 {content.globalDesc}
               </p>
             </div>
 
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-slate-200/80 bg-white/90 shadow-md shadow-slate-100 rounded-2xl'}`}>
+            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
               <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
                 <Shield className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.commitmentTitle}
               </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-500 font-medium'}`}>
+              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
                 {content.commitmentDesc}
               </p>
             </div>
@@ -165,12 +165,12 @@ const AboutPage = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className={`mt-32 pt-12 border-t text-center ${theme === 'dark' ? 'border-white/10' : 'border-slate-200'}`}
+          className={`mt-32 pt-12 border-t text-center ${theme === 'dark' ? 'border-white/10' : 'border-[#E8DEC8]'}`}
         >
           <div className="flex justify-center mb-8">
-            <Logo className={`w-10 h-10 opacity-50 grayscale ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`} />
+            <Logo className={`w-10 h-10 opacity-50 grayscale ${theme === 'dark' ? 'text-white' : 'text-[#1C1917]'}`} />
           </div>
-          <p className={`text-sm font-black uppercase tracking-[0.5em] ${theme === 'dark' ? 'text-white/30' : 'text-slate-400'}`}>
+          <p className={`text-sm font-black uppercase tracking-[0.5em] ${theme === 'dark' ? 'text-white/30' : 'text-[#78716C]'}`}>
             {content.footerText}
           </p>
         </motion.footer>

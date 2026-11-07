@@ -280,14 +280,14 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
   };
 
   return (
-    <div className={`w-full transition-all duration-300 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+    <div className={`w-full transition-all duration-300 ${isDark ? 'text-white' : 'text-[#1C1917]'}`}>
       {/* Header del Marketplace Gerenciado */}
       <div className={`p-6 sm:p-8 rounded-3xl border mb-8 ${
         isDark 
           ? 'bg-linear-to-b from-[#18191D] to-[#111215] border-white/10 shadow-2xl' 
-          : 'bg-linear-to-b from-white to-slate-50 border-slate-200/90 shadow-xl'
+          : 'bg-linear-to-b from-white to-[#FAF8F5] border-[#E8DEC8] shadow-xl'
       }`}>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-white/10 dark:border-white/10 border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pb-6 border-b border-[#E8DEC8] dark:border-white/10">
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
@@ -301,7 +301,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
             <h1 className="text-2xl sm:text-3xl font-helvetica font-black uppercase tracking-tight">
               Mino™ Marketplace Gerenciado
             </h1>
-            <p className={`text-xs sm:text-sm mt-1 max-w-2xl ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p className={`text-xs sm:text-sm mt-1 max-w-2xl ${isDark ? 'text-slate-300' : 'text-[#44403C]'}`}>
               Plataforma institucional para la comercialización segura, directa y transparente de minerales críticos formalizados en Colombia con custodia en bóveda y liquidación en escrow.
             </p>
           </div>
@@ -323,7 +323,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                 className={`p-3 rounded-xl border text-xs font-bold transition-all cursor-pointer ${
                   isDark 
                     ? 'border-white/10 text-white/60 hover:text-white hover:bg-white/5' 
-                    : 'border-slate-200 text-slate-500 hover:text-slate-800 hover:bg-slate-100'
+                    : 'border-[#E8DEC8] text-[#78716C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
                 }`}
                 title="Cerrar Terminal"
               >
@@ -336,42 +336,42 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
         {/* 3 Pilares del Marketplace Gerenciado */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
           <div className={`p-4 rounded-2xl border flex items-center gap-3.5 ${
-            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-slate-200/70 shadow-xs'
+            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-[#E8DEC8] shadow-xs'
           }`}>
             <div className="w-10 h-10 rounded-xl bg-gold/15 text-gold flex items-center justify-center shrink-0">
               <Scale className="w-5 h-5" />
             </div>
             <div>
               <div className="text-xs font-black uppercase tracking-wider">Ensayes Certificados</div>
-              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-slate-500'}`}>
+              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-[#78716C]'}`}>
                 Laboratorios SGS & Inspectorate
               </div>
             </div>
           </div>
 
           <div className={`p-4 rounded-2xl border flex items-center gap-3.5 ${
-            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-slate-200/70 shadow-xs'
+            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-[#E8DEC8] shadow-xs'
           }`}>
             <div className="w-10 h-10 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
               <div className="text-xs font-black uppercase tracking-wider">Bóveda & Escrow</div>
-              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-slate-500'}`}>
+              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-[#78716C]'}`}>
                 Custodia blindada y pago seguro
               </div>
             </div>
           </div>
 
           <div className={`p-4 rounded-2xl border flex items-center gap-3.5 ${
-            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-slate-200/70 shadow-xs'
+            isDark ? 'bg-white/3 border-white/5' : 'bg-white border-[#E8DEC8] shadow-xs'
           }`}>
             <div className="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center shrink-0">
               <Database className="w-5 h-5" />
             </div>
             <div>
               <div className="text-xs font-black uppercase tracking-wider">Trazabilidad ANM</div>
-              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-slate-500'}`}>
+              <div className={`text-[11px] ${isDark ? 'text-white/50' : 'text-[#78716C]'}`}>
                 RUCOM y salvoconductos digitales
               </div>
             </div>
@@ -382,7 +382,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
       {/* Controles de Búsqueda y Categorías */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-white/40' : 'text-slate-400'}`} />
+          <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-white/40' : 'text-[#78716C]'}`} />
           <input
             type="text"
             value={searchQuery}
@@ -391,7 +391,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
             className={`w-full pl-11 pr-4 py-3.5 rounded-2xl border outline-none text-xs transition-all ${
               isDark
                 ? 'bg-[#18191D] border-white/10 text-white placeholder-white/30 focus:border-gold'
-                : 'bg-white border-slate-200 text-slate-900 placeholder-slate-400 focus:border-gold-deep shadow-xs'
+                : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder-[#A8A29E] focus:border-gold-deep shadow-xs'
             }`}
           />
         </div>
@@ -413,10 +413,10 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                 selectedCategory === cat.id
                   ? isDark
                     ? 'bg-gold text-black shadow-lg shadow-gold/20'
-                    : 'bg-[#926E24] text-white shadow-md'
+                    : 'bg-gold-deep text-white shadow-md'
                   : isDark
                     ? 'bg-white/5 border border-white/10 text-white/70 hover:bg-white/10'
-                    : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-100/80 shadow-xs'
+                    : 'bg-white border border-[#E8DEC8] text-[#57534E] hover:bg-[#F3EFE6] shadow-xs'
               }`}
             >
               {cat.label}
@@ -433,7 +433,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
             className={`rounded-3xl border p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:scale-[1.01] ${
               isDark 
                 ? 'bg-[#16171B] border-white/10 hover:border-gold/40 shadow-xl' 
-                : 'bg-white border-slate-200 hover:border-gold-deep/50 shadow-md'
+                : 'bg-white border-[#E8DEC8] hover:border-gold-deep/40 shadow-md'
             }`}
           >
             <div>
@@ -442,7 +442,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                 <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold tracking-widest uppercase bg-gold/15 text-gold border border-gold/30">
                   {lot.categoryLabel}
                 </span>
-                <span className={`text-[11px] font-mono ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+                <span className={`text-[11px] font-mono ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                   {lot.id}
                 </span>
               </div>
@@ -456,65 +456,65 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                 <span className="text-2xl sm:text-3xl font-black text-gold">
                   ${lot.priceUsd.toLocaleString()} USD
                 </span>
-                <span className={`text-xs font-mono ${isDark ? 'text-white/50' : 'text-slate-500'}`}>
+                <span className={`text-xs font-mono ${isDark ? 'text-white/50' : 'text-[#78716C]'}`}>
                   ({lot.pricePerUnit})
                 </span>
               </div>
 
               {/* Especificaciones Técnicas */}
               <div className={`grid grid-cols-2 gap-3 p-4 rounded-2xl mb-6 text-xs ${
-                isDark ? 'bg-black/30 border border-white/5' : 'bg-slate-50 border border-slate-100'
+                isDark ? 'bg-black/30 border border-white/5' : 'bg-[#FAF8F5] border border-[#E8DEC8]'
               }`}>
                 <div>
-                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                     Pureza / Ley Certificada
                   </span>
                   <span className="font-bold text-sm">{lot.gradePurity}</span>
                 </div>
                 <div>
-                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                     Volumen Disponible
                   </span>
                   <span className="font-bold text-sm">{lot.quantity}</span>
                 </div>
                 <div>
-                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                     Origen & Municipio
                   </span>
                   <span className="font-medium truncate block">{lot.originMunicipality}, {lot.originDepartment}</span>
                 </div>
                 <div>
-                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+                  <span className={`block text-[10px] font-mono uppercase ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                     RUCOM Vigente
                   </span>
-                  <span className="font-mono font-bold text-emerald-400">{lot.rucomCode}</span>
+                  <span className="font-mono font-bold text-emerald-500 dark:text-emerald-400">{lot.rucomCode}</span>
                 </div>
               </div>
 
               {/* Trazabilidad y Custodia */}
               <div className="space-y-2 mb-6 text-xs">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className={`truncate ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
-                    Laboratorio: <strong className={isDark ? 'text-white' : 'text-slate-900'}>{lot.laboratory}</strong>
+                  <ShieldCheck className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                  <span className={`truncate ${isDark ? 'text-white/70' : 'text-[#44403C]'}`}>
+                    Laboratorio: <strong className={isDark ? 'text-white' : 'text-[#1C1917]'}>{lot.laboratory}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4 text-gold shrink-0" />
-                  <span className={`truncate ${isDark ? 'text-white/70' : 'text-slate-600'}`}>
-                    Ubicación de Custodia: <strong className={isDark ? 'text-white' : 'text-slate-900'}>{lot.custodyVault}</strong>
+                  <span className={`truncate ${isDark ? 'text-white/70' : 'text-[#44403C]'}`}>
+                    Ubicación de Custodia: <strong className={isDark ? 'text-white' : 'text-[#1C1917]'}>{lot.custodyVault}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span className="text-emerald-500 font-bold">{lot.esgBadge}</span>
+                  <Sparkles className="w-4 h-4 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">{lot.esgBadge}</span>
                 </div>
               </div>
             </div>
 
             {/* Botón de Acción para Comprar / Ofertar */}
-            <div className="pt-4 border-t border-white/10 dark:border-white/10 border-slate-100 flex items-center justify-between gap-4">
-              <span className={`text-[10px] font-mono uppercase truncate ${isDark ? 'text-white/40' : 'text-slate-400'}`}>
+            <div className="pt-4 border-t border-[#E8DEC8] dark:border-white/10 flex items-center justify-between gap-4">
+              <span className={`text-[10px] font-mono uppercase truncate ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
                 Hash: {lot.hashVerification.slice(0, 14)}...
               </span>
               <button
@@ -533,7 +533,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
 
       {filteredLots.length === 0 && (
         <div className={`p-12 text-center rounded-3xl border mb-12 ${
-          isDark ? 'bg-white/3 border-white/10 text-white/60' : 'bg-slate-50 border-slate-200 text-slate-500'
+          isDark ? 'bg-white/3 border-white/10 text-white/60' : 'bg-[#FAF8F5] border-[#E8DEC8] text-[#78716C]'
         }`}>
           <Search className="w-8 h-8 mx-auto mb-3 opacity-40" />
           <h4 className="text-base font-bold mb-1">No se encontraron lotes para este criterio</h4>
@@ -558,13 +558,13 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className={`relative z-10 w-full max-w-lg p-8 sm:p-10 rounded-3xl shadow-3xl border overflow-hidden ${
-                isDark ? 'bg-[#18191D] border-white/15' : 'bg-white border-slate-200'
+                isDark ? 'bg-[#18191D] border-white/15' : 'bg-[#FAF8F5] border-[#E8DEC8]'
               }`}
             >
               <button
                 onClick={() => setSelectedLot(null)}
                 className={`absolute top-5 right-5 p-2 rounded-full cursor-pointer transition-all ${
-                  isDark ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-slate-400 hover:text-slate-800 hover:bg-slate-100'
+                  isDark ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
                 }`}
               >
                 <X className="w-5 h-5" />
@@ -579,14 +579,14 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                     <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight mt-2">
                       Orden de Liquidación en Escrow
                     </h3>
-                    <p className={`text-xs mt-1 ${isDark ? 'text-white/60' : 'text-slate-500'}`}>
+                    <p className={`text-xs mt-1 ${isDark ? 'text-white/60' : 'text-[#78716C]'}`}>
                       Se emitirá una orden formal supervisada por Builco para el lote {selectedLot.id}.
                     </p>
                   </div>
 
                   {/* Resumen del Lote */}
                   <div className={`p-4 rounded-2xl mb-6 space-y-2 text-xs ${
-                    isDark ? 'bg-black/40 border border-white/5' : 'bg-slate-50 border border-slate-200'
+                    isDark ? 'bg-black/40 border border-white/5' : 'bg-white border border-[#E8DEC8]'
                   }`}>
                     <div className="flex justify-between font-bold">
                       <span>{selectedLot.title}</span>
@@ -596,7 +596,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                       <span>Volumen: {selectedLot.quantity}</span>
                       <span>Origen: {selectedLot.originMunicipality}</span>
                     </div>
-                    <div className="flex justify-between text-[11px] font-mono text-emerald-400">
+                    <div className="flex justify-between text-[11px] font-mono text-emerald-500 dark:text-emerald-400">
                       <span>RUCOM: {selectedLot.rucomCode}</span>
                       <span>En Bóveda Blindada</span>
                     </div>
@@ -612,7 +612,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                         placeholder="Ej. Sovereign Asset Fund / Joyería Internacional"
                         required
                         className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                          isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                          isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                         }`}
                       />
                     </div>
@@ -626,7 +626,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                         placeholder="representante@fondo.com"
                         required
                         className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                          isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                          isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                         }`}
                       />
                     </div>
@@ -637,7 +637,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                       </label>
                       <select
                         className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                          isDark ? 'bg-[#18191D] border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                          isDark ? 'bg-[#18191D] border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                         }`}
                       >
                         <option value="escrow_100">Depósito en Garantía Escrow 100% Contra Ensayes</option>
@@ -692,13 +692,13 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               className={`relative z-10 w-full max-w-xl p-8 sm:p-10 rounded-3xl shadow-3xl border overflow-hidden ${
-                isDark ? 'bg-[#18191D] border-white/15' : 'bg-white border-slate-200'
+                isDark ? 'bg-[#18191D] border-white/15' : 'bg-[#FAF8F5] border-[#E8DEC8]'
               }`}
             >
               <button
                 onClick={() => setIsPublishModalOpen(false)}
                 className={`absolute top-5 right-5 p-2 rounded-full cursor-pointer transition-all ${
-                  isDark ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-slate-400 hover:text-slate-800 hover:bg-slate-100'
+                  isDark ? 'text-white/60 hover:text-white hover:bg-white/10' : 'text-[#78716C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
                 }`}
               >
                 <X className="w-5 h-5" />
@@ -713,7 +713,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                     <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight mt-2">
                       Publicar Lote en el Marketplace
                     </h3>
-                    <p className={`text-xs mt-1 ${isDark ? 'text-white/60' : 'text-slate-500'}`}>
+                    <p className={`text-xs mt-1 ${isDark ? 'text-white/60' : 'text-[#78716C]'}`}>
                       Inscriba su producción minera formal para que la mesa de Builco gestione los ensayes, la custodia y la venta a compradores institucionales.
                     </p>
                   </div>
@@ -728,7 +728,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           value={newLotForm.mineral}
                           onChange={(e) => setNewLotForm({ ...newLotForm, mineral: e.target.value })}
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-[#18191D] border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-[#18191D] border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         >
                           <option value="Oro Aluvial Cero Mercurio">Oro Aluvial Cero Mercurio</option>
@@ -750,7 +750,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           placeholder="Ej. 15 kg / 40 Toneladas"
                           required
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         />
                       </div>
@@ -768,7 +768,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           placeholder="Ej. San José de Uré"
                           required
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         />
                       </div>
@@ -784,7 +784,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           placeholder="Ej. RUCOM-ANM-849201"
                           required
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         />
                       </div>
@@ -802,7 +802,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           placeholder="Ej. 94% Au / 28% Cu"
                           required
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         />
                       </div>
@@ -818,7 +818,7 @@ export const ManagedMarketplace: React.FC<ManagedMarketplaceProps> = ({
                           placeholder="+57 300 000 0000"
                           required
                           className={`w-full px-4 py-3 rounded-xl border text-xs outline-none ${
-                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep'
+                            isDark ? 'bg-white/5 border-white/10 text-white focus:border-gold' : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep'
                           }`}
                         />
                       </div>

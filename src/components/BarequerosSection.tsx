@@ -52,16 +52,16 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
         </div>
         
         <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-helvetica font-black tracking-tighter uppercase ${
-          isDark ? 'text-white' : 'text-slate-950'
+          isDark ? 'text-white' : 'text-[#1C1917]'
         }`}>
           {lang === 'es' ? (
-            <>Comunidades de <span className="text-gold">Barequeros</span> Tradicionales</>
+            <>Comunidades de <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Barequeros</span> Tradicionales</>
           ) : (
-            <>Traditional <span className="text-gold">Barequeros</span> Communities</>
+            <>Traditional <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Barequeros</span> Communities</>
           )}
         </h2>
 
-        <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+        <p className={`text-sm sm:text-base leading-relaxed ${isDark ? 'text-slate-300' : 'text-[#44403C]'}`}>
           {lang === 'es'
             ? 'El barequeo artesanal con batea de madera es el corazón ancestral de la minería de subsistencia en Colombia. Dignificamos este oficio milenario cerrando las brechas de intermediación y convirtiendo cada gramo de oro en bienestar directo, salud y escuelas solares para las familias ribereñas.'
             : 'Artisanal panning with traditional wooden bateas represents the ancestral heritage of subsistence mining in Colombia. We empower this ancestral practice by eradicating predatory intermediaries and converting every gram of gold into direct community welfare, healthcare, and solar-powered schools.'}
@@ -81,7 +81,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
 
       {/* High-impact Barequeros Image Showcase with Watermark */}
       <div className={`relative rounded-3xl overflow-hidden border shadow-2xl transition-all ${
-        isDark ? 'bg-black/60 border-white/15' : 'bg-white border-slate-200/90 shadow-xl'
+        isDark ? 'bg-black/60 border-white/15' : 'bg-white border-[#E8DEC8] shadow-md'
       }`}>
         <div className="relative aspect-16/9 sm:aspect-21/9 max-h-[580px] w-full overflow-hidden bg-black">
           <motion.img 
@@ -151,12 +151,12 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
               {lang === 'es' ? 'Ecosistema de Dignificación Minera' : 'Mining Empowerment Ecosystem'}
             </span>
             <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tight uppercase ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {lang === 'es' ? 'Beneficios Directos para las Comunidades Barequeras' : 'Direct Benefits for Barequeros Communities'}
             </h3>
           </div>
-          <p className={`text-xs max-w-md ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+          <p className={`text-xs max-w-md ${isDark ? 'text-slate-400' : 'text-[#78716C]'}`}>
             {lang === 'es'
               ? 'Diseñado junto a asociaciones locales, ingenieros mineros, sociólogos y Juntas de Acción Comunal.'
               : 'Engineered alongside local community boards, mining engineers, sociologists, and miner councils.'}
@@ -168,7 +168,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
           <div className={`p-6 rounded-2xl border transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 ${
             isDark 
               ? 'bg-white/4 hover:bg-white/7 border-white/10 hover:border-gold/40 shadow-xl' 
-              : 'bg-white border-slate-200/90 hover:border-gold/50 shadow-md hover:shadow-xl'
+              : 'bg-white border-[#E8DEC8] hover:border-gold-deep/50 shadow-xs hover:shadow-md'
           }`}>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -380,7 +380,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
       {/* CALCULADORA INTERACTIVA DE BENEFICIOS PARA EL BAREQUERO    */}
       {/* ========================================================= */}
       <div className={`p-6 sm:p-8 rounded-3xl border shadow-2xl transition-all ${
-        isDark ? 'bg-black/60 border-gold/30' : 'bg-linear-to-br from-amber-50/70 via-white to-slate-50 border-amber-200 shadow-xl'
+        isDark ? 'bg-black/60 border-gold/30' : 'bg-linear-to-br from-[#F7F3EB] via-white to-[#FAF8F5] border-[#E8DEC8] shadow-md'
       }`}>
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-2">
@@ -389,11 +389,11 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
               {lang === 'es' ? 'Simulador de Impacto Financiero en el Territorio' : 'Territorial Financial Impact Simulator'}
             </span>
             <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tight uppercase ${
-              isDark ? 'text-white' : 'text-slate-900'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {lang === 'es' ? '¿Cuánto Gana una Familia Barequera con el Modelo?' : 'How Much Does a Barequero Family Gain?'}
             </h3>
-            <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
+            <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-300' : 'text-[#78716C]'}`}>
               {lang === 'es'
                 ? 'Seleccione la producción mensual aproximada de oro aluvial para comparar el canal informal frente al modelo soberano formalizado.'
                 : 'Select approximate monthly alluvial gold production to compare the informal middleman channel versus the formalized model.'}
@@ -412,7 +412,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
                     ? 'bg-gold text-black shadow-lg shadow-gold/30 scale-105 border-gold'
                     : isDark
                       ? 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
-                      : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-300'
+                      : 'bg-white text-[#44403C] hover:bg-[#F4EFE6] border border-[#E8DEC8]'
                 }`}
               >
                 {grams} {lang === 'es' ? 'Gramos / Mes' : 'Grams / Mo'}

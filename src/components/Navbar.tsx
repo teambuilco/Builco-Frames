@@ -21,7 +21,7 @@ const Navbar = () => {
           className={`text-sm font-semibold tracking-tight transition-all duration-200 px-3 py-1.5 rounded-lg ${
             theme === 'dark' 
               ? 'text-white/70 hover:text-white hover:bg-white/5' 
-              : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
+              : 'text-[#44403C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
           }`}
           onClick={(e) => {
             if (href === '#' || href === '#top') {
@@ -41,7 +41,7 @@ const Navbar = () => {
         className={`text-sm font-semibold tracking-tight transition-all duration-200 px-3 py-1.5 rounded-lg ${
           theme === 'dark' 
             ? 'text-white/70 hover:text-white hover:bg-white/5' 
-            : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
+            : 'text-[#44403C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
         }`}
         onClick={() => {
           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -62,12 +62,14 @@ const Navbar = () => {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <div className={`p-1.5 sm:p-2 rounded-xl transition-all duration-300 group-hover:scale-105 flex items-center justify-center ${
-              theme === 'dark' ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-black shadow-md border border-neutral-800'
+              theme === 'dark' 
+                ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' 
+                : 'bg-gradient-to-br from-[#FFFFFF] to-[#F7F3EB] shadow-[0_2px_12px_rgba(158,112,32,0.12)] border border-[#E8DEC8]'
             }`}>
               <Logo className="w-8 h-8 sm:w-9 sm:h-9" />
             </div>
             <div className="flex flex-col">
-              <span className={`text-xl font-helvetica font-bold tracking-tight transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-950'}`}>
+              <span className={`text-xl font-helvetica font-bold tracking-tight transition-colors ${theme === 'dark' ? 'text-white' : 'text-[#1C1917]'}`}>
                 BUILDING CONNECTIONS
               </span>
               <span className={`text-[9px] font-bold tracking-[0.25em] uppercase -mt-0.5 ${
@@ -95,7 +97,7 @@ const Navbar = () => {
                       className={`flex items-center gap-1 text-sm font-semibold tracking-tight transition-all duration-200 px-3 py-1.5 rounded-lg ${
                         theme === 'dark' 
                           ? 'text-white/70 hover:text-white hover:bg-white/5' 
-                          : 'text-slate-700 hover:text-slate-950 hover:bg-slate-100/80'
+                          : 'text-[#44403C] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
                       }`}
                       onClick={() => setIsIndustriesOpen(!isIndustriesOpen)}
                     >
@@ -112,7 +114,7 @@ const Navbar = () => {
                           className={`absolute top-full left-0 mt-2 w-60 rounded-2xl shadow-2xl border overflow-hidden p-2 backdrop-blur-2xl ${
                             theme === 'dark' 
                               ? 'bg-[#12151B]/95 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)]' 
-                              : 'bg-white/95 border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.12)]'
+                              : 'bg-[#FAF8F5]/98 border-[#E8E3D8] shadow-[0_20px_50px_rgba(28,25,23,0.08)]'
                           }`}
                         >
                           <Link 
@@ -120,7 +122,7 @@ const Navbar = () => {
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                               theme === 'dark' 
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
-                                : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
+                                : 'text-[#44403C] hover:bg-[#F3EFE6] hover:text-gold-deep'
                             }`}
                             onClick={() => {
                               setIsIndustriesOpen(false);
@@ -135,7 +137,7 @@ const Navbar = () => {
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                               theme === 'dark' 
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
-                                : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
+                                : 'text-[#44403C] hover:bg-[#F3EFE6] hover:text-gold-deep'
                             }`}
                             onClick={() => {
                               setIsIndustriesOpen(false);
@@ -150,7 +152,7 @@ const Navbar = () => {
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                               theme === 'dark' 
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
-                                : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
+                                : 'text-[#44403C] hover:bg-[#F3EFE6] hover:text-gold-deep'
                             }`}
                             onClick={() => {
                               setIsIndustriesOpen(false);
@@ -196,7 +198,7 @@ const Navbar = () => {
                           className={`absolute top-full right-0 mt-2 w-52 rounded-2xl shadow-2xl border overflow-hidden p-2 backdrop-blur-2xl ${
                             theme === 'dark' 
                               ? 'bg-[#12151B]/95 border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)]' 
-                              : 'bg-white/95 border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.12)]'
+                              : 'bg-[#FAF8F5]/98 border-[#E8E3D8] shadow-[0_20px_50px_rgba(28,25,23,0.08)]'
                           }`}
                         >
                           <Link 
@@ -204,7 +206,7 @@ const Navbar = () => {
                             className={`block px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                               theme === 'dark' 
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
-                                : 'text-slate-700 hover:bg-slate-100/80 hover:text-slate-950'
+                                : 'text-[#44403C] hover:bg-[#F3EFE6] hover:text-[#1C1917]'
                             }`}
                             onClick={() => {
                               setIsAboutOpen(false);
@@ -218,7 +220,7 @@ const Navbar = () => {
                             className={`flex items-center justify-between px-4 py-3 text-sm font-semibold rounded-xl transition-all ${
                               theme === 'dark' 
                                 ? 'text-white/80 hover:bg-white/10 hover:text-gold' 
-                                : 'text-slate-700 hover:bg-slate-100 hover:text-gold-deep'
+                                : 'text-[#44403C] hover:bg-[#F3EFE6] hover:text-gold-deep'
                             }`}
                             onClick={() => {
                               setIsAboutOpen(false);
@@ -226,7 +228,7 @@ const Navbar = () => {
                             }}
                           >
                             <span>Mino™ Platform</span>
-                            <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]">VIP</span>
+                            <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]">VIP</span>
                           </Link>
                         </motion.div>
                       )}
@@ -241,13 +243,13 @@ const Navbar = () => {
               );
             })}
             
-            <div className={`flex items-center gap-3 border-l pl-6 ml-3 ${theme === 'dark' ? 'border-white/10' : 'border-slate-200/80'}`}>
+            <div className={`flex items-center gap-3 border-l pl-6 ml-3 ${theme === 'dark' ? 'border-white/10' : 'border-[#E8E3D8]'}`}>
               <button 
                 onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
                 className={`px-3 py-1.5 rounded-xl transition-all duration-200 text-xs font-bold tracking-wider flex items-center gap-2 border select-none ${
                   theme === 'dark' 
                     ? 'bg-white/5 hover:bg-white/10 text-white border-white/10 hover:border-gold/30' 
-                    : 'bg-slate-100 hover:bg-slate-200/80 text-slate-800 border-slate-200/80 hover:border-gold-deep/30'
+                    : 'bg-[#F4EFE6] hover:bg-[#ECE6DA] text-[#292524] border-[#E8DEC8] hover:border-gold-deep/40'
                 }`}
                 title={lang === 'en' ? 'Cambiar a Español' : 'Switch to English'}
                 aria-label="Toggle Language"
@@ -265,7 +267,7 @@ const Navbar = () => {
                 className={`p-2.5 rounded-xl transition-all duration-200 ${
                   theme === 'dark' 
                     ? 'bg-white/5 hover:bg-white/10 text-gold hover:text-white' 
-                    : 'bg-slate-100 hover:bg-slate-200/80 text-gold-deep hover:text-slate-900'
+                    : 'bg-[#F4EFE6] hover:bg-[#ECE6DA] text-gold-deep hover:text-[#1C1917]'
                 }`}
                 title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                 aria-label="Toggle Theme"
@@ -294,7 +296,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className={`md:hidden border-b overflow-hidden shadow-2xl ${theme === 'dark' ? 'bg-charcoal border-white/5' : 'bg-white border-slate-200'} px-6 py-8 flex flex-col gap-6`}
+            className={`md:hidden border-b overflow-hidden shadow-2xl ${theme === 'dark' ? 'bg-charcoal border-white/5' : 'bg-[#FAF8F5] border-[#E8E3D8]'} px-6 py-8 flex flex-col gap-6`}
           >
             {t.nav.map((item, i) => {
               const isIndustries = i === 1;
@@ -303,13 +305,13 @@ const Navbar = () => {
               if (isIndustries) {
                 return (
                   <div key={i} className="flex flex-col gap-4">
-                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`}>
+                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C]'}`}>
                       {item}
                     </div>
                     <div className="flex flex-col gap-4 pl-4 border-l-2 border-gold/30">
                       <Link 
                         to="/mining" 
-                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
+                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                         onClick={() => {
                           setIsOpen(false);
                           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -319,7 +321,7 @@ const Navbar = () => {
                       </Link>
                       <Link 
                         to="/energy" 
-                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
+                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                         onClick={() => {
                           setIsOpen(false);
                           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -329,7 +331,7 @@ const Navbar = () => {
                       </Link>
                       <Link 
                         to="/government" 
-                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
+                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                         onClick={() => {
                           setIsOpen(false);
                           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -345,13 +347,13 @@ const Navbar = () => {
               if (isAbout) {
                 return (
                   <div key={i} className="flex flex-col gap-4">
-                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-slate-700'}`}>
+                    <div className={`text-lg font-bold ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C]'}`}>
                       {item}
                     </div>
                     <div className="flex flex-col gap-4 pl-4 border-l-2 border-gold/30">
                       <Link 
                         to="/about" 
-                        className={`text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`} 
+                        className={`text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C] hover:text-[#1C1917]'}`} 
                         onClick={() => {
                           setIsOpen(false);
                           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -361,7 +363,7 @@ const Navbar = () => {
                       </Link>
                       <Link 
                         to="/mino" 
-                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-slate-500'}`}
+                        className={`text-left text-base font-bold ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C] hover:text-[#1C1917]'}`}
                         onClick={() => {
                           setIsOpen(false);
                           window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -379,11 +381,11 @@ const Navbar = () => {
                 </NavLink>
               );
             })}
-            <div className="flex flex-col gap-3 pt-6 border-t border-white/5">
+            <div className="flex flex-col gap-3 pt-6 border-t border-white/5 dark:border-white/5 border-[#E8E3D8]">
                 <button 
                   onClick={() => { setLang(lang === 'en' ? 'es' : 'en'); setIsOpen(false); }}
                   className={`flex items-center justify-between text-base font-bold p-3 rounded-xl transition-colors ${
-                    theme === 'dark' ? 'bg-white/5 hover:bg-white/10 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+                    theme === 'dark' ? 'bg-white/5 hover:bg-white/10 text-white' : 'bg-[#F4EFE6] hover:bg-[#ECE6DA] text-[#1C1917]'
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -391,7 +393,7 @@ const Navbar = () => {
                     <span>{lang === 'en' ? 'Language: English' : 'Idioma: Español'}</span>
                   </div>
                   <span className={`text-xs px-2.5 py-1 rounded-lg font-extrabold uppercase tracking-wider ${
-                    theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                    theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                   }`}>
                     {lang === 'en' ? 'Switch to ES' : 'Cambiar a EN'}
                   </span>
@@ -399,7 +401,7 @@ const Navbar = () => {
                 <button 
                   onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark'); setIsOpen(false); }}
                   className={`flex items-center gap-3 text-base font-bold p-3 rounded-xl transition-colors ${
-                    theme === 'dark' ? 'bg-white/5 hover:bg-white/10 text-white' : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+                    theme === 'dark' ? 'bg-white/5 hover:bg-white/10 text-white' : 'bg-[#F4EFE6] hover:bg-[#ECE6DA] text-[#1C1917]'
                   }`}
                 >
                   {theme === 'dark' ? <Sun className="w-5 h-5 text-gold" /> : <Moon className="w-5 h-5 text-gold-deep" />}

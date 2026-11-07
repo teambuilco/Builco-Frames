@@ -141,7 +141,7 @@ const Hero = () => {
               className={`flex items-center justify-center gap-2 px-10 py-4 font-bold text-sm rounded-xl transition-all active:scale-[0.98] ${
                 isDark 
                   ? 'bg-white/5 hover:bg-white/10 text-white border border-white/15' 
-                  : 'bg-white hover:bg-slate-100 text-slate-800 border border-slate-200 shadow-xs'
+                  : 'bg-white hover:bg-[#F3EFE6] text-[#1C1917] border border-[#E8DEC8] shadow-xs'
               }`}
             >
               <span>{t.portfolio}</span>
@@ -150,7 +150,7 @@ const Hero = () => {
           </div>
 
           {/* Live Metrics Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 w-full pt-10 border-t border-slate-200/80 dark:border-white/10">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 w-full pt-10 border-t border-[#E8DEC8] dark:border-white/10">
             {(t.metrics || [
               { value: "$100M+", label: lang === 'es' ? "Capital Asesorado" : "Advised Capital" },
               { value: "15+", label: lang === 'es' ? "Años de Excelencia" : "Years Experience" },
@@ -164,7 +164,7 @@ const Hero = () => {
                   {metric.value}
                 </span>
                 <span className={`text-[11px] font-semibold uppercase tracking-wider mt-1 ${
-                  isDark ? 'text-slate-400' : 'text-slate-500'
+                  isDark ? 'text-slate-400' : 'text-[#78716C]'
                 }`}>
                   {metric.label}
                 </span>
@@ -183,11 +183,11 @@ const SocialProof = () => {
 
   return (
     <section className={`py-14 border-y transition-all duration-300 overflow-hidden ${
-      isDark ? 'bg-[#0B0D11] border-white/10' : 'bg-slate-50/70 border-slate-200/80'
+      isDark ? 'bg-[#0B0D11] border-white/10' : 'bg-[#F4EFE6]/60 border-[#E8DEC8]'
     }`}>
       <div className="max-w-7xl mx-auto px-6 mb-8 text-center">
         <p className={`text-xs font-bold uppercase tracking-[0.25em] ${
-          isDark ? 'text-slate-400' : 'text-slate-600'
+          isDark ? 'text-slate-400' : 'text-[#78716C]'
         }`}>
           {t.socialProof}
         </p>
@@ -205,7 +205,7 @@ const SocialProof = () => {
               className={`text-xl md:text-2xl font-helvetica font-bold uppercase tracking-tight transition-all duration-200 cursor-default ${
                 isDark 
                   ? 'text-white/40 hover:text-white' 
-                  : 'text-slate-600 hover:text-slate-950 font-semibold'
+                  : 'text-[#78716C] hover:text-[#1C1917] font-semibold'
               }`}
             >
               {client}
@@ -338,24 +338,24 @@ const StrategicDivisions = () => {
 
   return (
     <section id="corridors" className={`py-28 transition-colors duration-300 ${
-      isDark ? 'bg-[#0E1116]' : 'bg-white'
+      isDark ? 'bg-[#0E1116]' : 'bg-[#FAF8F5]'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
             <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4 ${
-              isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+              isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
             }`}>
               {lang === 'es' ? 'VERTICALES DE NEGOCIO' : 'BUSINESS VERTICALS'}
             </div>
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight transition-colors ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {t.divisionsTitle || (lang === 'es' ? 'Verticales de Negocio' : 'Business Verticals')}
             </h2>
           </div>
           <p className={`max-w-md text-base leading-relaxed ${
-            isDark ? 'text-slate-400' : 'text-slate-600'
+            isDark ? 'text-slate-400' : 'text-[#44403C]'
           }`}>
             {t.divisionsSub || (lang === 'es' 
               ? 'Divisiones especializadas diseñadas para navegar la complejidad regulatoria, el despliegue de capital y la ejecución en territorio.'
@@ -368,12 +368,12 @@ const StrategicDivisions = () => {
           <div className={`p-6 sm:p-8 rounded-3xl border transition-all duration-300 relative overflow-hidden ${
             isDark 
               ? 'bg-[#12151B]/95 border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.7)]' 
-              : 'bg-white/95 border-slate-200/90 shadow-[0_25px_60px_rgba(15,23,42,0.06)]'
+              : 'bg-white/95 border-[#E8DEC8] shadow-[0_20px_50px_rgba(28,25,23,0.05)]'
           }`}>
             <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gold/10' : 'bg-gold/10'}`} />
 
             {/* Console Top Bar */}
-            <div className="flex flex-wrap items-center justify-between pb-6 border-b border-slate-200/80 dark:border-white/10 relative z-10 gap-3">
+            <div className="flex flex-wrap items-center justify-between pb-6 border-b border-[#E8DEC8] dark:border-white/10 relative z-10 gap-3">
               <div className="flex items-center gap-2.5">
                 <Radio className={`w-4 h-4 animate-pulse ${isDark ? 'text-gold' : 'text-gold-deep'}`} />
                 <span className={`text-[10px] font-extrabold tracking-widest uppercase ${
@@ -391,7 +391,7 @@ const StrategicDivisions = () => {
                   className={`text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5 transition-all cursor-pointer ${
                     isDark 
                       ? 'bg-gold/15 text-gold border border-gold/30 hover:bg-gold/25 hover:border-gold/50 shadow-xs' 
-                      : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4] hover:bg-[#F2EADA] shadow-xs'
+                      : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8] hover:bg-[#EFE7D8] shadow-xs'
                   }`}
                 >
                   <span>{lang === 'es' ? 'Abrir Mino™ Platform' : 'Open Mino™ Platform'}</span>
@@ -420,10 +420,10 @@ const StrategicDivisions = () => {
                       isActive
                         ? isDark
                           ? 'bg-gold/15 border-gold/40 text-white shadow-[0_0_20px_rgba(229,184,108,0.1)]'
-                          : 'bg-[#F9F6F0] border-[#E8DCC4] text-slate-900 shadow-xs ring-1 ring-gold-deep/20'
+                          : 'bg-[#F7F3EB] border-[#E8DEC8] text-[#1C1917] shadow-xs ring-1 ring-gold-deep/20'
                         : isDark
                           ? 'bg-white/5 border-transparent text-slate-400 hover:text-white hover:bg-white/10'
-                          : 'bg-slate-50/80 border-slate-200/60 text-slate-600 hover:text-slate-950 hover:bg-slate-100/80'
+                          : 'bg-[#FAF8F5] border-[#E8DEC8]/80 text-[#57534E] hover:text-[#1C1917] hover:bg-[#F3EFE6]'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -459,12 +459,12 @@ const StrategicDivisions = () => {
               } p-6 sm:p-8 rounded-2xl border flex flex-col justify-between transition-all h-full ${
                 isDark 
                   ? 'bg-black/40 border-white/10' 
-                  : 'bg-slate-50/80 border-slate-200/80'
+                  : 'bg-[#FAF8F5] border-[#E8DEC8]'
               }`}>
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                      isDark ? 'text-slate-400' : 'text-slate-500'
+                      isDark ? 'text-slate-400' : 'text-[#78716C]'
                     }`}>
                       {lang === 'es' ? 'Corredor Geográfico' : 'Geographic Corridor'}
                     </span>
@@ -477,12 +477,12 @@ const StrategicDivisions = () => {
 
                   <div className="mb-5">
                     <span className={`text-[10px] font-bold uppercase tracking-wider block mb-1.5 ${
-                      isDark ? 'text-slate-400' : 'text-slate-500'
+                      isDark ? 'text-slate-400' : 'text-[#78716C]'
                     }`}>
                       {lang === 'es' ? 'Foco de Asesoría' : 'Advisory Focus'}
                     </span>
                     <p className={`text-base font-semibold leading-relaxed ${
-                      isDark ? 'text-white' : 'text-slate-900'
+                      isDark ? 'text-white' : 'text-[#1C1917]'
                     }`}>
                       {activeCorridor.focus}
                     </p>
@@ -493,12 +493,12 @@ const StrategicDivisions = () => {
                     <div className="mb-5">
                       <div className="flex items-center justify-between mb-2.5">
                         <span className={`text-[10px] font-bold uppercase tracking-wider ${
-                          isDark ? 'text-slate-400' : 'text-slate-500'
+                          isDark ? 'text-slate-400' : 'text-[#78716C]'
                         }`}>
                           {lang === 'es' ? 'Hitos Clave & Impacto Territorial' : 'Key Milestones & Regional Impact'}
                         </span>
                         <span className={`text-[9px] font-mono font-semibold px-2 py-0.5 rounded-full ${
-                          isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                          isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                         }`}>
                           {lang === 'es' ? 'Hitos Activos' : 'Active Milestones'}
                         </span>
@@ -511,23 +511,23 @@ const StrategicDivisions = () => {
                             className={`p-3 rounded-xl border transition-all ${
                               isDark 
                                 ? 'bg-white/3 border-white/8 hover:border-gold/30 hover:bg-white/5' 
-                                : 'bg-white border-slate-200/80 hover:border-[#926E24]/30 shadow-xs'
+                                : 'bg-white border-[#E8DEC8] hover:border-gold-deep/35 shadow-xs'
                             }`}
                           >
                             <div className="flex items-start gap-2.5">
                               <div className={`mt-0.5 p-1 rounded-md shrink-0 ${
-                                isDark ? 'bg-gold/15 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                                isDark ? 'bg-gold/15 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                               }`}>
                                 <CheckCircle2 className="w-3.5 h-3.5" />
                               </div>
                               <div className="flex-1">
                                 <h4 className={`text-xs font-bold leading-tight ${
-                                  isDark ? 'text-white' : 'text-slate-900'
+                                  isDark ? 'text-white' : 'text-[#1C1917]'
                                 }`}>
                                   {m.title}
                                 </h4>
                                 <p className={`text-[11px] leading-relaxed mt-1 ${
-                                  isDark ? 'text-slate-400' : 'text-slate-600'
+                                  isDark ? 'text-slate-400' : 'text-[#57534E]'
                                 }`}>
                                   {m.desc}
                                 </p>
@@ -540,11 +540,11 @@ const StrategicDivisions = () => {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-5 border-t border-slate-200/60 dark:border-white/10">
+                <div className="flex items-center justify-between pt-5 border-t border-[#E8DEC8] dark:border-white/10">
                   <div className="flex items-center gap-2">
                     <Shield className={`w-4 h-4 ${isDark ? 'text-gold' : 'text-gold-deep'}`} />
                     <span className={`text-xs font-semibold ${
-                      isDark ? 'text-slate-300' : 'text-slate-600'
+                      isDark ? 'text-slate-300' : 'text-[#57534E]'
                     }`}>
                       {activeCorridor.security}
                     </span>
@@ -553,7 +553,7 @@ const StrategicDivisions = () => {
                   <Link
                     to={corridorLinks[activeCorridor.id] || '/mining'}
                     className={`inline-flex items-center gap-1.5 text-xs font-bold transition-transform hover:translate-x-0.5 ${
-                      isDark ? 'text-gold hover:text-gold-hover' : 'text-gold-deep hover:text-slate-950'
+                      isDark ? 'text-gold hover:text-gold-hover' : 'text-gold-deep hover:text-[#1C1917]'
                     }`}
                   >
                     <span>{lang === 'es' ? 'Explorar' : 'Explore'}</span>
@@ -564,8 +564,8 @@ const StrategicDivisions = () => {
             </div>
 
             {/* Console Footnote */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-6 pt-4 border-t border-slate-200/80 dark:border-white/10 text-[10px] relative z-10">
-              <span className={isDark ? 'text-slate-400' : 'text-slate-600 font-medium'}>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-6 pt-4 border-t border-[#E8DEC8] dark:border-white/10 text-[10px] relative z-10">
+              <span className={isDark ? 'text-slate-400' : 'text-[#57534E] font-medium'}>
                 {isMining 
                   ? (lang === 'es' ? 'Cifrado Institucional Zero-Trust • Datos de Commodities en Tiempo Real (USD)' : 'Zero-Trust Institutional Encryption • Real-Time Commodities Feed (USD)')
                   : (lang === 'es' ? 'Cifrado Institucional Zero-Trust • Monitoreo y Supervisión de Corredores en Tiempo Real' : 'Zero-Trust Institutional Encryption • Real-Time Corridor Tracking & Supervision')
@@ -574,7 +574,7 @@ const StrategicDivisions = () => {
               <Link
                 to="/mino"
                 className={`inline-flex items-center gap-1.5 font-bold hover:underline cursor-pointer text-left sm:text-right transition-colors ${
-                  isDark ? 'text-gold hover:text-gold-hover' : 'text-gold-deep hover:text-slate-950'
+                  isDark ? 'text-gold hover:text-gold-hover' : 'text-gold-deep hover:text-[#1C1917]'
                 }`}
               >
                 <span>{lang === 'es' ? 'Abrir Mino™ Platform' : 'Open Mino™ Platform'}</span>
@@ -594,37 +594,37 @@ const StrategicDivisions = () => {
                 className={`p-8 rounded-3xl border flex flex-col justify-between transition-all duration-300 relative group overflow-hidden ${
                   isDark
                     ? 'bg-[#141820] border-white/10 hover:border-gold/40 shadow-lg shadow-black/20'
-                    : 'bg-white border-slate-200/90 hover:border-[#926E24]/30 shadow-[0_15px_35px_rgba(15,23,42,0.05)]'
+                    : 'bg-white border-[#E8DEC8] hover:border-gold-deep/35 shadow-[0_12px_30px_rgba(28,25,23,0.04)]'
                 }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
                     <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${
-                      isDark ? 'bg-gold/15 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                      isDark ? 'bg-gold/15 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                     }`}>
                       <Icon className="w-6 h-6" />
                     </div>
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
-                      isDark ? 'bg-white/5 text-slate-300 border border-white/10' : 'bg-slate-100 text-slate-700 border border-slate-200/80'
+                      isDark ? 'bg-white/5 text-slate-300 border border-white/10' : 'bg-[#F3EFE6] text-[#44403C] border border-[#E8DEC8]'
                     }`}>
                       {div.badge}
                     </span>
                   </div>
 
                   <h3 className={`text-2xl font-bold tracking-tight mb-4 transition-colors ${
-                    isDark ? 'text-white group-hover:text-gold' : 'text-slate-950 group-hover:text-gold-deep'
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
                   }`}>
                     {div.title}
                   </h3>
 
                   <p className={`text-sm leading-relaxed mb-6 ${
-                    isDark ? 'text-slate-400' : 'text-slate-600'
+                    isDark ? 'text-slate-400' : 'text-[#44403C]'
                   }`}>
                     {div.desc}
                   </p>
                 </div>
 
-                <div className="pt-6 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between">
+                <div className="pt-6 border-t border-[#E8DEC8] dark:border-white/10 flex items-center justify-between">
                   <span className={`text-xs font-bold ${
                     isDark ? 'text-gold/90' : 'text-gold-deep'
                   }`}>
@@ -633,7 +633,7 @@ const StrategicDivisions = () => {
                   <Link
                     to={div.path}
                     className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform ${
-                      isDark ? 'text-white hover:text-gold' : 'text-slate-900 hover:text-gold-deep'
+                      isDark ? 'text-white hover:text-gold' : 'text-[#1C1917] hover:text-gold-deep'
                     }`}
                   >
                     <span>{lang === 'es' ? 'Ver Vertical' : 'Explore'}</span>
@@ -661,7 +661,7 @@ const Services = () => {
 
   return (
     <section id="solutions" className={`py-28 transition-colors duration-300 ${
-      isDark ? 'bg-charcoal' : 'bg-slate-50/50'
+      isDark ? 'bg-charcoal' : 'bg-[#F4EFE6]/50'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-20">
@@ -674,7 +674,7 @@ const Services = () => {
             </span>
           </div>
           <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight transition-colors ${
-            isDark ? 'text-white' : 'text-slate-950'
+            isDark ? 'text-white' : 'text-[#1C1917]'
           }`}>
             {t.servicesTitle}
             <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
@@ -691,21 +691,21 @@ const Services = () => {
               className={`p-10 rounded-3xl border transition-all duration-300 group relative overflow-hidden ${
                 isDark 
                   ? 'bg-[#12151B] border-white/10 hover:border-gold/40' 
-                  : 'bg-white border-slate-200/90 hover:border-[#926E24]/30 shadow-[0_15px_35px_rgba(15,23,42,0.05)]'
+                  : 'bg-white border-[#E8DEC8] hover:border-gold-deep/35 shadow-[0_12px_30px_rgba(28,25,23,0.04)]'
               }`}
             >
               <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-8 transition-all duration-300 ${
-                isDark ? 'bg-gold/10' : 'bg-[#F9F6F0] border border-[#E8DCC4]'
+                isDark ? 'bg-gold/10' : 'bg-[#F7F3EB] border border-[#E8DEC8]'
               }`}>
                 {React.cloneElement(icons[index] as React.ReactElement, { className: `w-7 h-7 ${isDark ? 'text-gold' : 'text-gold-deep'}` })}
               </div>
               <h3 className={`text-2xl font-bold mb-4 transition-colors ${
-                isDark ? 'text-white' : 'text-slate-950'
+                isDark ? 'text-white' : 'text-[#1C1917]'
               }`}>
                 {service.title}
               </h3>
               <p className={`text-base leading-relaxed ${
-                isDark ? 'text-slate-400' : 'text-slate-600'
+                isDark ? 'text-slate-400' : 'text-[#44403C]'
               }`}>
                 {service.description}
               </p>
@@ -735,25 +735,25 @@ const MinoSpotlight = () => {
 
   return (
     <section className={`py-24 transition-colors duration-300 border-y ${
-      isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-linear-to-b from-white via-slate-50/40 to-white border-slate-200/80'
+      isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-linear-to-b from-white via-[#FAF8F5] to-white border-[#E8DEC8]'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="mb-12 max-w-3xl space-y-6">
           <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-            isDark ? 'bg-gold/15 text-gold border border-gold/25' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+            isDark ? 'bg-gold/15 text-gold border border-gold/25' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
           }`}>
             <Sparkles className="w-3.5 h-3.5" />
             <span>{spotlight.badge}</span>
           </div>
 
           <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ${
-            isDark ? 'text-white' : 'text-slate-950'
+            isDark ? 'text-white' : 'text-[#1C1917]'
           }`}>
             {spotlight.title}
           </h2>
 
           <p className={`text-lg leading-relaxed ${
-            isDark ? 'text-slate-300' : 'text-slate-700 font-normal'
+            isDark ? 'text-slate-300' : 'text-[#44403C] font-normal'
           }`}>
             {spotlight.desc}
           </p>
@@ -762,12 +762,12 @@ const MinoSpotlight = () => {
             {spotlight.features.map((feature: string, idx: number) => (
               <div key={idx} className="flex items-center gap-3">
                 <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                  isDark ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep'
+                  isDark ? 'bg-gold/20 text-gold' : 'bg-[#F7F3EB] text-gold-deep'
                 }`}>
                   <Check className="w-3 h-3 stroke-[3]" />
                 </div>
                 <span className={`text-sm font-semibold ${
-                  isDark ? 'text-slate-200' : 'text-slate-800'
+                  isDark ? 'text-slate-200' : 'text-[#1C1917]'
                 }`}>
                   {feature}
                 </span>
@@ -800,11 +800,11 @@ const LocationMarquee = () => {
 
   return (
     <section className={`py-16 border-b transition-all duration-300 overflow-hidden ${
-      isDark ? 'bg-[#0B0D11] border-white/10' : 'bg-white border-slate-200/80'
+      isDark ? 'bg-[#0B0D11] border-white/10' : 'bg-[#FAF8F5] border-[#E8DEC8]'
     }`}>
       <div className="max-w-7xl mx-auto px-6 mb-10 text-center">
         <p className={`text-xs font-bold uppercase tracking-[0.25em] ${
-          isDark ? 'text-slate-400' : 'text-slate-600'
+          isDark ? 'text-slate-400' : 'text-[#78716C]'
         }`}>
           {t.whereWeAre}
         </p>
@@ -820,7 +820,7 @@ const LocationMarquee = () => {
             <div key={i} className="flex items-center gap-3">
               <Globe className={`w-4 h-4 ${isDark ? 'text-gold' : 'text-gold-deep'}`} />
               <span className={`text-xl font-helvetica font-bold uppercase tracking-tight ${
-                isDark ? 'text-white/50 hover:text-white' : 'text-slate-600 hover:text-slate-950 font-semibold'
+                isDark ? 'text-white/50 hover:text-white' : 'text-[#57534E] hover:text-[#1C1917] font-semibold'
               } transition-colors cursor-default`}>
                 {location}
               </span>
@@ -838,7 +838,7 @@ const Process = () => {
 
   return (
     <section id="process" className={`py-28 relative overflow-hidden transition-colors duration-300 ${
-      isDark ? 'bg-charcoal' : 'bg-slate-50/50'
+      isDark ? 'bg-charcoal' : 'bg-[#F4EFE6]/50'
     }`}>
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-20">
@@ -852,12 +852,12 @@ const Process = () => {
             <div className={`w-8 h-0.5 ${isDark ? 'bg-gold' : 'bg-gold-deep'}`} />
           </div>
           <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4 transition-colors ${
-            isDark ? 'text-white' : 'text-slate-950'
+            isDark ? 'text-white' : 'text-[#1C1917]'
           }`}>
             {t.processTitle}
           </h2>
           <p className={`max-w-xl mx-auto text-base leading-relaxed ${
-            isDark ? 'text-slate-400' : 'text-slate-600'
+            isDark ? 'text-slate-400' : 'text-[#44403C]'
           }`}>
             {t.processSub}
           </p>
@@ -870,23 +870,23 @@ const Process = () => {
               className={`p-10 rounded-3xl border flex flex-col items-center text-center transition-all duration-300 relative ${
                 isDark 
                   ? 'bg-[#12151B] border-white/10 hover:border-gold/30' 
-                  : 'bg-white border-slate-200/90 hover:border-[#926E24]/30 shadow-[0_15px_35px_rgba(15,23,42,0.05)]'
+                  : 'bg-white border-[#E8DEC8] hover:border-gold-deep/35 shadow-[0_12px_30px_rgba(28,25,23,0.04)]'
               }`}
             >
               <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 font-display font-bold text-2xl transition-all duration-300 ${
                 isDark 
                   ? 'bg-gold/15 text-gold border border-gold/30' 
-                  : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                  : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
               }`}>
                 {step.number}
               </div>
               <h3 className={`text-2xl font-bold mb-3 transition-colors ${
-                isDark ? 'text-white' : 'text-slate-950'
+                isDark ? 'text-white' : 'text-[#1C1917]'
               }`}>
                 {step.title}
               </h3>
               <p className={`text-sm leading-relaxed ${
-                isDark ? 'text-slate-400' : 'text-slate-600'
+                isDark ? 'text-slate-400' : 'text-[#44403C]'
               }`}>
                 {step.desc}
               </p>
@@ -904,19 +904,19 @@ const Differentiation = () => {
 
   return (
     <section className={`py-28 transition-colors duration-300 ${
-      isDark ? 'bg-[#0E1116]' : 'bg-white'
+      isDark ? 'bg-[#0E1116]' : 'bg-[#FAF8F5]'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <div className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4 ${
-              isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+              isDark ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
             }`}>
               {lang === 'es' ? 'DIFERENCIAL INSTITUCIONAL' : 'INSTITUTIONAL ADVANTAGE'}
             </div>
 
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-8 tracking-tight transition-colors ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {t.diffTitle}
               <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
@@ -935,18 +935,18 @@ const Differentiation = () => {
                   className="flex gap-5"
                 >
                   <div className={`mt-1 p-2.5 rounded-xl shrink-0 ${
-                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                   }`}>
                     <ChevronRight className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className={`text-xl font-bold mb-1.5 transition-colors ${
-                      isDark ? 'text-white' : 'text-slate-950'
+                      isDark ? 'text-white' : 'text-[#1C1917]'
                     }`}>
                       {item.title}
                     </h4>
                     <p className={`text-base leading-relaxed ${
-                      isDark ? 'text-slate-400' : 'text-slate-600 font-normal'
+                      isDark ? 'text-slate-400' : 'text-[#44403C] font-normal'
                     }`}>
                       {item.desc}
                     </p>
@@ -960,7 +960,7 @@ const Differentiation = () => {
             <div className={`w-full max-w-md aspect-square rounded-3xl border p-8 flex items-center justify-center text-center transition-all duration-500 relative overflow-hidden ${
               isDark 
                 ? 'bg-linear-to-br from-gold/15 via-[#12151B] to-black border-gold/30 shadow-[0_25px_60px_rgba(0,0,0,0.6)]' 
-                : 'bg-linear-to-br from-[#F9F6F0] via-white to-[#F4EEE4] border-[#E8DCC4] shadow-[0_25px_60px_rgba(146,110,36,0.06)]'
+                : 'bg-linear-to-br from-[#F7F3EB] via-white to-[#F2EADB] border-[#E8DEC8] shadow-[0_25px_60px_rgba(158,112,32,0.06)]'
             }`}>
               <div>
                 <div className={`text-8xl md:text-9xl font-bold tracking-tighter mb-4 ${
@@ -969,7 +969,7 @@ const Differentiation = () => {
                   15+
                 </div>
                 <div className={`text-xs font-bold uppercase tracking-[0.25em] ${
-                  isDark ? 'text-slate-300' : 'text-slate-700'
+                  isDark ? 'text-slate-300' : 'text-[#44403C]'
                 }`}>
                   {t.yearsExp}
                 </div>
@@ -993,11 +993,11 @@ const FinalCTA = () => {
 
   return (
     <section className={`py-32 border-t transition-all duration-300 ${
-      isDark ? 'bg-black border-white/10' : 'bg-linear-to-b from-white to-slate-50 border-slate-200/80'
+      isDark ? 'bg-black border-white/10' : 'bg-linear-to-b from-white to-[#FAF8F5] border-[#E8DEC8]'
     }`}>
       <div className="max-w-4xl mx-auto px-6 text-center">
         <h2 className={`text-3xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight transition-colors ${
-          isDark ? 'text-white' : 'text-slate-950'
+          isDark ? 'text-white' : 'text-[#1C1917]'
         }`}>
           {t.ctaTitle}
           <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
@@ -1005,7 +1005,7 @@ const FinalCTA = () => {
           </span>
         </h2>
         <p className={`text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed ${
-          isDark ? 'text-slate-300' : 'text-slate-600 font-normal'
+          isDark ? 'text-slate-300' : 'text-[#44403C] font-normal'
         }`}>
           {t.ctaSub}
         </p>
@@ -1029,7 +1029,7 @@ const Footer = () => {
 
   return (
     <footer className={`py-20 border-t transition-colors duration-300 ${
-      isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-white border-slate-200'
+      isDark ? 'bg-[#0A0C0F] border-white/10' : 'bg-[#FAF8F5] border-[#E8DEC8]'
     }`}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-12 mb-14">
@@ -1039,12 +1039,14 @@ const Footer = () => {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
               <div className={`p-1.5 sm:p-2 rounded-xl transition-all duration-300 group-hover:scale-105 flex items-center justify-center ${
-                isDark ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-black shadow-md border border-neutral-800'
+                isDark 
+                  ? 'bg-gold/10 border border-gold/20 shadow-[0_0_15px_rgba(212,175,55,0.15)]' 
+                  : 'bg-gradient-to-br from-[#FFFFFF] to-[#F7F3EB] shadow-[0_2px_12px_rgba(158,112,32,0.12)] border border-[#E8DEC8]'
               }`}>
                 <Logo className="w-8 h-8 sm:w-9 sm:h-9" />
               </div>
               <div className="flex flex-col">
-                <span className={`text-xl font-helvetica font-bold tracking-tight ${isDark ? 'text-white' : 'text-slate-950'}`}>
+                <span className={`text-xl font-helvetica font-bold tracking-tight ${isDark ? 'text-white' : 'text-[#1C1917]'}`}>
                   BUILDING CONNECTIONS
                 </span>
                 <span className={`text-[9px] font-bold tracking-[0.25em] uppercase -mt-0.5 ${
@@ -1055,7 +1057,7 @@ const Footer = () => {
               </div>
             </div>
             <p className={`max-w-sm leading-relaxed text-sm ${
-              isDark ? 'text-white' : 'text-black'
+              isDark ? 'text-white' : 'text-[#44403C]'
             }`}>
               {t.footerDesc}
             </p>
@@ -1063,23 +1065,23 @@ const Footer = () => {
 
           <div>
             <h5 className={`font-bold mb-5 uppercase text-xs tracking-wider ${
-              isDark ? 'text-gold' : 'text-black'
+              isDark ? 'text-gold' : 'text-gold-deep'
             }`}>
               {lang === 'es' ? 'Verticales de Negocio' : 'Business Verticals'}
             </h5>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link to="/mining" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}>
+                <Link to="/mining" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}>
                   {lang === 'es' ? 'Minería y Recursos' : 'Mining & Resources'}
                 </Link>
               </li>
               <li>
-                <Link to="/energy" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}>
+                <Link to="/energy" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}>
                   {lang === 'es' ? 'Energía y Transición' : 'Energy & Transition'}
                 </Link>
               </li>
               <li>
-                <Link to="/government" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}>
+                <Link to="/government" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}>
                   {lang === 'es' ? 'Relaciones Públicas' : 'Public Relations'}
                 </Link>
               </li>
@@ -1088,25 +1090,25 @@ const Footer = () => {
 
           <div>
             <h5 className={`font-bold mb-5 uppercase text-xs tracking-wider ${
-              isDark ? 'text-gold' : 'text-black'
+              isDark ? 'text-gold' : 'text-gold-deep'
             }`}>
               {lang === 'es' ? 'Institucional' : 'Company'}
             </h5>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link to="/about" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}>
+                <Link to="/about" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}>
                   {lang === 'es' ? 'Historia y Misión' : 'Our Story & Mission'}
                 </Link>
               </li>
               <li>
-                <Link to="/mino" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}>
+                <Link to="/mino" className={`transition-colors font-medium ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}>
                   Mino™ Platform
                 </Link>
               </li>
               <li>
                 <button 
                   onClick={() => setIsContactModalOpen(true)} 
-                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
+                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}
                 >
                   {t.contact}
                 </button>
@@ -1114,7 +1116,7 @@ const Footer = () => {
               <li>
                 <button 
                   onClick={() => setIsPrivacyModalOpen(true)} 
-                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-black hover:text-gold-deep'}`}
+                  className={`transition-colors font-medium text-left cursor-pointer ${isDark ? 'text-slate-300 hover:text-gold' : 'text-[#44403C] hover:text-[#1C1917]'}`}
                 >
                   {lang === 'es' ? 'Políticas de Privacidad y Habeas Data' : 'Privacy Policy & Habeas Data'}
                 </button>
@@ -1127,7 +1129,7 @@ const Footer = () => {
         <div className={`mb-14 p-6 sm:p-8 rounded-2xl border transition-all duration-300 relative overflow-hidden ${
           isDark 
             ? 'bg-gradient-to-r from-[#111622]/90 via-[#0d121c]/90 to-[#141b29]/90 border-gold/30 shadow-[0_10px_30px_rgba(0,0,0,0.4)]' 
-            : 'bg-gradient-to-r from-slate-50 via-[#fcfaf5] to-slate-50 border-[#E8DCC4] shadow-sm'
+            : 'bg-gradient-to-r from-white via-[#FAF8F5] to-white border-[#E8DEC8] shadow-sm'
         }`}>
           <div className="absolute top-0 right-0 w-80 h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -1135,26 +1137,26 @@ const Footer = () => {
             <div className="space-y-3 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider ${
-                  isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F4EDE0] text-gold-deep border border-[#E0D2B8]'
+                  isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                 }`}>
                   <ShieldCheck className="w-3.5 h-3.5" />
                   {privacySeg?.badge || 'Gobernanza Institucional & Habeas Data'}
                 </span>
                 <span className={`text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded border ${
-                  isDark ? 'border-white/10 text-slate-300 bg-white/5' : 'border-slate-200 text-slate-700 bg-white'
+                  isDark ? 'border-white/10 text-slate-300 bg-white/5' : 'border-[#E8DEC8] text-[#44403C] bg-white'
                 }`}>
                   {privacySeg?.lawTag || 'Ley Estatutaria 1581 de 2012'}
                 </span>
               </div>
 
               <h4 className={`text-xl sm:text-2xl font-helvetica font-black tracking-tight ${
-                isDark ? 'text-white' : 'text-slate-950'
+                isDark ? 'text-white' : 'text-[#1C1917]'
               }`}>
                 {privacySeg?.title || (lang === 'es' ? 'Políticas de Privacidad y Habeas Data' : 'Privacy Policy & Habeas Data')}
               </h4>
 
               <p className={`text-sm leading-relaxed ${
-                isDark ? 'text-slate-300' : 'text-slate-700'
+                isDark ? 'text-slate-300' : 'text-[#44403C]'
               }`}>
                 {privacySeg?.desc || (lang === 'es'
                   ? 'Consulte nuestro marco oficial de protección de datos personales y política de Habeas Data conforme a la Ley Estatutaria 1581 de 2012, Decreto 1377 de 2013 y estándares internacionales de privacidad.'
@@ -1177,10 +1179,10 @@ const Footer = () => {
         </div>
 
         <div className={`pt-8 border-t flex flex-col sm:flex-row justify-between items-center gap-4 text-xs ${
-          isDark ? 'border-gold/20 text-gold' : 'border-slate-200 text-black'
+          isDark ? 'border-gold/20 text-gold' : 'border-[#E8DEC8] text-[#57534E]'
         }`}>
-          <p className={isDark ? 'text-gold' : 'text-black'}>{t.footerRights}</p>
-          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 font-semibold ${isDark ? 'text-gold' : 'text-black'}`}>
+          <p className={isDark ? 'text-gold' : 'text-[#57534E]'}>{t.footerRights}</p>
+          <div className={`flex flex-wrap items-center gap-4 sm:gap-6 font-semibold ${isDark ? 'text-gold' : 'text-[#57534E]'}`}>
             <button
               onClick={() => setIsPrivacyModalOpen(true)}
               className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity flex items-center gap-1.5"
@@ -1206,7 +1208,7 @@ export default function LandingPage() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 relative ${
-      isDark ? 'bg-charcoal' : 'bg-white'
+      isDark ? 'bg-charcoal' : 'bg-[#FAF8F5]'
     }`}>
       <NetworkBackground />
       <Hero />

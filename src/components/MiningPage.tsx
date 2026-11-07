@@ -45,7 +45,7 @@ const MiningPage = () => {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 overflow-hidden ${theme === 'dark' ? 'bg-charcoal text-white' : 'bg-white text-slate-900'}`}>
+    <div className={`min-h-screen transition-colors duration-500 overflow-hidden ${theme === 'dark' ? 'bg-charcoal text-white' : 'bg-[#FAF8F5] text-[#1C1917]'}`}>
       <NetworkBackground />
       
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
@@ -54,7 +54,7 @@ const MiningPage = () => {
           className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider mb-12 transition-all duration-200 ${
             theme === 'dark'
               ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
-              : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80 shadow-sm'
+              : 'bg-white hover:bg-[#F4EFE6] text-[#1C1917] border border-[#E8DEC8] shadow-xs'
           }`}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -65,12 +65,12 @@ const MiningPage = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className={`p-4 rounded-2xl mb-8 ${theme === 'dark' ? 'bg-gold/10' : 'bg-[#F9F6F0] border border-[#E8DCC4]'}`}
+            className={`p-4 rounded-2xl mb-8 ${theme === 'dark' ? 'bg-gold/10' : 'bg-white border border-[#E8DEC8] shadow-xs'}`}
           >
             <Logo className={`w-16 h-16 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
           </motion.div>
           
-          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-8 text-[10px] transition-colors ${theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F9F6F0] border border-[#E8DCC4] text-gold-deep'}`}>
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-8 text-[10px] transition-colors ${theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F7F3EB] border border-[#E8DEC8] text-gold-deep'}`}>
             {content.badge}
           </div>
           
@@ -78,7 +78,7 @@ const MiningPage = () => {
             {content.title}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{content.titleHighlight}</span>
           </h1>
           
-          <p className={`text-xl md:text-2xl max-w-3xl leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-600 font-medium'}`}>
+          <p className={`text-xl md:text-2xl max-w-3xl leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C] font-medium'}`}>
             {content.sub}
           </p>
         </div>
@@ -91,7 +91,7 @@ const MiningPage = () => {
           >
             <h2 className="text-4xl font-bold mb-8 uppercase tracking-tighter">{content.experienceTitle}</h2>
             <div className={`w-20 h-1.5 ${theme === 'dark' ? 'bg-gold' : 'bg-gold-deep'} mb-8 rounded-full`}></div>
-            <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-slate-600'}`}>
+            <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#44403C]'}`}>
               {content.experienceText}
             </p>
           </motion.div>
@@ -107,21 +107,21 @@ const MiningPage = () => {
                 className={`p-8 border rounded-2xl transition-all duration-300 cursor-default group hover:-translate-y-1.5 ${
                   theme === 'dark' 
                     ? 'bg-white/5 border-white/10 hover:bg-white/[0.08] hover:border-gold/60 hover:shadow-[0_16px_40px_rgba(229,184,108,0.18)] hover:ring-1 hover:ring-gold/30' 
-                    : 'bg-white border-slate-200/80 shadow-xs hover:border-[#926E24]/60 hover:shadow-[0_16px_40px_rgba(146,110,36,0.14)] hover:ring-1 hover:ring-[#926E24]/20'
+                    : 'bg-white border-[#E8DEC8] shadow-xs hover:border-gold-deep/60 hover:shadow-[0_16px_40px_rgba(158,112,32,0.12)] hover:ring-1 hover:ring-gold-deep/20'
                 }`}
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110 ${
-                  theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                  theme === 'dark' ? 'bg-gold/20 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                 }`}>
                   {feature.icon}
                 </div>
                 <h4 className={`text-xl font-bold mb-2 transition-colors duration-200 ${
-                  theme === 'dark' ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
+                  theme === 'dark' ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
                 }`}>
                   {feature.title}
                 </h4>
                 <p className={`text-sm transition-colors duration-200 ${
-                  theme === 'dark' ? 'text-white/40 group-hover:text-white/70' : 'text-slate-500 group-hover:text-slate-700'
+                  theme === 'dark' ? 'text-white/40 group-hover:text-white/70' : 'text-[#78716C] group-hover:text-[#44403C]'
                 }`}>
                   {feature.desc}
                 </p>
@@ -134,7 +134,7 @@ const MiningPage = () => {
         <div className="mb-32">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-bold uppercase tracking-widest mb-4 text-[10px] ${
-              theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F9F6F0] border border-[#E8DCC4] text-gold-deep'
+              theme === 'dark' ? 'bg-gold/10 border border-gold/20 text-gold' : 'bg-[#F7F3EB] border border-[#E8DEC8] text-gold-deep'
             }`}>
               <Database className="w-3.5 h-3.5" />
               <span>{content.minoSub}</span>
@@ -142,7 +142,7 @@ const MiningPage = () => {
             <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">
               {content.minoTitle}
             </h2>
-            <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-slate-600'}`}>
+            <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C]'}`}>
               {content.minoText}
             </p>
           </div>

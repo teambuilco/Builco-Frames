@@ -232,7 +232,7 @@ export const ContactModal: React.FC = () => {
             className={`relative w-full max-w-xl overflow-hidden shadow-3xl ${
               theme === 'dark' 
                 ? 'bg-charcoal border border-white/10 rounded-lg' 
-                : 'bg-white border border-slate-200/80 rounded-2xl'
+                : 'bg-[#FAF8F5] border border-[#E8DEC8] rounded-2xl shadow-[0_25px_50px_-12px_rgba(28,25,23,0.15)]'
             }`}
           >
             {!isSubmitted ? (
@@ -264,8 +264,8 @@ export const ContactModal: React.FC = () => {
                 <div className="p-10 md:p-12">
                   <form className="grid gap-8" onSubmit={handleSubmit}>
                     <div className="space-y-3">
-                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>
-                        <User className="w-3 h-3" /> {ct.name}
+                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-[#78716C]'}`}>
+                        <User className="w-3 h-3 text-gold-deep" /> {ct.name}
                       </label>
                       <input 
                         type="text" 
@@ -275,7 +275,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
+                            : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -283,8 +283,8 @@ export const ContactModal: React.FC = () => {
                     </div>
 
                     <div className="space-y-3">
-                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>
-                        <Mail className="w-3 h-3" /> {ct.email}
+                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-[#78716C]'}`}>
+                        <Mail className="w-3 h-3 text-gold-deep" /> {ct.email}
                       </label>
                       <input 
                         type="email" 
@@ -294,7 +294,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
+                            : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -302,8 +302,8 @@ export const ContactModal: React.FC = () => {
                     </div>
 
                     <div className="space-y-3">
-                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-slate-500'}`}>
-                        <MessageSquare className="w-3 h-3" /> {ct.message}
+                      <label className={`text-[11px] font-black uppercase tracking-[0.2em] flex items-center gap-2 ${theme === 'dark' ? 'text-white/40' : 'text-[#78716C]'}`}>
+                        <MessageSquare className="w-3 h-3 text-gold-deep" /> {ct.message}
                       </label>
                       <textarea 
                         rows={4} 
@@ -313,7 +313,7 @@ export const ContactModal: React.FC = () => {
                         className={`w-full px-5 py-4 rounded-xl border outline-none transition-all resize-none ${
                           theme === 'dark' 
                             ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
+                            : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
                         }`} 
                         disabled={isSubmitting}
                         required 
@@ -350,20 +350,20 @@ export const ContactModal: React.FC = () => {
                 <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ring-8 ${
                   theme === 'dark' 
                     ? 'bg-emerald-500/15 text-emerald-400 ring-emerald-500/10' 
-                    : 'bg-emerald-50 text-emerald-600 ring-emerald-100'
+                    : 'bg-emerald-50 text-emerald-700 ring-emerald-100 border border-emerald-200'
                 }`}>
                   <CheckCircle2 className="w-9 h-9" />
                 </div>
 
                 {/* Recuadro de Confirmación Solicitado */}
                 <div className="space-y-3">
-                  <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
+                  <h2 className={`text-2xl md:text-3xl font-black uppercase tracking-tight ${theme === 'dark' ? 'text-white' : 'text-[#1C1917]'}`}>
                     {ct.successTitle}
                   </h2>
                   <div className={`p-4 md:p-5 rounded-xl border max-w-md mx-auto ${
                     theme === 'dark' 
                       ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' 
-                      : 'bg-emerald-50/80 border-emerald-300 text-emerald-900'
+                      : 'bg-emerald-50/90 border-emerald-300 text-emerald-950 shadow-xs'
                   }`}>
                     <p className="text-base md:text-lg font-semibold leading-relaxed">
                       "{ct.successMessage}"
@@ -374,26 +374,26 @@ export const ContactModal: React.FC = () => {
                 {/* Registros de Base de Datos y Notificación por Correo */}
                 <div className="grid gap-2.5 max-w-md mx-auto text-left">
                   <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border text-xs font-mono ${
-                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-slate-50 border-slate-200 text-slate-700'
+                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-[#F7F3EB] border-[#E8DEC8] text-[#44403C]'
                   }`}>
                     <Database className="w-4 h-4 text-amber-500 shrink-0" />
                     <span className="truncate">{ct.databaseNotice}</span>
                   </div>
 
                   <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border text-xs font-mono ${
-                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-slate-50 border-slate-200 text-slate-700'
+                    theme === 'dark' ? 'bg-white/5 border-white/10 text-white/80' : 'bg-[#F7F3EB] border-[#E8DEC8] text-[#44403C]'
                   }`}>
-                    <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span className="truncate">{ct.notificationNotice}</span>
                   </div>
                 </div>
 
                 {/* Indicador de Redirección Automática al Menú Principal */}
                 <div className="pt-2 max-w-xs mx-auto">
-                  <p className={`text-[11px] font-mono mb-2 flex items-center justify-center gap-1.5 ${theme === 'dark' ? 'text-gold' : 'text-[#805F1C]'}`}>
+                  <p className={`text-[11px] font-mono mb-2 flex items-center justify-center gap-1.5 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`}>
                     <span>{ct.redirecting}</span>
                   </p>
-                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-slate-200'}`}>
+                  <div className={`w-full h-1.5 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-white/10' : 'bg-[#E8E3D8]'}`}>
                     <motion.div 
                       initial={{ width: "0%" }}
                       animate={{ width: "100%" }}

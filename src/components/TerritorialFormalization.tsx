@@ -170,7 +170,7 @@ export const TerritorialFormalization = () => {
 
   return (
     <section id="formalizacion" className={`py-28 relative overflow-hidden transition-colors duration-300 border-t ${
-      isDark ? 'bg-[#0B0D12] border-white/10' : 'bg-slate-50/70 border-slate-200/80'
+      isDark ? 'bg-[#0B0D12] border-white/10' : 'bg-[#FAF8F5] border-[#E8DEC8]'
     }`}>
       {/* Decorative ambient gradients */}
       <div className={`absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[140px] pointer-events-none ${
@@ -188,7 +188,7 @@ export const TerritorialFormalization = () => {
             <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-5 ${
               isDark 
                 ? 'bg-gold/15 text-gold border border-gold/30' 
-                : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
             }`}>
               <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '14s' }} />
               <span>{tContent.badge}</span>
@@ -196,7 +196,7 @@ export const TerritorialFormalization = () => {
             </div>
 
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {tContent.title}
               <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
@@ -206,7 +206,7 @@ export const TerritorialFormalization = () => {
             </h2>
 
             <p className={`mt-5 text-base sm:text-lg leading-relaxed ${
-              isDark ? 'text-slate-300' : 'text-slate-700'
+              isDark ? 'text-slate-300' : 'text-[#44403C]'
             }`}>
               {tContent.subtitle}
             </p>
@@ -254,10 +254,10 @@ export const TerritorialFormalization = () => {
                     isSelected
                       ? isDark
                         ? 'bg-gold/15 border-gold/60 text-white shadow-[0_12px_35px_rgba(229,184,108,0.2)] ring-2 ring-gold/40 hover:shadow-[0_16px_40px_rgba(229,184,108,0.28)]'
-                        : 'bg-white border-[#926E24] text-slate-950 shadow-lg ring-2 ring-[#926E24]/30 hover:shadow-xl'
+                        : 'bg-white border-gold-deep text-[#1C1917] shadow-lg ring-2 ring-gold-deep/30 hover:shadow-xl'
                       : isDark
                         ? 'bg-white/4 border-white/10 text-slate-400 hover:text-white hover:bg-white/8 hover:border-gold/50 hover:shadow-[0_12px_30px_rgba(229,184,108,0.14)]'
-                        : 'bg-white/70 border-slate-200 text-slate-600 hover:text-slate-950 hover:bg-white hover:border-[#926E24]/50 hover:shadow-[0_12px_30px_rgba(146,110,36,0.12)]'
+                        : 'bg-white/80 border-[#E8DEC8] text-[#44403C] hover:text-[#1C1917] hover:bg-white hover:border-gold-deep/50 hover:shadow-[0_12px_30px_rgba(158,112,32,0.12)]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-3">
@@ -304,14 +304,14 @@ export const TerritorialFormalization = () => {
             className={`p-8 sm:p-10 rounded-3xl border mb-16 relative overflow-hidden transition-all duration-300 hover:border-gold/30 ${
               isDark 
                 ? 'bg-[#121620] border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.6)] hover:shadow-[0_30px_70px_rgba(0,0,0,0.7)]' 
-                : 'bg-white border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.06)] hover:shadow-[0_25px_60px_rgba(146,110,36,0.08)]'
+                : 'bg-white border-[#E8DEC8] shadow-[0_20px_50px_rgba(28,25,23,0.05)] hover:shadow-[0_25px_60px_rgba(158,112,32,0.08)]'
             }`}
           >
             {/* Top Region Details Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-8 mb-8 border-b border-slate-200/80 dark:border-white/10 gap-6">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-8 mb-8 border-b border-[#E8DEC8]/80 dark:border-white/10 gap-6">
               <div>
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`p-1.5 rounded-lg ${isDark ? 'bg-gold/20 text-gold' : 'bg-[#F9F6F0] text-gold-deep'}`}>
+                  <div className={`p-1.5 rounded-lg ${isDark ? 'bg-gold/20 text-gold' : 'bg-[#F7F3EB] text-gold-deep'}`}>
                     <Pickaxe className="w-4 h-4" />
                   </div>
                   <span className={`text-xs font-mono font-bold uppercase tracking-wider ${
@@ -321,12 +321,12 @@ export const TerritorialFormalization = () => {
                   </span>
                 </div>
                 <h3 className={`text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight ${
-                  isDark ? 'text-white' : 'text-slate-950'
+                  isDark ? 'text-white' : 'text-[#1C1917]'
                 }`}>
                   {activeRegion.name}
                 </h3>
                 <p className={`text-xs sm:text-sm font-mono mt-1 ${
-                  isDark ? 'text-slate-400' : 'text-slate-600'
+                  isDark ? 'text-slate-400' : 'text-[#78716C]'
                 }`}>
                   {activeRegion.municipalities}
                 </p>
@@ -336,7 +336,7 @@ export const TerritorialFormalization = () => {
               <div className={`max-w-md p-4 rounded-2xl border text-xs leading-relaxed transition-all duration-300 cursor-default hover:-translate-y-0.5 ${
                 isDark 
                   ? 'bg-black/40 border-white/10 text-slate-300 hover:border-gold/40 hover:bg-black/60 hover:shadow-[0_6px_20px_rgba(0,0,0,0.4)]' 
-                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-[#926E24]/40 hover:bg-white hover:shadow-md'
+                  : 'bg-[#FAF8F5] border-[#E8DEC8] text-[#44403C] hover:border-gold-deep/40 hover:bg-white hover:shadow-md'
               }`}>
                 <div className="font-bold uppercase tracking-wider text-[10px] text-slate-400 mb-1 flex items-center gap-1.5">
                   <Compass className="w-3.5 h-3.5 text-gold" />
@@ -353,23 +353,23 @@ export const TerritorialFormalization = () => {
               <div className={`p-6 rounded-2xl border flex flex-col justify-between group transition-all duration-300 cursor-default hover:-translate-y-1.5 ${
                 isDark 
                   ? 'bg-white/3 border-white/8 hover:bg-white/[0.08] hover:border-gold/60 hover:shadow-[0_12px_32px_rgba(229,184,108,0.18)]' 
-                  : 'bg-slate-50/80 border-slate-200/80 hover:bg-white hover:border-[#926E24]/60 hover:shadow-[0_12px_32px_rgba(146,110,36,0.14)]'
+                  : 'bg-[#FAF8F5] border-[#E8DEC8] hover:bg-white hover:border-gold-deep/60 hover:shadow-[0_12px_32px_rgba(158,112,32,0.12)]'
               }`}>
                 <div>
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
-                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                   }`}>
                     <FileCheck2 className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] block mb-1">
                     {lang === 'es' ? 'Fortalecimiento Institucional para la Gobernanza' : 'Institutional Strengthening for Governance'}
                   </span>
                   <h4 className={`text-base font-bold mb-2.5 transition-colors duration-200 ${
-                    isDark ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
                   }`}>
                     {activeRegion.legalMechanism}
                   </h4>
-                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
                     {lang === 'es' 
                       ? 'Fortalecimiento institucional para la gobernanza, estructuración directa de garantías legales, contratos de formalización y articulación con titulares mineros y la ANM.'
                       : 'Institutional strengthening for governance, direct structuring of legal guarantees, formalization contracts, and alignment with concession holders and the ANM.'}
@@ -385,7 +385,7 @@ export const TerritorialFormalization = () => {
               <div className={`p-6 rounded-2xl border flex flex-col justify-between group transition-all duration-300 cursor-default hover:-translate-y-1.5 ${
                 isDark 
                   ? 'bg-white/3 border-white/8 hover:bg-white/[0.08] hover:border-emerald-400/60 hover:shadow-[0_12px_32px_rgba(52,211,153,0.18)]' 
-                  : 'bg-slate-50/80 border-slate-200/80 hover:bg-white hover:border-emerald-600/60 hover:shadow-[0_12px_32px_rgba(16,185,129,0.14)]'
+                  : 'bg-[#FAF8F5] border-[#E8DEC8] hover:bg-white hover:border-emerald-600/60 hover:shadow-[0_12px_32px_rgba(16,185,129,0.12)]'
               }`}>
                 <div>
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
@@ -393,19 +393,19 @@ export const TerritorialFormalization = () => {
                   }`}>
                     <ShieldCheck className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] block mb-1">
                     {lang === 'es' ? 'Tecnología Cero Mercurio' : 'Zero-Mercury Technology'}
                   </span>
                   <h4 className={`text-base font-bold mb-2.5 transition-colors duration-200 ${
-                    isDark ? 'text-white group-hover:text-emerald-400' : 'text-slate-900 group-hover:text-emerald-700'
+                    isDark ? 'text-white group-hover:text-emerald-400' : 'text-[#1C1917] group-hover:text-emerald-700'
                   }`}>
                     {lang === 'es' ? 'Reconversión en Boca de Mina' : 'Mine-Site Clean Technology'}
                   </h4>
-                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
                     {activeRegion.techIntervention}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/5 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 transition-transform duration-200 group-hover:translate-x-1">
+                <div className="mt-4 pt-3 border-t border-[#E8DEC8]/60 dark:border-white/5 flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 transition-transform duration-200 group-hover:translate-x-1">
                   <Activity className="w-3.5 h-3.5" />
                   <span>{lang === 'es' ? 'Sin Químicos Contaminantes' : 'Non-Toxic Extraction'}</span>
                 </div>
@@ -415,27 +415,27 @@ export const TerritorialFormalization = () => {
               <div className={`p-6 rounded-2xl border flex flex-col justify-between group transition-all duration-300 cursor-default hover:-translate-y-1.5 ${
                 isDark 
                   ? 'bg-white/3 border-white/8 hover:bg-white/[0.08] hover:border-gold/60 hover:shadow-[0_12px_32px_rgba(229,184,108,0.18)]' 
-                  : 'bg-slate-50/80 border-slate-200/80 hover:bg-white hover:border-[#926E24]/60 hover:shadow-[0_12px_32px_rgba(146,110,36,0.14)]'
+                  : 'bg-[#FAF8F5] border-[#E8DEC8] hover:bg-white hover:border-gold-deep/60 hover:shadow-[0_12px_32px_rgba(158,112,32,0.12)]'
               }`}>
                 <div>
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110 ${
-                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F9F6F0] text-gold-deep border border-[#E8DCC4]'
+                    isDark ? 'bg-gold/15 text-gold' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
                   }`}>
                     <Trees className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#78716C] block mb-1">
                     {lang === 'es' ? 'Economía Autosostenible' : 'Self-Sustaining Economy'}
                   </span>
                   <h4 className={`text-base font-bold mb-2.5 transition-colors duration-200 ${
-                    isDark ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
                   }`}>
                     {lang === 'es' ? 'Desarrollo Territorial Paralelo' : 'Parallel Regional Development'}
                   </h4>
-                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
                     {activeRegion.sustainability}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-white/5 flex items-center gap-1.5 text-[11px] font-semibold text-gold dark:text-gold-light transition-transform duration-200 group-hover:translate-x-1">
+                <div className="mt-4 pt-3 border-t border-[#E8DEC8]/60 dark:border-white/5 flex items-center gap-1.5 text-[11px] font-semibold text-gold dark:text-gold-light transition-transform duration-200 group-hover:translate-x-1">
                   <Coins className="w-3.5 h-3.5" />
                   <span>{lang === 'es' ? 'Diversificación de Ingresos' : 'Income Diversification'}</span>
                 </div>
@@ -447,7 +447,7 @@ export const TerritorialFormalization = () => {
             <div className={`p-6 rounded-2xl border grid grid-cols-1 sm:grid-cols-3 gap-6 text-center transition-all duration-300 ${
               isDark 
                 ? 'bg-black/50 border-white/10 hover:border-gold/30 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)]' 
-                : 'bg-[#FDFBF7] border-[#E8DCC4] hover:border-[#926E24]/40 hover:shadow-md'
+                : 'bg-[#F7F3EB] border-[#E8DEC8] hover:border-gold-deep/40 hover:shadow-md'
             }`}>
               {activeRegion.stats.map((st: any, sIdx: number) => (
                 <div 
@@ -492,7 +492,7 @@ export const TerritorialFormalization = () => {
               {tContent.methodologyLabel}
             </span>
             <h3 className={`text-2xl sm:text-3xl font-bold tracking-tight mt-2 ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {lang === 'es' 
                 ? 'Cómo Transformamos la Informalidad en Legalidad' 
@@ -507,7 +507,7 @@ export const TerritorialFormalization = () => {
                 className={`p-6 rounded-2xl border relative flex flex-col justify-between transition-all duration-300 cursor-default group hover:-translate-y-1.5 ${
                   isDark 
                     ? 'bg-white/4 border-white/10 hover:bg-white/[0.08] hover:border-gold/60 hover:shadow-[0_14px_35px_rgba(229,184,108,0.16)]' 
-                    : 'bg-white border-slate-200/90 hover:border-[#926E24]/60 hover:shadow-[0_14px_35px_rgba(146,110,36,0.14)]'
+                    : 'bg-white border-[#E8DEC8] hover:border-gold-deep/60 hover:shadow-[0_14px_35px_rgba(158,112,32,0.12)]'
                 }`}
               >
                 <div>
@@ -520,11 +520,11 @@ export const TerritorialFormalization = () => {
                     <span className="w-2 h-2 rounded-full bg-gold/50 transition-all duration-300 group-hover:bg-gold group-hover:scale-125" />
                   </div>
                   <h4 className={`text-base font-bold mb-2.5 transition-colors duration-200 ${
-                    isDark ? 'text-white group-hover:text-gold' : 'text-slate-900 group-hover:text-gold-deep'
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
                   }`}>
                     {m.title}
                   </h4>
-                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                  <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#78716C]'}`}>
                     {m.desc}
                   </p>
                 </div>
@@ -537,19 +537,19 @@ export const TerritorialFormalization = () => {
         <div className={`p-6 sm:p-8 rounded-3xl border flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300 ${
           isDark 
             ? 'bg-linear-to-r from-black via-[#141822] to-black border-gold/25 hover:border-gold/50 hover:shadow-[0_15px_40px_rgba(229,184,108,0.12)]' 
-            : 'bg-linear-to-r from-white via-[#F9F6F0] to-white border-[#E8DCC4] shadow-md hover:border-[#926E24]/50 hover:shadow-lg'
+            : 'bg-linear-to-r from-white via-[#F7F3EB] to-white border-[#E8DEC8] shadow-md hover:border-gold-deep/50 hover:shadow-lg'
         }`}>
           <div className="flex items-center gap-4 text-center md:text-left">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
-              isDark ? 'bg-gold/15 text-gold' : 'bg-black text-gold shadow-xs'
+              isDark ? 'bg-gold/15 text-gold' : 'bg-gradient-to-br from-[#1C1917] to-[#2E2824] text-gold-light shadow-xs'
             }`}>
               <Sparkles className="w-6 h-6" />
             </div>
             <div>
-              <h4 className={`text-base font-bold ${isDark ? 'text-white' : 'text-slate-950'}`}>
+              <h4 className={`text-base font-bold ${isDark ? 'text-white' : 'text-[#1C1917]'}`}>
                 {lang === 'es' ? '¿Requiere acompañamiento en formalización territorial?' : 'Need Territorial Formalization Advisory?'}
               </h4>
-              <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+              <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-400' : 'text-[#78716C]'}`}>
                 {lang === 'es' 
                   ? 'Articulamos acuerdos entre comunidades, titulares de concesión y el Estado con total confidencialidad.' 
                   : 'We architect compacts between communities, concession holders, and the State with total confidentiality.'}
