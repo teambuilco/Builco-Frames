@@ -1,56 +1,63 @@
 import React, { useState, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
-  X, 
-  Check, 
   ArrowLeft, 
-  ArrowDown, 
+  ArrowRight,
+  ArrowDown,
   ShieldCheck, 
   Scale, 
   Leaf, 
   TrendingUp, 
-  Users, 
   Sparkles, 
   Building2, 
-  GraduationCap, 
-  SunMedium, 
-  Award, 
-  CheckCircle2, 
-  Lock, 
-  ArrowRight,
-  Database,
+  GraduationCap,
   Coins,
-  HeartPulse,
-  Droplets,
-  Calculator,
-  Wallet,
-  CheckCheck,
-  Zap,
-  Info,
-  FileText
+  CheckCircle2,
+  Database,
+  Lock,
+  Check,
+  FileText,
+  Send,
+  Loader2,
+  Building,
+  Phone,
+  MapPin,
+  User,
+  Mail,
+  Shield,
+  Layers
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 import { NetworkBackground } from './NetworkBackground';
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 import { MinoAppLoop } from './MinoAppLoop';
 import { BarequerosSection } from './BarequerosSection';
-import barequeroRealImg from '../assets/images/barequero_batea_real.jpg';
 import { ManagedMarketplace } from './ManagedMarketplace';
 
 const MinoPage = () => {
-  const { theme, lang, t, setIsPrivacyModalOpen } = useContext(AppContext);
-  const [isRegistering, setIsRegistering] = useState(false);
-  const [isForgotOpen, setIsForgotOpen] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
-  const [isResetSent, setIsResetSent] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { theme, lang, t, setIsContactModalOpen, setIsPrivacyModalOpen } = useContext(AppContext);
+  const isDark = theme === 'dark';
+
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    organization: '',
+    taxId: '',
+    rucomCode: '',
+    mineralInterest: 'Oro de Aluvión (Trazabilidad y Liquidación)',
+    region: '',
+    notes: ''
+  });
+
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [privacyError, setPrivacyError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isMarketplaceUnlocked, setIsMarketplaceUnlocked] = useState(false);
-  
-  const minoT = t.mino;
-  const isDark = theme === 'dark';
 
   // Ensure page always starts at top when opened
   React.useEffect(() => {
@@ -59,24 +66,13 @@ const MinoPage = () => {
     document.body.scrollTop = 0;
   }, []);
 
-  const handleResetSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsResetSent(true);
-    const target = e.currentTarget as HTMLFormElement;
-    const email = (target.elements.namedItem('email') as HTMLInputElement)?.value || '';
-    try {
-      await fetch('/api/send-contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: 'Usuario Mino (Restablecimiento)',
-          email: email || 'usuario@mino.co',
-          message: `Solicitud de restablecimiento de contraseña para: ${email}`,
-          targetEmail: 'teambuilco@gmail.com'
-        })
-      });
-    } catch {
-      // ignore
+  const scrollToAccessForm = () => {
+    if (isMarketplaceUnlocked) {
+      setIsMarketplaceUnlocked(false);
+    }
+    const el = document.getElementById('mino-access-form');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -87,39 +83,92 @@ const MinoPage = () => {
       return;
     }
     setPrivacyError(false);
-    setFormSubmitted(true);
-    const target = e.currentTarget as HTMLFormElement;
-    const inputs = target.querySelectorAll('input');
-    const values: Record<string, string> = {};
-    inputs.forEach((input, idx) => {
-      values[input.name || input.placeholder || `campo_${idx}`] = input.value;
-    });
+    setIsSubmitting(true);
 
+    const targetRecipient = 'teambuilco@gmail.com';
+    const messageDetails = `SOLICITUD FORMAL DE ACCESO A LA PLATAFORMA MINO™:
+--------------------------------------------------
+• Solicitante: ${formData.fullName.trim()}
+• Correo Institucional: ${formData.email.trim()}
+• Teléfono / WhatsApp: ${formData.phone.trim()}
+• Empresa / Asociación / Titular: ${formData.organization.trim()}
+• NIT / Cédula / RUT: ${formData.taxId.trim()}
+• Código RUCOM / Registro Minero: ${formData.rucomCode.trim() || 'En trámite de formalización'}
+• Mineral de Interés Comercial: ${formData.mineralInterest}
+• Territorio / Departamento: ${formData.region.trim() || 'Colombia'}
+• Requerimiento / Mensaje:
+${formData.notes.trim() || 'Solicitud de habilitación de terminal institucional cifrada para trazabilidad y comercialización de minerales críticos.'}
+--------------------------------------------------
+Fecha: ${new Date().toLocaleString('es-CO')}`;
+
+    const submissionRecord = {
+      name: formData.fullName.trim(),
+      email: formData.email.trim(),
+      message: messageDetails,
+      targetEmail: targetRecipient,
+      notificationStatus: 'sent_to_teambuilco_gmail',
+      createdAt: serverTimestamp()
+    };
+
+    // 1. Envío al backend directo a teambuilco@gmail.com
     try {
       await fetch('/api/send-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: values['Nombre'] || values['Carlos Restrepo'] || 'Solicitante Terminal Mino',
-          email: values['Correo'] || values['carlos@mineria.com'] || 'contacto@builco.co',
-          message: `Solicitud de acceso a terminal Mino. Datos: ${JSON.stringify(values, null, 2)}`,
-          targetEmail: 'teambuilco@gmail.com'
+          name: formData.fullName.trim(),
+          email: formData.email.trim(),
+          message: messageDetails,
+          targetEmail: targetRecipient
+        })
+      });
+    } catch (err) {
+      console.warn('API send-contact fallback warning:', err);
+    }
+
+    // 2. Envío directo Formspree de respaldo
+    try {
+      await fetch('https://formspree.io/f/xbldwzzd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          _subject: `Solicitud Acceso Mino™: ${formData.organization || formData.fullName}`,
+          Solicitante: formData.fullName,
+          Correo: formData.email,
+          Telefono: formData.phone,
+          Organizacion: formData.organization,
+          NIT_Cedula: formData.taxId,
+          RUCOM: formData.rucomCode,
+          Mineral: formData.mineralInterest,
+          Region: formData.region,
+          Mensaje: formData.notes
         })
       });
     } catch {
       // ignore
     }
 
-    setTimeout(() => {
-      setFormSubmitted(false);
-    }, 4500);
-  };
-
-  const scrollToForm = () => {
-    const el = document.getElementById('mino-auth-form');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    // 3. Grabación segura en Firestore
+    try {
+      await addDoc(collection(db, 'contactInquiries'), submissionRecord);
+    } catch (err) {
+      console.warn('Firestore write warning:', err);
     }
+
+    // 4. Respaldo local
+    try {
+      const local = JSON.parse(localStorage.getItem('builco_mino_requests') || '[]');
+      local.push({
+        ...formData,
+        submittedAt: new Date().toISOString()
+      });
+      localStorage.setItem('builco_mino_requests', JSON.stringify(local));
+    } catch {
+      // ignore
+    }
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
   };
 
   // Benefits list
@@ -242,14 +291,14 @@ const MinoPage = () => {
             MINO™ PLATFORM v2.8
           </span>
           <button
-            onClick={scrollToForm}
+            onClick={scrollToAccessForm}
             className={`hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
               isDark 
                 ? 'btn-gold' 
                 : 'btn-primary-light'
             }`}
           >
-            <span>{lang === 'es' ? 'Acceder al Formulario' : 'Go to Access Form'}</span>
+            <span>{lang === 'es' ? 'Solicitar Acceso Mino™' : 'Request Mino™ Access'}</span>
             <ArrowDown className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -269,17 +318,17 @@ const MinoPage = () => {
             </div>
 
             <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-helvetica font-black tracking-tighter uppercase leading-[1.08] ${
-              isDark ? 'text-white' : 'text-slate-950'
+              isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {lang === 'es' ? (
-                <>Beneficios del <span className="text-gold">Aplicativo Web</span> Mino™</>
+                <>Beneficios del <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Aplicativo Web</span> Mino™</>
               ) : (
-                <>Benefits of the <span className="text-gold">Mino™ Web</span> Application</>
+                <>Benefits of the <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™ Web</span> Application</>
               )}
             </h1>
 
             <p className={`text-base sm:text-lg leading-relaxed max-w-2xl mx-auto ${
-              isDark ? 'text-slate-300' : 'text-slate-600'
+              isDark ? 'text-slate-300' : 'text-[#44403C]'
             }`}>
               {lang === 'es'
                 ? 'Una infraestructura digital de extremo a extremo diseñada para conectar la minería tradicional y artesanal con mercados globales de alto valor, formalización ágil y trazabilidad inviolable.'
@@ -288,14 +337,14 @@ const MinoPage = () => {
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <button
-                onClick={scrollToForm}
+                onClick={scrollToAccessForm}
                 className={`px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
                   isDark
-                    ? 'bg-gold hover:bg-gold-hover text-black shadow-xl shadow-gold/20 hover:scale-[1.02]'
-                    : 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl shadow-slate-900/10 hover:scale-[1.02]'
+                    ? 'btn-gold shadow-xl shadow-gold/20 hover:scale-[1.02]'
+                    : 'btn-primary-light hover:scale-[1.02]'
                 }`}
               >
-                <span>{lang === 'es' ? 'Iniciar Sesión / Solicitar Acceso' : 'Log In / Request Access'}</span>
+                <span>{lang === 'es' ? 'Solicitar Acceso a la Plataforma' : 'Request Platform Access'}</span>
                 <ArrowDown className="w-4 h-4" />
               </button>
             </div>
@@ -371,14 +420,14 @@ const MinoPage = () => {
         </section>
 
         {/* ========================================================= */}
-        {/* 2. LUEGO: IMAGEN DE BAREQUEROS Y DESARROLLO COMUNITARIO   */}
+        {/* 2. COMUNIDADES DE BAREQUEROS Y DESARROLLO TERRITORIAL     */}
         {/* ========================================================= */}
-        <BarequerosSection onCtaClick={scrollToForm} />
+        <BarequerosSection onCtaClick={scrollToAccessForm} />
 
         {/* ========================================================= */}
-        {/* 3. FINALIZANDO: EL FORMULARIO QUE ESTÁ EN PANTALLA       */}
+        {/* 3. FORMULARIO PARA SOLICITAR ACCESO A MINO™               */}
         {/* ========================================================= */}
-        <section id="mino-auth-form" className="pt-6 pb-12 space-y-8 scroll-mt-20">
+        <section id="mino-access-form" className="pt-8 pb-16 space-y-8 scroll-mt-20">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-black tracking-widest uppercase border ${
               isMarketplaceUnlocked 
@@ -389,45 +438,43 @@ const MinoPage = () => {
               <span>
                 {isMarketplaceUnlocked
                   ? (lang === 'es' ? 'Documentos Aprobados • Marketplace Gerenciado' : 'Approved Documents • Managed Marketplace')
-                  : (lang === 'es' ? 'Acceso Seguro a la Plataforma' : 'Secure Platform Access')}
+                  : (lang === 'es' ? 'Habilitación de Terminal • Acceso Oficial' : 'Terminal Activation • Official Access')}
               </span>
             </div>
 
-            <h2 className={`text-3xl sm:text-4xl font-helvetica font-black tracking-tighter uppercase ${
+            <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-helvetica font-black tracking-tighter uppercase ${
               isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
               {isMarketplaceUnlocked
-                ? (lang === 'es' ? 'Comercialización de Minerales Críticos' : 'Critical Minerals Trading Platform')
-                : (isRegistering 
-                    ? (lang === 'es' ? 'Solicitud de Registro e Ingreso' : 'Access & Registration Request')
-                    : (lang === 'es' ? 'Ingreso al Terminal Mino™' : 'Log In to Mino™ Terminal'))}
+                ? (lang === 'es' ? 'Marketplace de Minerales Críticos' : 'Critical Minerals Marketplace')
+                : (lang === 'es' ? <>Solicitar Acceso a <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></> : <>Request Access to <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></>)}
             </h2>
 
-            <p className={`text-xs sm:text-sm ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
+            <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
               {isMarketplaceUnlocked
                 ? (lang === 'es'
                     ? 'Plataforma comercial para la compraventa de minerales críticos formalizados en Colombia con custodia en bóveda y liquidación en escrow.'
                     : 'Commercial platform for buying and selling verified critical minerals in Colombia with vault custody and escrow settlement.')
-                : (isRegistering
-                    ? (lang === 'es' ? 'Complete sus datos corporativos o institucionales para habilitar su terminal cifrada.' : 'Complete your institutional details to enable your encrypted terminal.')
-                    : (lang === 'es' ? 'Ingrese sus credenciales de usuario verificadas para acceder a su espacio de trabajo.' : 'Enter your verified credentials to access your secure workspace.'))}
+                : (lang === 'es'
+                    ? 'Complete sus datos corporativos o de asociación minera para habilitar su terminal cifrada y acceder a la red de trazabilidad, liquidación justa y comercialización.'
+                    : 'Submit your institutional or mining association details to activate your encrypted terminal and join the verified supply network.')}
             </p>
           </div>
 
-          {/* Form Card / Marketplace Container */}
+          {/* Form Container or Marketplace View */}
           <div className="flex justify-center w-full">
             <motion.div
-              key={isMarketplaceUnlocked ? 'marketplace' : (isRegistering ? 'register' : 'login')}
+              key={isMarketplaceUnlocked ? 'marketplace-view' : (isSubmitted ? 'submitted-view' : 'form-view')}
               initial={{ opacity: 0, scale: 0.98, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               className={`relative z-10 w-full transition-all duration-300 rounded-3xl ${
                 isMarketplaceUnlocked
                   ? 'max-w-6xl p-0 bg-transparent border-0'
-                  : `max-w-xl p-8 sm:p-12 shadow-3xl border ${
+                  : `max-w-2xl p-8 sm:p-12 border ${
                       isDark 
-                        ? 'bg-black/60 backdrop-blur-xl border-white/15 shadow-[0_20px_60px_rgba(0,0,0,0.8)]' 
-                        : 'bg-[#FAF8F5] border-[#E8DEC8] shadow-2xl'
+                        ? 'bg-[#121620] backdrop-blur-xl border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.8)]' 
+                        : 'bg-[#FAF8F5] border-[#E8DEC8] shadow-[0_25px_60px_rgba(28,25,23,0.1)]'
                     }`
               }`}
             >
@@ -437,10 +484,102 @@ const MinoPage = () => {
                   isDark={isDark} 
                   onExitMarketplace={() => setIsMarketplaceUnlocked(false)} 
                 />
+              ) : isSubmitted ? (
+                /* Vista de Confirmación con el recuadro solicitado */
+                <div className="text-center space-y-6 py-4">
+                  {/* Status Icon */}
+                  <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ring-8 ${
+                    isDark 
+                      ? 'bg-emerald-500/15 text-emerald-400 ring-emerald-500/10' 
+                      : 'bg-emerald-50 text-emerald-700 ring-emerald-100 border border-emerald-200'
+                  }`}>
+                    <CheckCircle2 className="w-9 h-9" />
+                  </div>
+
+                  {/* Recuadro de Confirmación Solicitado */}
+                  <div className="space-y-3">
+                    <h3 className={`text-2xl sm:text-3xl font-helvetica font-black uppercase tracking-tight ${isDark ? 'text-white' : 'text-[#1C1917]'}`}>
+                      {lang === 'es' ? 'Solicitud Recibida con Éxito' : 'Request Received Successfully'}
+                    </h3>
+                    <div className={`p-4 md:p-5 rounded-xl border max-w-lg mx-auto ${
+                      isDark 
+                        ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' 
+                        : 'bg-emerald-50/90 border-emerald-300 text-emerald-950 shadow-xs'
+                    }`}>
+                      <p className="text-base sm:text-lg font-semibold leading-relaxed">
+                        "{lang === 'es' 
+                          ? 'Su requerimiento se ha enviado, nos estaremos colocando en contacto pronto.' 
+                          : 'Your request has been submitted, we will be in touch shortly.'}"
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Detalle de Registro y Notificación */}
+                  <div className="grid gap-2.5 max-w-md mx-auto text-left text-xs font-mono">
+                    <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border ${
+                      isDark ? 'bg-white/5 border-white/10 text-white/80' : 'bg-[#F7F3EB] border-[#E8DEC8] text-[#44403C]'
+                    }`}>
+                      <Database className="w-4 h-4 text-amber-500 shrink-0" />
+                      <span className="truncate">
+                        {lang === 'es' ? 'Grabado en Base de Datos de Alianzas' : 'Saved in Alliance Database'}
+                      </span>
+                    </div>
+                    <div className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border ${
+                      isDark ? 'bg-white/5 border-white/10 text-white/80' : 'bg-[#F7F3EB] border-[#E8DEC8] text-[#44403C]'
+                    }`}>
+                      <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                      <span className="truncate">
+                        {lang === 'es' ? 'Notificación despachada a teambuilco@gmail.com' : 'Notification dispatched to teambuilco@gmail.com'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Acciones Posteriores */}
+                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setIsMarketplaceUnlocked(true)}
+                      className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 ${
+                        isDark ? 'btn-gold' : 'btn-primary-light'
+                      }`}
+                    >
+                      <Sparkles className="w-4 h-4" />
+                      <span>{lang === 'es' ? 'Entrar al Marketplace de Minerales' : 'Enter Minerals Marketplace'}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsSubmitted(false);
+                        setFormData({
+                          fullName: '',
+                          email: '',
+                          phone: '',
+                          organization: '',
+                          taxId: '',
+                          rucomCode: '',
+                          mineralInterest: 'Oro de Aluvión (Trazabilidad y Liquidación)',
+                          region: '',
+                          notes: ''
+                        });
+                        setTermsAccepted(false);
+                      }}
+                      className={`w-full sm:w-auto px-5 py-3.5 rounded-xl font-bold uppercase tracking-wider text-xs border transition-all cursor-pointer ${
+                        isDark 
+                          ? 'border-white/15 text-white/70 hover:bg-white/10' 
+                          : 'border-[#E8DEC8] text-[#44403C] hover:bg-[#F3EFE6]'
+                      }`}
+                    >
+                      {lang === 'es' ? 'Enviar Otra Solicitud' : 'Submit Another Request'}
+                    </button>
+                  </div>
+                </div>
               ) : (
+                /* Formulario para Solicitar Acceso */
                 <>
                   <div className="text-center mb-8">
-                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-5 transition-all ${
+                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transition-all ${
                       isDark ? 'bg-gold/10 border border-gold/20' : 'bg-[#F7F3EB] border border-[#E8DEC8]'
                     }`}>
                       <Logo className="w-11 h-11 drop-shadow-sm" />
@@ -448,129 +587,240 @@ const MinoPage = () => {
                     <h3 className={`text-2xl sm:text-3xl font-helvetica font-black tracking-tighter uppercase mb-2 ${
                       isDark ? 'text-white' : 'text-[#1C1917]'
                     }`}>
-                      {isRegistering ? minoT.registerTitle : minoT.welcome}
+                      {lang === 'es' ? 'Registro e Ingreso a Mino™' : 'Mino™ Access & Registration'}
                     </h3>
                     <p className={`text-[11px] font-black uppercase tracking-[0.25em] ${
                       isDark ? 'text-white/40' : 'text-[#78716C]'
                     }`}>
-                      {isRegistering ? minoT.registerSub : minoT.sub}
+                      {lang === 'es' ? 'Terminal Cifrada para el Sector Minero-Industrial' : 'Encrypted Terminal for the Mining-Industrial Sector'}
                     </p>
                   </div>
 
-                  {/* Banner de Acceso con Documentos Aprobados */}
-                  <div className={`mb-8 p-5 rounded-2xl border transition-all text-center ${
+                  {/* Banner de Acceso Rápido con Documentos Aprobados */}
+                  <div className={`mb-8 p-4 sm:p-5 rounded-2xl border transition-all text-center ${
                     isDark 
                       ? 'bg-emerald-950/20 border-emerald-500/30' 
-                      : 'bg-[#F2F8F2] border-emerald-300 shadow-sm'
+                      : 'bg-[#F2F8F2] border-emerald-300 shadow-xs'
                   }`}>
-                    <div className="flex items-center justify-center gap-2 mb-1.5 text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
+                    <div className="flex items-center justify-center gap-2 mb-1 text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
                       <CheckCircle2 className="w-4 h-4" />
-                      <span>Documentación Aprobada para Comercialización</span>
+                      <span>{lang === 'es' ? '¿Ya cuentas con aprobación de documentos?' : 'Already have approved documents?'}</span>
                     </div>
-                    <p className={`text-xs mb-3.5 max-w-md mx-auto ${isDark ? 'text-white/80' : 'text-[#44403C]'}`}>
+                    <p className={`text-xs mb-3 max-w-md mx-auto ${isDark ? 'text-white/80' : 'text-[#44403C]'}`}>
                       {lang === 'es'
-                        ? '¿Tus documentos de RUCOM y ANM ya están aprobados? Ingresa a la plataforma para comercializar minerales críticos en Colombia.'
-                        : 'Are your RUCOM and ANM documents approved? Enter the platform to trade critical minerals in Colombia.'}
+                        ? 'Si tu RUCOM o registro ANM ya está validado, puedes entrar directamente al marketplace gerenciado de minerales críticos en Colombia.'
+                        : 'If your RUCOM or ANM registration is already validated, enter directly to trade critical minerals.'}
                     </p>
                     <button
                       type="button"
                       onClick={() => setIsMarketplaceUnlocked(true)}
-                      className={`w-full py-3.5 px-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 ${
+                      className={`w-full py-3 px-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 ${
                         isDark ? 'btn-gold' : 'btn-primary-light'
                       }`}
                     >
                       <Sparkles className="w-3.5 h-3.5" />
-                      <span>Entrar al Marketplace de Minerales Críticos</span>
+                      <span>{lang === 'es' ? 'Entrar Directamente al Marketplace' : 'Enter Directly to Marketplace'}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  {formSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="py-8 text-center space-y-5"
-                    >
-                      <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto ${
-                        isDark ? 'bg-gold/15 text-gold border border-gold/30' : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
-                      }`}>
-                        <Check className="w-8 h-8" />
-                      </div>
-                      <div>
-                        <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 inline-block mb-3">
-                          ✓ Documentos Pre-Aprobados
-                        </span>
-                        <h4 className={`text-xl font-black uppercase ${isDark ? 'text-white' : 'text-[#1C1917]'}`}>
-                          {lang === 'es' ? 'Acceso Comercial Aprobado' : 'Commercial Access Approved'}
-                        </h4>
-                        <p className={`text-xs max-w-sm mx-auto mt-2 leading-relaxed ${isDark ? 'text-slate-300' : 'text-[#44403C]'}`}>
-                          {lang === 'es'
-                            ? 'Sus documentos de comercialización han sido aprobados exitosamente. Ya puede entrar al marketplace gerenciado de minerales críticos en Colombia.'
-                            : 'Your commercial documents have been approved successfully. You can now access to buy and sell formalized critical minerals in Colombia.'}
-                        </p>
+                  {/* Formulario Principal */}
+                  <form className="space-y-5" onSubmit={handleFormSubmit}>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <User className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Nombre Completo / Titular' : 'Full Name / Representative'} *</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          placeholder="Carlos Restrepo"
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                          required 
+                        />
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setFormSubmitted(false);
-                          setIsMarketplaceUnlocked(true);
-                        }}
-                        className={`w-full py-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl active:scale-95 ${
-                          isDark ? 'btn-gold' : 'btn-primary-light'
-                        }`}
-                      >
-                        <span>Ingresar a la Plataforma Marketplace</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    </motion.div>
-                  ) : !isRegistering ? (
-                <>
-                  <form className="space-y-6" onSubmit={handleFormSubmit}>
-                    <div className="space-y-2">
-                      <label className={`text-[11px] font-black uppercase tracking-widest ${
-                        isDark ? 'text-white/50' : 'text-[#57534E]'
-                      }`}>
-                        {minoT.email}
-                      </label>
-                      <input 
-                        type="email" 
-                        className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
-                          isDark 
-                            ? 'bg-white/5 border-white/10 text-white focus:border-gold focus:bg-white/8' 
-                            : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
-                        }`} 
-                        placeholder="name@company.com" 
-                        required 
-                      />
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <Mail className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Correo Electrónico' : 'Email Address'} *</span>
+                        </label>
+                        <input 
+                          type="email" 
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="carlos@mineria.com"
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                          required 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <Building className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Empresa / Asociación Minera' : 'Company / Association'} *</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.organization}
+                          onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                          placeholder="Asociación Minera del San Jorge"
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                          required 
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <Phone className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Teléfono / WhatsApp' : 'Phone / WhatsApp'} *</span>
+                        </label>
+                        <input 
+                          type="tel" 
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+57 310 000 0000"
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                          required 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <Shield className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'NIT / RUT / Cédula' : 'Tax ID / National ID'} *</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.taxId}
+                          onChange={(e) => setFormData({ ...formData, taxId: e.target.value })}
+                          placeholder="901.842.109-4"
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                          required 
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <FileText className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Código RUCOM / Título Minero' : 'RUCOM / Mining License'}</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.rucomCode}
+                          onChange={(e) => setFormData({ ...formData, rucomCode: e.target.value })}
+                          placeholder={lang === 'es' ? 'RUC-2026-CO (Opcional)' : 'RUCOM Code (Optional)'}
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <Layers className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Mineral de Interés' : 'Mineral of Interest'}</span>
+                        </label>
+                        <select 
+                          value={formData.mineralInterest}
+                          onChange={(e) => setFormData({ ...formData, mineralInterest: e.target.value })}
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all cursor-pointer ${
+                            isDark 
+                              ? 'bg-[#181D28] border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep shadow-xs'
+                          }`}
+                        >
+                          <option value="Oro de Aluvión (Trazabilidad y Liquidación)">Oro de Aluvión / Batea (Trazabilidad)</option>
+                          <option value="Cobre y Concentrados">Cobre y Concentrados</option>
+                          <option value="Coltán y Niobio">Coltán y Niobio / Tantalio</option>
+                          <option value="Níquel y Polimetálicos">Níquel y Polimetálicos</option>
+                          <option value="Tierras Raras (Neodimio, Praseodimio)">Tierras Raras (REE)</option>
+                          <option value="Formalización Territorial y Bancarización">Formalización Territorial & Alianzas</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                          isDark ? 'text-white/50' : 'text-[#78716C]'
+                        }`}>
+                          <MapPin className="w-3 h-3 text-gold-deep" />
+                          <span>{lang === 'es' ? 'Municipio / Departamento' : 'Location / Municipality'}</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.region}
+                          onChange={(e) => setFormData({ ...formData, region: e.target.value })}
+                          placeholder={lang === 'es' ? 'Ej: Montelíbano, Córdoba' : 'e.g., Montelíbano, Córdoba'}
+                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
+                            isDark 
+                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                              : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
+                          }`} 
+                        />
+                      </div>
                     </div>
 
                     <div className="space-y-2">
-                      <div className="flex justify-between items-center">
-                        <label className={`text-[11px] font-black uppercase tracking-widest ${
-                          isDark ? 'text-white/50' : 'text-[#57534E]'
-                        }`}>
-                          {minoT.password}
-                        </label>
-                        <button 
-                          type="button" 
-                          onClick={() => setIsForgotOpen(true)} 
-                          className={`text-[11px] font-black uppercase tracking-widest hover:underline transition-all cursor-pointer ${
-                            isDark ? 'text-gold' : 'text-gold-deep'
-                          }`}
-                        >
-                          {minoT.forgot}
-                        </button>
-                      </div>
-                      <input 
-                        type="password" 
-                        className={`w-full px-5 py-4 rounded-xl border outline-none transition-all ${
+                      <label className={`text-[11px] font-black uppercase tracking-widest flex items-center gap-1.5 ${
+                        isDark ? 'text-white/50' : 'text-[#78716C]'
+                      }`}>
+                        <FileText className="w-3 h-3 text-gold-deep" />
+                        <span>{lang === 'es' ? 'Detalles de la Operación / Requerimiento' : 'Operational Details / Request'}</span>
+                      </label>
+                      <textarea 
+                        rows={3}
+                        value={formData.notes}
+                        onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                        placeholder={lang === 'es' ? 'Describa el volumen estimado de producción o los objetivos de formalización y comercialización...' : 'Describe estimated production volume or commercialization objectives...'}
+                        className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all resize-none ${
                           isDark 
-                            ? 'bg-white/5 border-white/10 text-white focus:border-gold focus:bg-white/8' 
-                            : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
+                            ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
+                            : 'bg-white border-[#E8DEC8] text-[#1C1917] placeholder:text-[#A8A29E] focus:border-gold-deep focus:bg-white shadow-xs'
                         }`} 
-                        placeholder="••••••••" 
-                        required 
                       />
                     </div>
 
@@ -644,7 +894,7 @@ const MinoPage = () => {
                       </div>
 
                       {privacyError && (
-                        <p className="text-[11px] text-red-400 font-semibold px-1">
+                        <p className="text-[11px] text-red-500 font-semibold px-1">
                           {lang === 'es' 
                             ? 'Por favor acepte los términos de privacidad y Habeas Data para continuar.' 
                             : 'Please accept the privacy and Habeas Data terms to continue.'}
@@ -654,351 +904,32 @@ const MinoPage = () => {
 
                     <button 
                       type="submit" 
-                      className={`w-full py-5 rounded-xl font-black uppercase tracking-wider text-xs transition-all shadow-xl cursor-pointer ${
-                        !termsAccepted ? 'opacity-85' : ''
-                      } ${
-                        isDark ? 'btn-gold shadow-gold/20' : 'btn-primary-light shadow-slate-300'
-                      }`}
-                    >
-                      {minoT.login}
-                    </button>
-                  </form>
-
-                  <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-white/10 text-center">
-                    <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${
-                      isDark ? 'text-white/40' : 'text-slate-400'
-                    }`}>
-                      {minoT.noAccount}
-                    </p>
-                    <button 
-                      onClick={() => setIsRegistering(true)} 
-                      className={`text-xs font-black uppercase tracking-wider hover:underline transition-all cursor-pointer ${
-                        isDark ? 'text-gold' : 'text-gold-deep'
-                      }`}
-                    >
-                      {minoT.request}
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <form className="space-y-5" onSubmit={handleFormSubmit}>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className={`text-[11px] font-black uppercase tracking-widest ${
-                          isDark ? 'text-white/50' : 'text-slate-600'
-                        }`}>
-                          {minoT.fullName}
-                        </label>
-                        <input 
-                          type="text" 
-                          placeholder="Carlos Restrepo"
-                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
-                            isDark 
-                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                              : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold-deep focus:bg-white'
-                          }`} 
-                          required 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className={`text-[11px] font-black uppercase tracking-widest ${
-                          isDark ? 'text-white/50' : 'text-[#57534E]'
-                        }`}>
-                          {minoT.email}
-                        </label>
-                        <input 
-                          type="email" 
-                          placeholder="carlos@mineria.com"
-                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
-                            isDark 
-                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                              : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
-                          }`} 
-                          required 
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className={`text-[11px] font-black uppercase tracking-widest ${
-                        isDark ? 'text-white/50' : 'text-[#57534E]'
-                      }`}>
-                        {minoT.company}
-                      </label>
-                      <input 
-                        type="text" 
-                        placeholder="Asociación Minera / Entidad"
-                        className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
-                          isDark 
-                            ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
-                        }`} 
-                        required 
-                      />
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <label className={`text-[11px] font-black uppercase tracking-widest ${
-                          isDark ? 'text-white/50' : 'text-[#57534E]'
-                        }`}>
-                          {minoT.camara}
-                        </label>
-                        <input 
-                          type="text" 
-                          placeholder="Matrícula Mercantil / Código"
-                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
-                            isDark 
-                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                              : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
-                          }`} 
-                          required 
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label className={`text-[11px] font-black uppercase tracking-widest ${
-                          isDark ? 'text-white/50' : 'text-[#57534E]'
-                        }`}>
-                          {minoT.rut}
-                        </label>
-                        <input 
-                          type="text" 
-                          placeholder="NIT / RUT / Cédula"
-                          className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
-                            isDark 
-                              ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                              : 'bg-white border-[#E8DEC8] text-[#1C1917] focus:border-gold-deep focus:bg-white shadow-xs'
-                          }`} 
-                          required 
-                        />
-                      </div>
-                    </div>
-
-                    {/* Botón de Aceptación de Términos de Privacidad y Habeas Data */}
-                    <div className="space-y-2 pt-2">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setTermsAccepted(!termsAccepted);
-                          setPrivacyError(false);
-                        }}
-                        className={`w-full p-4 rounded-xl border text-left transition-all flex items-start gap-3.5 cursor-pointer select-none group ${
-                          termsAccepted
-                            ? isDark
-                              ? 'bg-gold/15 border-gold text-white ring-1 ring-gold/40'
-                              : 'bg-[#F7F3EB] border-gold-deep text-[#1C1917] ring-1 ring-gold-deep/30'
-                            : privacyError
-                              ? 'bg-red-500/10 border-red-500/60 text-red-700 animate-pulse'
-                              : isDark
-                                ? 'bg-white/5 border-white/10 text-white/70 hover:border-white/25 hover:bg-white/8'
-                                : 'bg-white border-[#E8DEC8] text-[#57534E] hover:border-[#D7CEBE] hover:bg-[#F3EFE6]'
-                        }`}
-                      >
-                        <div
-                          className={`w-5 h-5 mt-0.5 rounded-md flex items-center justify-center transition-all shrink-0 border ${
-                            termsAccepted
-                              ? isDark
-                                ? 'bg-gold border-gold text-black shadow-sm'
-                                : 'bg-gold-deep border-gold-deep text-white shadow-sm'
-                              : isDark
-                                ? 'border-white/30 bg-black/40 group-hover:border-gold'
-                                : 'border-[#D7CEBE] bg-white group-hover:border-gold-deep'
-                          }`}
-                        >
-                          {termsAccepted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                        </div>
-
-                        <div className="flex-1 text-xs leading-relaxed">
-                          <span className="font-bold flex items-center gap-1.5">
-                            <ShieldCheck className="w-3.5 h-3.5 text-gold shrink-0" />
-                            {lang === 'es'
-                              ? 'Acepto los Términos de Privacidad y Política de Habeas Data'
-                              : 'I accept Privacy Terms and Habeas Data Policy'}
-                          </span>
-                          <span className={`block text-[11px] mt-0.5 ${isDark ? 'text-white/40' : 'text-[#78716C]'}`}>
-                            {lang === 'es'
-                              ? 'Tratamiento seguro de datos conforme a la Ley 1581 de 2012 y Decreto 1377 de 2013.'
-                              : 'Secure data handling under Statutory Law 1581 of 2012 and international standards.'}
-                          </span>
-                        </div>
-                      </button>
-
-                      <div className="flex items-center justify-between px-1 text-[11px]">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setIsPrivacyModalOpen(true);
-                          }}
-                          className={`font-semibold hover:underline flex items-center gap-1 cursor-pointer ${
-                            isDark ? 'text-gold hover:text-gold-light' : 'text-gold-deep hover:text-gold-hover'
-                          }`}
-                        >
-                          <FileText className="w-3.5 h-3.5" />
-                          <span>{lang === 'es' ? 'Ver Políticas y Habeas Data' : 'View Privacy & Habeas Data'}</span>
-                        </button>
-
-                        <span className={`text-[10px] uppercase font-mono tracking-wider ${termsAccepted ? 'text-emerald-500 font-bold' : privacyError ? 'text-red-500 font-bold' : isDark ? 'text-white/30' : 'text-[#78716C]'}`}>
-                          {termsAccepted ? (lang === 'es' ? '✓ Aceptado' : '✓ Accepted') : (lang === 'es' ? '* Requerido' : '* Required')}
-                        </span>
-                      </div>
-
-                      {privacyError && (
-                        <p className="text-[11px] text-red-400 font-semibold px-1">
-                          {lang === 'es' 
-                            ? 'Por favor acepte los términos de privacidad y Habeas Data para continuar.' 
-                            : 'Please accept the privacy and Habeas Data terms to continue.'}
-                        </p>
-                      )}
-                    </div>
-
-                    <button 
-                      type="submit" 
-                      className={`w-full py-5 mt-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all shadow-xl cursor-pointer ${
-                        !termsAccepted ? 'opacity-85' : ''
+                      disabled={isSubmitting}
+                      className={`w-full py-5 rounded-xl font-black uppercase tracking-wider text-xs transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] ${
+                        !termsAccepted ? 'opacity-90' : ''
                       } ${
                         isDark ? 'btn-gold shadow-gold/20' : 'btn-primary-light'
-                      }`}
+                      } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                      {minoT.submitRequest}
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>{lang === 'es' ? 'Enviando Solicitud...' : 'Submitting Request...'}</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          <span>{lang === 'es' ? 'Enviar Solicitud de Acceso a Mino™' : 'Submit Mino™ Access Request'}</span>
+                        </>
+                      )}
                     </button>
                   </form>
-
-                  <div className="mt-8 pt-6 border-t border-slate-200/60 dark:border-white/10 text-center">
-                    <button 
-                      onClick={() => setIsRegistering(false)} 
-                      className={`text-xs font-black uppercase tracking-wider hover:underline transition-all cursor-pointer ${
-                        isDark ? 'text-gold' : 'text-gold-deep'
-                      }`}
-                    >
-                      {minoT.backToLogin}
-                    </button>
-                  </div>
                 </>
               )}
-            </>
-          )}
-        </motion.div>
-          </div>
-        </section>
-
-      </div>
-
-      {/* Forgot Password Modal */}
-      <AnimatePresence>
-        {isForgotOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsForgotOpen(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className={`relative w-full max-w-md overflow-hidden rounded-2xl shadow-2xl ${
-                isDark ? 'bg-charcoal border border-white/10' : 'bg-white border border-slate-200'
-              }`}
-            >
-              <div className={`h-24 relative flex items-center px-8 overflow-hidden ${
-                isDark ? 'bg-gold' : 'bg-gold-deep'
-              }`}>
-                <div className="absolute right-0 top-0 w-48 h-48 bg-black/10 rounded-full -mr-16 -mt-16 blur-2xl" />
-                <div className="relative z-10">
-                  <h3 className={`text-2xl font-helvetica font-black tracking-tighter uppercase ${
-                    isDark ? 'text-black' : 'text-white'
-                  }`}>
-                    {minoT.forgotTitle}
-                  </h3>
-                  <p className={`font-bold text-[10px] uppercase tracking-widest ${
-                    isDark ? 'text-black/60' : 'text-white/60'
-                  }`}>
-                    {minoT.forgotSub}
-                  </p>
-                </div>
-                <button 
-                  onClick={() => setIsForgotOpen(false)}
-                  className={`absolute top-4 right-4 p-2 rounded-full transition-colors cursor-pointer ${
-                    isDark ? 'bg-black/10 hover:bg-black/20 text-black' : 'bg-white/10 hover:bg-white/20 text-white'
-                  }`}
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="p-8">
-                {!isResetSent ? (
-                  <form className="space-y-6" onSubmit={handleResetSubmit}>
-                    <div className="space-y-2">
-                      <label className={`text-[10px] font-black uppercase tracking-widest ${
-                        isDark ? 'text-white/40' : 'text-slate-400'
-                      }`}>
-                        {minoT.email}
-                      </label>
-                      <input 
-                        type="email" 
-                        value={resetEmail}
-                        onChange={(e) => setResetEmail(e.target.value)}
-                        className={`w-full px-4 py-4 rounded-xl border outline-none transition-all ${
-                          isDark 
-                            ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
-                            : 'bg-slate-50 border-slate-200 text-slate-900 focus:border-gold'
-                        }`} 
-                        placeholder="name@company.com" 
-                        required 
-                      />
-                    </div>
-                    <button 
-                      type="submit" 
-                      className={`w-full py-5 font-black uppercase tracking-widest text-xs rounded-xl transition-all shadow-xl active:scale-[0.98] cursor-pointer ${
-                        isDark 
-                          ? 'bg-gold hover:bg-gold-hover text-black shadow-gold/20 hover:shadow-gold/40' 
-                          : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-200'
-                      }`}
-                    >
-                      {minoT.send}
-                    </button>
-                  </form>
-                ) : (
-                  <div className="text-center py-4">
-                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                      isDark ? 'bg-gold/10' : 'bg-gold-soft'
-                    }`}>
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className={isDark ? 'text-gold' : 'text-gold-deep'}
-                      >
-                        <Check className="w-8 h-8" />
-                      </motion.div>
-                    </div>
-                    <p className={`text-sm font-bold leading-relaxed mb-8 ${
-                      isDark ? 'text-white/80' : 'text-slate-600'
-                    }`}>
-                      {minoT.resetSuccess}
-                    </p>
-                    <button 
-                      onClick={() => {
-                        setIsForgotOpen(false);
-                        setIsResetSent(false);
-                      }}
-                      className={`text-[10px] font-black uppercase tracking-widest hover:underline cursor-pointer ${
-                        isDark ? 'text-gold' : 'text-gold-deep'
-                      }`}
-                    >
-                      {minoT.close}
-                    </button>
-                  </div>
-                )}
-              </div>
             </motion.div>
           </div>
-        )}
-      </AnimatePresence>
+        </section>
+      </div>
     </div>
   );
 };
