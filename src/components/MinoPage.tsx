@@ -27,7 +27,7 @@ import {
   Shield,
   Layers
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { NetworkBackground } from './NetworkBackground';
@@ -35,11 +35,11 @@ import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 import { MinoAppLoop } from './MinoAppLoop';
 import { BarequerosSection } from './BarequerosSection';
-import { ManagedMarketplace } from './ManagedMarketplace';
 
 const MinoPage = () => {
   const { theme, lang, t, setIsContactModalOpen, setIsPrivacyModalOpen } = useContext(AppContext);
   const isDark = theme === 'dark';
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -57,7 +57,25 @@ const MinoPage = () => {
   const [privacyError, setPrivacyError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isMarketplaceUnlocked, setIsMarketplaceUnlocked] = useState(false);
+  const [countdown, setCountdown] = useState(6);
+
+  // Auto-retorno al menú principal al enviar requerimiento
+  React.useEffect(() => {
+    if (!isSubmitted) return;
+    setCountdown(6);
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          navigate('/');
+          window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isSubmitted, navigate]);
 
   // Ensure page always starts at top when opened
   React.useEffect(() => {
@@ -67,9 +85,6 @@ const MinoPage = () => {
   }, []);
 
   const scrollToAccessForm = () => {
-    if (isMarketplaceUnlocked) {
-      setIsMarketplaceUnlocked(false);
-    }
     const el = document.getElementById('mino-access-form');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -430,61 +445,41 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
         <section id="mino-access-form" className="pt-8 pb-16 space-y-8 scroll-mt-20">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-black tracking-widest uppercase border ${
-              isMarketplaceUnlocked 
-                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' 
-                : 'bg-gold/10 border-gold/30 text-gold'
+              isDark ? 'bg-gold/10 border-gold/30 text-gold' : 'bg-[#F7F3EB] border-[#E8DEC8] text-gold-deep'
             }`}>
-              {isMarketplaceUnlocked ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
+              <Lock className="w-3.5 h-3.5" />
               <span>
-                {isMarketplaceUnlocked
-                  ? (lang === 'es' ? 'Documentos Aprobados • Marketplace Gerenciado' : 'Approved Documents • Managed Marketplace')
-                  : (lang === 'es' ? 'Habilitación de Terminal • Acceso Oficial' : 'Terminal Activation • Official Access')}
+                {lang === 'es' ? 'Habilitación de Terminal • Acceso Oficial' : 'Terminal Activation • Official Access'}
               </span>
             </div>
 
             <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-helvetica font-black tracking-tighter uppercase ${
               isDark ? 'text-white' : 'text-[#1C1917]'
             }`}>
-              {isMarketplaceUnlocked
-                ? (lang === 'es' ? 'Marketplace de Minerales Críticos' : 'Critical Minerals Marketplace')
-                : (lang === 'es' ? <>Solicitar Acceso a <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></> : <>Request Access to <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></>)}
+              {lang === 'es' ? <>Solicitar Acceso a <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></> : <>Request Access to <span className={isDark ? 'text-gold' : 'text-gold-deep'}>Mino™</span></>}
             </h2>
 
             <p className={`text-xs sm:text-sm leading-relaxed ${isDark ? 'text-slate-400' : 'text-[#44403C]'}`}>
-              {isMarketplaceUnlocked
-                ? (lang === 'es'
-                    ? 'Plataforma comercial para la compraventa de minerales críticos formalizados en Colombia con custodia en bóveda y liquidación en escrow.'
-                    : 'Commercial platform for buying and selling verified critical minerals in Colombia with vault custody and escrow settlement.')
-                : (lang === 'es'
-                    ? 'Complete sus datos corporativos o de asociación minera para habilitar su terminal cifrada y acceder a la red de trazabilidad, liquidación justa y comercialización.'
-                    : 'Submit your institutional or mining association details to activate your encrypted terminal and join the verified supply network.')}
+              {lang === 'es'
+                ? 'Complete sus datos corporativos o de asociación minera para habilitar su terminal cifrada y acceder a la red de trazabilidad, liquidación justa y comercialización.'
+                : 'Submit your institutional or mining association details to activate your encrypted terminal and join the verified supply network.'}
             </p>
           </div>
 
-          {/* Form Container or Marketplace View */}
+          {/* Form Container */}
           <div className="flex justify-center w-full">
             <motion.div
-              key={isMarketplaceUnlocked ? 'marketplace-view' : (isSubmitted ? 'submitted-view' : 'form-view')}
+              key={isSubmitted ? 'submitted-view' : 'form-view'}
               initial={{ opacity: 0, scale: 0.98, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className={`relative z-10 w-full transition-all duration-300 rounded-3xl ${
-                isMarketplaceUnlocked
-                  ? 'max-w-6xl p-0 bg-transparent border-0'
-                  : `max-w-2xl p-8 sm:p-12 border ${
-                      isDark 
-                        ? 'bg-[#121620] backdrop-blur-xl border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.8)]' 
-                        : 'bg-[#FAF8F5] border-[#E8DEC8] shadow-[0_25px_60px_rgba(28,25,23,0.1)]'
-                    }`
+              className={`relative z-10 w-full transition-all duration-300 rounded-3xl max-w-2xl p-8 sm:p-12 border ${
+                isDark 
+                  ? 'bg-[#121620] backdrop-blur-xl border-white/15 shadow-[0_25px_60px_rgba(0,0,0,0.8)]' 
+                  : 'bg-[#FAF8F5] border-[#E8DEC8] shadow-[0_25px_60px_rgba(28,25,23,0.1)]'
               }`}
             >
-              {isMarketplaceUnlocked ? (
-                <ManagedMarketplace 
-                  lang={lang} 
-                  isDark={isDark} 
-                  onExitMarketplace={() => setIsMarketplaceUnlocked(false)} 
-                />
-              ) : isSubmitted ? (
+              {isSubmitted ? (
                 /* Vista de Confirmación con el recuadro solicitado */
                 <div className="text-center space-y-6 py-4">
                   {/* Status Icon */}
@@ -534,18 +529,27 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
                     </div>
                   </div>
 
-                  {/* Acciones Posteriores */}
-                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                  {/* Cuenta regresiva de retorno automático */}
+                  <p className={`text-xs font-medium ${isDark ? 'text-white/60' : 'text-[#78716C]'}`}>
+                    {lang === 'es' 
+                      ? `Volviendo al menú principal automáticamente en ${countdown} segundos...` 
+                      : `Returning to main menu automatically in ${countdown} seconds...`}
+                  </p>
+
+                  {/* Acciones */}
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <button
                       type="button"
-                      onClick={() => setIsMarketplaceUnlocked(true)}
+                      onClick={() => {
+                        navigate('/');
+                        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                      }}
                       className={`w-full sm:w-auto px-6 py-3.5 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 ${
                         isDark ? 'btn-gold' : 'btn-primary-light'
                       }`}
                     >
-                      <Sparkles className="w-4 h-4" />
-                      <span>{lang === 'es' ? 'Entrar al Marketplace de Minerales' : 'Enter Minerals Marketplace'}</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowLeft className="w-4 h-4" />
+                      <span>{lang === 'es' ? 'Volver al Menú Principal Ahora' : 'Return to Main Menu Now'}</span>
                     </button>
 
                     <button
@@ -576,7 +580,7 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
                   </div>
                 </div>
               ) : (
-                /* Formulario para Solicitar Acceso */
+                /* Formulario Inicial para Solicitar Acceso */
                 <>
                   <div className="text-center mb-8">
                     <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 transition-all ${
@@ -594,34 +598,6 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
                     }`}>
                       {lang === 'es' ? 'Terminal Cifrada para el Sector Minero-Industrial' : 'Encrypted Terminal for the Mining-Industrial Sector'}
                     </p>
-                  </div>
-
-                  {/* Banner de Acceso Rápido con Documentos Aprobados */}
-                  <div className={`mb-8 p-4 sm:p-5 rounded-2xl border transition-all text-center ${
-                    isDark 
-                      ? 'bg-emerald-950/20 border-emerald-500/30' 
-                      : 'bg-[#F2F8F2] border-emerald-300 shadow-xs'
-                  }`}>
-                    <div className="flex items-center justify-center gap-2 mb-1 text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span>{lang === 'es' ? '¿Ya cuentas con aprobación de documentos?' : 'Already have approved documents?'}</span>
-                    </div>
-                    <p className={`text-xs mb-3 max-w-md mx-auto ${isDark ? 'text-white/80' : 'text-[#44403C]'}`}>
-                      {lang === 'es'
-                        ? 'Si tu RUCOM o registro ANM ya está validado, puedes entrar directamente al marketplace gerenciado de minerales críticos en Colombia.'
-                        : 'If your RUCOM or ANM registration is already validated, enter directly to trade critical minerals.'}
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() => setIsMarketplaceUnlocked(true)}
-                      className={`w-full py-3 px-4 rounded-xl font-black uppercase tracking-wider text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md active:scale-95 ${
-                        isDark ? 'btn-gold' : 'btn-primary-light'
-                      }`}
-                    >
-                      <Sparkles className="w-3.5 h-3.5" />
-                      <span>{lang === 'es' ? 'Entrar Directamente al Marketplace' : 'Enter Directly to Marketplace'}</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
                   </div>
 
                   {/* Formulario Principal */}
