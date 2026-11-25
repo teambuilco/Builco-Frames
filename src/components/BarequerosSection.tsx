@@ -402,7 +402,7 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
 
           {/* Selector buttons for grams */}
           <div className="flex flex-wrap items-center justify-center gap-3">
-            {[5, 10, 15, 25, 40].map((grams) => (
+            {[5, 10, 15, 25, 35].map((grams) => (
               <button
                 key={grams}
                 type="button"
@@ -535,6 +535,17 @@ export const BarequerosSection: React.FC<BarequerosSectionProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
+
+          {/* Aclaración normativa */}
+          <p className={`text-center text-[11px] sm:text-xs leading-relaxed max-w-2xl mx-auto pt-2 border-t ${
+            isDark
+              ? 'border-white/10 text-slate-400'
+              : 'border-[#E8DEC8] text-[#78716C]'
+          }`}>
+            {lang === 'es'
+              ? '* Aclaración: Los topes establecidos están fijados de manera individual por la Resolución 40103 de 2017 del Ministerio de Minas y Energía.'
+              : '* Note: The established production caps are individually fixed by Resolution 40103 of 2017 of the Ministry of Mines and Energy.'}
+          </p>
         </div>
       </div>
     </section>

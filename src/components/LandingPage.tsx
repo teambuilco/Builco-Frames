@@ -1190,11 +1190,22 @@ const Footer = () => {
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>{lang === 'es' ? 'Políticas & Habeas Data' : 'Privacy & Habeas Data'}</span>
             </button>
-            {['LinkedIn', 'Twitter'].map(item => (
-              <span key={item} className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity">
-                {item}
-              </span>
-            ))}
+            <a
+              href="https://www.linkedin.com/company/builco-co"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://www.instagram.com/builco.co/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline opacity-90 hover:opacity-100 cursor-pointer transition-opacity"
+            >
+              Instagram
+            </a>
           </div>
         </div>
       </div>
