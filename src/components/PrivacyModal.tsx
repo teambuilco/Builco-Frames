@@ -85,7 +85,7 @@ export const PrivacyModal: React.FC = () => {
       
       doc.setTextColor(180, 190, 205);
       doc.setFontSize(7);
-      doc.text('NIT: 901.842.109-4 | DOMICILIO: BOGOTÁ D.C. - MEDELLÍN, COLOMBIA | EXPEDIENTE: BUILCO-JUR-2026-HD', margin, 22);
+      doc.text('DOMICILIO: BOGOTÁ D.C. - MEDELLÍN, COLOMBIA | EXPEDIENTE: BUILCO-JUR-2026-HD', margin, 22);
 
       let currentY = 40;
 
@@ -135,7 +135,7 @@ export const PrivacyModal: React.FC = () => {
         writeSection(
           '1',
           'Identificación del Responsable y Cobertura',
-          'BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S. (en adelante BUILCO), identificada con NIT 901.842.109-4, con domicilio principal en Bogotá D.C. y presencia operativa en Antioquia y Córdoba, actúa como Responsable del Tratamiento de Datos Personales respecto a clientes, aliados territoriales, operadores mineros y usuarios de la plataforma tecnológica Mino™.'
+          'BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S. (en adelante BUILCO), con domicilio principal en Bogotá D.C. y presencia operativa en Antioquia y Córdoba, actúa como Responsable del Tratamiento de Datos Personales respecto a clientes, aliados territoriales, operadores mineros y usuarios de la plataforma tecnológica Mino™.'
         );
         writeSection(
           '2',
@@ -156,7 +156,7 @@ export const PrivacyModal: React.FC = () => {
         writeSection(
           '1',
           'Data Controller Identification & Scope',
-          'BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S. (BUILCO), Tax ID (NIT) 901.842.109-4, headquartered in Bogotá D.C. with active regional advisory hubs in Antioquia and Córdoba, acts as the Data Controller regarding clients, sovereign partners, mining operators, and verified users of the Mino™ industrial platform.'
+          'BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S. (BUILCO), headquartered in Bogotá D.C. with active regional advisory hubs in Antioquia and Córdoba, acts as the Data Controller regarding clients, sovereign partners, mining operators, and verified users of the Mino™ industrial platform.'
         );
         writeSection(
           '2',
@@ -482,7 +482,7 @@ export const PrivacyModal: React.FC = () => {
                             </div>
                           </div>
                           <p className="text-[10px] text-slate-500 font-mono pt-1">
-                            NIT: 901.842.109-4 • Domicilio Legal: Bogotá D.C. - Medellín, Colombia
+                            Domicilio Legal: Bogotá D.C. - Medellín, Colombia
                           </p>
                         </div>
 
@@ -521,11 +521,11 @@ export const PrivacyModal: React.FC = () => {
                           <p>
                             {lang === 'es' ? (
                               <>
-                                <strong>BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S.</strong> (en adelante "BUILCO"), sociedad comercial legalmente constituida, identificada con NIT 901.842.109-4, con domicilio principal en la ciudad de Bogotá D.C. y operaciones regionales en Medellín, Chocó y Córdoba, actúa como Responsable del Tratamiento de los datos personales suministrados a través de sus plataformas institucionales, su infraestructura tecnológica <strong>Mino™</strong> y sus acuerdos bilaterales.
+                                <strong>BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S.</strong> (en adelante "BUILCO"), sociedad comercial legalmente constituida, con domicilio principal en la ciudad de Bogotá D.C. y operaciones regionales en Medellín, Chocó y Córdoba, actúa como Responsable del Tratamiento de los datos personales suministrados a través de sus plataformas institucionales, su infraestructura tecnológica <strong>Mino™</strong> y sus acuerdos bilaterales.
                               </>
                             ) : (
                               <>
-                                <strong>BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S.</strong> ("BUILCO"), a legally established corporation under Colombian law with Tax ID (NIT) 901.842.109-4, headquartered in Bogotá D.C., acts as the Data Controller regarding all personal and corporate records collected across its institutional operations and the <strong>Mino™</strong> digital industrial platform.
+                                <strong>BUILDING CONNECTIONS STRATEGIC PARTNERS S.A.S.</strong> ("BUILCO"), a legally established corporation under Colombian law, headquartered in Bogotá D.C., acts as the Data Controller regarding all personal and corporate records collected across its institutional operations and the <strong>Mino™</strong> digital industrial platform.
                               </>
                             )}
                           </p>

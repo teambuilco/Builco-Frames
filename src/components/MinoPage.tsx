@@ -702,7 +702,7 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
                           type="text" 
                           value={formData.taxId}
                           onChange={(e) => setFormData({ ...formData, taxId: e.target.value })}
-                          placeholder="901.842.109-4"
+                          placeholder={lang === 'es' ? 'Número de identificación' : 'ID / Tax Number'}
                           className={`w-full px-4 py-3.5 rounded-xl border outline-none transition-all ${
                             isDark 
                               ? 'bg-white/5 border-white/10 text-white focus:border-gold' 
