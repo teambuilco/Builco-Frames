@@ -8,6 +8,7 @@ import { AppContext } from '../context/AppContext';
 import { TerritorialFormalization } from './TerritorialFormalization';
 import { MinoAppLoop } from './MinoAppLoop';
 import { BarequerosSection } from './BarequerosSection';
+import { Footer } from './Footer';
 
 const MiningPage = () => {
   const { theme, lang, setIsContactModalOpen } = useContext(AppContext);
@@ -167,6 +168,8 @@ const MiningPage = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 pb-32">
         <BarequerosSection />
       </div>
+
+      <Footer />
     </div>
   );
 };

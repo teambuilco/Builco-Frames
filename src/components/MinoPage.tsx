@@ -35,6 +35,7 @@ import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
 import { MinoAppLoop } from './MinoAppLoop';
 import { BarequerosSection } from './BarequerosSection';
+import { Footer } from './Footer';
 
 const MinoPage = () => {
   const { theme, lang, t, setIsContactModalOpen, setIsPrivacyModalOpen } = useContext(AppContext);
@@ -906,6 +907,8 @@ Fecha: ${new Date().toLocaleString('es-CO')}`;
           </div>
         </section>
       </div>
+
+      <Footer />
     </div>
   );
 };

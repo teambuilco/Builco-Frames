@@ -1,188 +1,404 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Globe, Users, Target, Shield } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  Globe,
+  Users,
+  Target,
+  Shield,
+  Handshake,
+  Sprout,
+  Fingerprint,
+  Lightbulb,
+  FlaskConical,
+  Rocket,
+  Leaf
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
+import { NetworkBackground } from './NetworkBackground';
+import { Footer } from './Footer';
 import { AppContext } from '../context/AppContext';
 
 const AboutPage = () => {
-  const { theme, lang } = useContext(AppContext);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { theme, lang, setIsContactModalOpen } = useContext(AppContext);
+  const isDark = theme === 'dark';
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5;
-    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, []);
 
   const content = lang === 'es' ? {
-    back: 'Regresar al Inicio',
+    back: 'Volver al Inicio',
+    kicker: 'Building Connections · Identidad Corporativa',
     headlinePre: 'Nuestra ',
     headlineHighlight: 'Historia',
-    intro: 'Builco nació en las profundidades de la tierra, donde el esfuerzo humano se encuentra con la riqueza mineral.',
-    originTitle: 'El Origen',
-    originDesc: 'Fundada en 2025, Building Connections (Builco) surgió de una necesidad crítica en el sector minero: la falta de una red estratégica que conectara a los actores clave con tecnología de vanguardia y servicios de consultoría de alto nivel.',
-    peopleTitle: 'Nuestra Gente',
-    peopleDesc: 'Creemos que el corazón de la minería no son las máquinas, sino las personas. Por eso, nuestra plataforma Mino está diseñada para empoderar a cada trabajador, desde el tajo hasta la gerencia, facilitando una comunicación transparente y eficiente.',
-    globalTitle: 'Impacto Global',
-    globalDesc: 'Lo que comenzó como una iniciativa local en las regiones mineras de Colombia, hoy se proyecta como un estándar internacional de conectividad y eficiencia operativa en la industria extractiva global.',
-    commitmentTitle: 'Compromiso',
-    commitmentDesc: 'Nuestro compromiso es con la seguridad, la sostenibilidad y la innovación. Cada conexión que construimos es un paso hacia una minería más humana y tecnológicamente avanzada.',
-    footerText: 'Building Connections © 2026 - Forjando el Futuro'
+    intro: 'Builco nació en las profundidades de la tierra, donde el esfuerzo humano se encuentra con la riqueza mineral y la visión estratégica.',
+    pillarsKicker: 'Propósito & Trayectoria',
+    pillarsTitle: 'Pilares Fundacionales',
+    pillars: [
+      {
+        icon: Target,
+        title: 'El Origen',
+        desc: 'Fundada en 2025, Building Connections (Builco) surgió de una necesidad crítica en el sector minero: la falta de una red estratégica que conectara a los actores clave con tecnología de vanguardia y servicios de consultoría de alto nivel.'
+      },
+      {
+        icon: Users,
+        title: 'Nuestra Gente',
+        desc: 'Creemos que el corazón de la minería no son las máquinas, sino las personas. Por eso, nuestra plataforma Mino está diseñada para empoderar a cada trabajador, desde el territorio hasta la gerencia, facilitando una comunicación transparente y eficiente.'
+      },
+      {
+        icon: Globe,
+        title: 'Impacto Global',
+        desc: 'Lo que comenzó como una iniciativa local en las regiones mineras de Colombia, hoy se proyecta como un estándar internacional de conectividad y eficiencia operativa en la industria extractiva global.'
+      },
+      {
+        icon: Shield,
+        title: 'Compromiso',
+        desc: 'Nuestro compromiso es con la seguridad, la sostenibilidad y la innovación. Cada conexión que construimos es un paso hacia una minería más humana, trazable y tecnológicamente avanzada.'
+      }
+    ],
+    valuesKicker: 'Cultura Corporativa',
+    valuesTitlePre: 'Valores ',
+    valuesTitleHighlight: 'Builco',
+    valuesSubtitle: 'Los principios que guían cada alianza, decisión y operación en territorio.',
+    values: [
+      {
+        icon: Handshake,
+        title: 'Relaciones antes que transacciones',
+        desc: 'Establecemos lazos duraderos y significativos, priorizando el valor mutuo sobre el beneficio inmediato.'
+      },
+      {
+        icon: Sprout,
+        title: 'Crecemos para que otros crezcan',
+        desc: 'Nuestro éxito se mide por el impacto positivo y el crecimiento que generamos en nuestros clientes y aliados.'
+      },
+      {
+        icon: Fingerprint,
+        title: 'Autenticidad como principio',
+        desc: 'Operamos con transparencia y honestidad, siendo fieles a nuestros valores y a quienes somos.'
+      },
+      {
+        icon: Lightbulb,
+        title: 'Valentía para reinventar',
+        desc: 'Abrazamos el cambio y desafiamos el status quo, buscando nuevas y mejores formas de hacer las cosas.'
+      },
+      {
+        icon: FlaskConical,
+        title: 'Cultura Beta',
+        desc: 'Estamos en constante aprendizaje y evolución, siempre abiertos a probar, adaptar y mejorar nuestros procesos.'
+      },
+      {
+        icon: Rocket,
+        title: 'Innovar y generar impacto',
+        desc: 'Buscamos soluciones creativas y disruptivas que dejen una huella positiva y duradera en la sociedad.'
+      },
+      {
+        icon: Leaf,
+        title: 'Responsabilidad con el mañana',
+        desc: 'Actuamos pensando en las futuras generaciones, comprometiéndonos con prácticas sostenibles y éticas.'
+      }
+    ],
+    ctaLabel: 'Iniciar Conversación Estratégica',
+    footerText: 'Building Connections © 2026 · Todos los derechos reservados'
   } : {
     back: 'Back to Home',
+    kicker: 'Building Connections · Corporate Identity',
     headlinePre: 'Our ',
     headlineHighlight: 'Story',
-    intro: 'Builco was born in the depths of the earth, where human endeavor converges with strategic mineral wealth.',
-    originTitle: 'The Origin',
-    originDesc: 'Founded in 2025, Building Connections (Builco) emerged from a critical imperative across the industrial sector: the absence of a strategic network connecting key decision-makers with state-of-the-art technology and high-level advisory.',
-    peopleTitle: 'Our People',
-    peopleDesc: 'We believe that the true pulse of high-impact industries lies in people, not machinery. That is why our proprietary Mino platform is engineered to empower teams from frontline operations to sovereign boardrooms, fostering transparent and high-speed execution.',
-    globalTitle: 'Global Impact',
-    globalDesc: 'What originated as a focused initiative in the mineral corridors of Latin America has expanded into an international standard for strategic connectivity and operational excellence across global markets.',
-    commitmentTitle: 'Institutional Commitment',
-    commitmentDesc: 'Our commitment is anchored in sovereign discretion, ESG sustainability, and transformative technology. Every alliance we architect is a step toward more resilient, transparent, and forward-looking industrial sectors.',
-    footerText: 'Building Connections © 2026 - Shaping the Future'
+    intro: 'Builco was born in the depths of the earth, where human endeavor converges with strategic mineral wealth and institutional vision.',
+    pillarsKicker: 'Purpose & Trajectory',
+    pillarsTitle: 'Foundational Pillars',
+    pillars: [
+      {
+        icon: Target,
+        title: 'The Origin',
+        desc: 'Founded in 2025, Building Connections (Builco) emerged from a critical imperative across the industrial sector: the absence of a strategic network connecting key decision-makers with state-of-the-art technology and high-level advisory.'
+      },
+      {
+        icon: Users,
+        title: 'Our People',
+        desc: 'We believe that the true pulse of high-impact industries lies in people, not machinery. That is why our proprietary Mino platform is engineered to empower teams from frontline operations to executive boardrooms, fostering transparent execution.'
+      },
+      {
+        icon: Globe,
+        title: 'Global Impact',
+        desc: 'What originated as a focused initiative in the mineral corridors of Latin America has expanded into an international standard for strategic connectivity and operational excellence across global markets.'
+      },
+      {
+        icon: Shield,
+        title: 'Institutional Commitment',
+        desc: 'Our commitment is anchored in sovereign discretion, ESG sustainability, and transformative technology. Every alliance we architect is a step toward more resilient, transparent, and forward-looking sectors.'
+      }
+    ],
+    valuesKicker: 'Corporate Culture',
+    valuesTitlePre: 'Builco ',
+    valuesTitleHighlight: 'Values',
+    valuesSubtitle: 'The core principles guiding every alliance, decision, and territorial operation.',
+    values: [
+      {
+        icon: Handshake,
+        title: 'Relationships before transactions',
+        desc: 'We build lasting, meaningful bonds, prioritizing mutual long-term value over immediate gain.'
+      },
+      {
+        icon: Sprout,
+        title: 'We grow so others can grow',
+        desc: 'Our success is measured by the positive impact and growth we generate for our clients and partners.'
+      },
+      {
+        icon: Fingerprint,
+        title: 'Authenticity as a principle',
+        desc: 'We operate with transparency and honesty, staying faithful to our values and who we are.'
+      },
+      {
+        icon: Lightbulb,
+        title: 'Courage to reinvent',
+        desc: 'We embrace change and challenge the status quo, seeking new and better ways of doing things.'
+      },
+      {
+        icon: FlaskConical,
+        title: 'Beta Culture',
+        desc: 'We are in constant learning and evolution, always open to testing, adapting, and improving our processes.'
+      },
+      {
+        icon: Rocket,
+        title: 'Innovate and create impact',
+        desc: 'We pursue creative, disruptive solutions that leave a positive and lasting mark on society.'
+      },
+      {
+        icon: Leaf,
+        title: 'Responsibility for tomorrow',
+        desc: 'We act with future generations in mind, committing ourselves to sustainable and ethical practices.'
+      }
+    ],
+    ctaLabel: 'Start Strategic Conversation',
+    footerText: 'Building Connections © 2026 · All rights reserved'
   };
 
+  const firstSixValues = content.values.slice(0, 6);
+  const seventhValue = content.values[6];
+  const SeventhIcon = seventhValue.icon;
+
   return (
-    <div className={`relative min-h-screen overflow-hidden font-sans transition-colors duration-500 ${theme === 'dark' ? 'bg-black text-white' : 'bg-[#FAF8F5] text-[#1C1917]'}`}>
-      {/* Background Video - Film Strip Style */}
-      <div className={`absolute inset-0 z-0 ${theme === 'dark' ? 'opacity-40' : 'opacity-10'}`}>
-        <div className={`absolute inset-0 bg-gradient-to-b from-inherit via-transparent to-inherit z-10`} />
-        <div className={`absolute inset-0 bg-gradient-to-r from-inherit via-transparent to-inherit z-10`} />
-        
-        {/* Film Strip Overlay Effect */}
-        <div className="absolute inset-0 z-20 pointer-events-none opacity-20">
-          <div className={`h-full w-full border-x-[40px] border-dashed ${theme === 'dark' ? 'border-white/10' : 'border-[#1C1917]/10'}`} />
+    <div className={`min-h-screen transition-colors duration-300 relative overflow-hidden ${
+      isDark ? 'bg-charcoal text-white' : 'bg-[#FAF8F5] text-[#1C1917]'
+    }`}>
+      {/* Mismo fondo interactivo de red de la página principal */}
+      <NetworkBackground />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-16">
+        {/* Navegación de regreso */}
+        <div className="mb-10">
+          <Link
+            to="/"
+            className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold tracking-tight transition-all duration-200 ${
+              isDark
+                ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
+                : 'bg-white hover:bg-[#F3EFE6] text-[#1C1917] border border-[#E8DEC8] shadow-xs'
+            }`}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>{content.back}</span>
+          </Link>
         </div>
 
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover grayscale brightness-50"
-        >
-          <source 
-            src="https://assets.mixkit.co/videos/preview/mixkit-miner-working-in-a-mine-4286-large.mp4" 
-            type="video/mp4" 
-          />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-30 max-w-5xl mx-auto px-6 py-12">
-        <Link
-          to="/"
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider mb-12 transition-all duration-200 ${
-            theme === 'dark'
-              ? 'bg-white/5 hover:bg-white/10 text-white/80 border border-white/10'
-              : 'bg-white hover:bg-[#F4EFE6] text-[#1C1917] border border-[#E8DEC8] shadow-xs'
-          }`}
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>{content.back}</span>
-        </Link>
-
-        <header className="mb-32">
+        {/* Hero / Cabecera Editorial */}
+        <header className="text-center max-w-4xl mx-auto mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center"
           >
-            <div className="flex items-center gap-6 mb-12">
-              <Logo className={`w-14 h-14 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} />
-              <div className={`h-14 w-px ${theme === 'dark' ? 'bg-white/20' : 'bg-[#E8DEC8]'}`} />
-              <span className={`text-2xl font-black uppercase tracking-[0.3em] ${theme === 'dark' ? 'text-white/50' : 'text-[#78716C]'}`}>Builco</span>
+            <div className={`p-3 rounded-2xl mb-6 transition-all ${
+              isDark
+                ? 'bg-black/80 border border-gold/30 shadow-[0_0_25px_rgba(229,184,108,0.18)]'
+                : 'bg-black border border-neutral-900 shadow-lg'
+            }`}>
+              <Logo className="w-11 h-11 drop-shadow-[0_2px_10px_rgba(212,175,55,0.45)]" />
             </div>
-            <h1 className="text-7xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-10">
-              {content.headlinePre}<span className={theme === 'dark' ? 'text-gold' : 'text-gold-deep'}>{content.headlineHighlight}</span>
+
+            <p className={`text-xs font-semibold tracking-wider uppercase mb-4 ${
+              isDark ? 'text-gold' : 'text-gold-deep'
+            }`}>
+              {content.kicker}
+            </p>
+
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight mb-6 text-balance ${
+              isDark ? 'text-white' : 'text-slate-950'
+            }`}>
+              {content.headlinePre}
+              <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
+                {content.headlineHighlight}
+              </span>
             </h1>
-            <div className={`w-40 h-2.5 mb-12 rounded-full ${theme === 'dark' ? 'bg-gold shadow-[0_0_20px_rgba(225,180,109,0.3)]' : 'bg-gold-deep'}`} />
-            <p className={`text-2xl md:text-3xl max-w-3xl font-medium leading-[1.4] ${theme === 'dark' ? 'text-white/70' : 'text-[#44403C]'}`}>
+
+            <p className={`text-lg sm:text-xl leading-relaxed max-w-2xl font-normal ${
+              isDark ? 'text-slate-200/90' : 'text-[#44403C]'
+            }`}>
               {content.intro}
             </p>
           </motion.div>
         </header>
 
-        <div className="grid md:grid-cols-2 gap-10 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="space-y-10"
-          >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
-              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Target className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.originTitle}
-              </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
-                {content.originDesc}
-              </p>
-            </div>
-
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
-              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Users className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.peopleTitle}
-              </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
-                {content.peopleDesc}
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="space-y-10"
-          >
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
-              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Globe className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.globalTitle}
-              </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
-                {content.globalDesc}
-              </p>
-            </div>
-
-            <div className={`p-10 border transition-all duration-700 hover:translate-y-[-4px] ${theme === 'dark' ? 'border-white/10 bg-white/5 rounded-lg' : 'border-[#E8DEC8] bg-white shadow-xs rounded-2xl'}`}>
-              <h2 className="text-3xl font-bold mb-6 flex items-center gap-4">
-                <Shield className={`w-8 h-8 ${theme === 'dark' ? 'text-gold' : 'text-gold-deep'}`} /> {content.commitmentTitle}
-              </h2>
-              <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-white/60' : 'text-[#78716C] font-medium'}`}>
-                {content.commitmentDesc}
-              </p>
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.footer
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className={`mt-32 pt-12 border-t text-center ${theme === 'dark' ? 'border-white/10' : 'border-[#E8DEC8]'}`}
-        >
-          <div className="flex justify-center mb-8">
-            <Logo className={`w-10 h-10 opacity-50 grayscale ${theme === 'dark' ? 'text-white' : 'text-[#1C1917]'}`} />
+        {/* Pilares Fundacionales */}
+        <section className="mb-24">
+          <div className="mb-10 text-center sm:text-left">
+            <p className={`text-xs font-semibold uppercase tracking-wider mb-2 ${
+              isDark ? 'text-gold' : 'text-gold-deep'
+            }`}>
+              {content.pillarsKicker}
+            </p>
+            <h2 className={`text-3xl sm:text-4xl font-bold tracking-tight ${
+              isDark ? 'text-white' : 'text-[#1C1917]'
+            }`}>
+              {content.pillarsTitle}
+            </h2>
           </div>
-          <p className={`text-sm font-black uppercase tracking-[0.5em] ${theme === 'dark' ? 'text-white/30' : 'text-[#78716C]'}`}>
-            {content.footerText}
-          </p>
-        </motion.footer>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {content.pillars.map((pillar, idx) => {
+              const IconComponent = pillar.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.06 }}
+                  className={`p-8 group ${isDark ? 'card-dark' : 'card-light'}`}
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-105 ${
+                    isDark
+                      ? 'bg-gold/15 text-gold border border-gold/25'
+                      : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
+                  }`}>
+                    <IconComponent className="w-6 h-6 stroke-[1.75]" aria-hidden="true" />
+                  </div>
+                  <h3 className={`text-xl font-bold tracking-tight mb-3 transition-colors ${
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
+                  }`}>
+                    {pillar.title}
+                  </h3>
+                  <p className={`text-sm sm:text-base leading-relaxed ${
+                    isDark ? 'text-slate-300' : 'text-[#44403C]'
+                  }`}>
+                    {pillar.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Valores Builco */}
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45 }}
+          className={`pt-16 border-t ${isDark ? 'border-white/10' : 'border-[#E8DEC8]'}`}
+        >
+          <div className="mb-12 text-center sm:text-left">
+            <p className={`text-xs font-semibold uppercase tracking-wider mb-2 ${
+              isDark ? 'text-gold' : 'text-gold-deep'
+            }`}>
+              {content.valuesKicker}
+            </p>
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3 ${
+              isDark ? 'text-white' : 'text-[#1C1917]'
+            }`}>
+              {content.valuesTitlePre}
+              <span className={isDark ? 'text-gold' : 'text-gold-deep'}>
+                {content.valuesTitleHighlight}
+              </span>
+            </h2>
+            <p className={`text-base sm:text-lg max-w-2xl leading-relaxed ${
+              isDark ? 'text-slate-300' : 'text-[#44403C]'
+            }`}>
+              {content.valuesSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {firstSixValues.map((val, idx) => {
+              const IconComponent = val.icon;
+              return (
+                <div
+                  key={idx}
+                  className={`p-7 flex flex-col justify-between group ${
+                    isDark ? 'card-dark' : 'card-light'
+                  }`}
+                >
+                  <div>
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105 ${
+                      isDark
+                        ? 'bg-gold/15 text-gold border border-gold/25'
+                        : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
+                    }`}>
+                      <IconComponent className="w-5 h-5 stroke-[1.75]" aria-hidden="true" />
+                    </div>
+                    <h3 className={`text-lg font-bold tracking-tight leading-snug mb-2.5 transition-colors ${
+                      isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
+                    }`}>
+                      {val.title}
+                    </h3>
+                    <p className={`text-sm leading-relaxed ${
+                      isDark ? 'text-slate-300' : 'text-[#44403C]'
+                    }`}>
+                      {val.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+
+            {/* Séptimo valor equilibrado a ancho completo en escritorio */}
+            <div
+              className={`sm:col-span-2 lg:col-span-3 p-7 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6 group ${
+                isDark ? 'card-dark' : 'card-light'
+              }`}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start gap-5 max-w-3xl">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 ${
+                  isDark
+                    ? 'bg-gold/15 text-gold border border-gold/25'
+                    : 'bg-[#F7F3EB] text-gold-deep border border-[#E8DEC8]'
+                }`}>
+                  <SeventhIcon className="w-6 h-6 stroke-[1.75]" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className={`text-xl font-bold tracking-tight leading-snug mb-2 transition-colors ${
+                    isDark ? 'text-white group-hover:text-gold' : 'text-[#1C1917] group-hover:text-gold-deep'
+                  }`}>
+                    {seventhValue.title}
+                  </h3>
+                  <p className={`text-sm sm:text-base leading-relaxed ${
+                    isDark ? 'text-slate-300' : 'text-[#44403C]'
+                  }`}>
+                    {seventhValue.desc}
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsContactModalOpen(true)}
+                className={`${
+                  isDark ? 'btn-gold' : 'btn-primary-light'
+                } inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs sm:text-sm whitespace-nowrap shrink-0 cursor-pointer`}
+              >
+                <span>{content.ctaLabel}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </motion.section>
       </div>
 
-      {/* Film Grain Effect */}
-      <div 
-        className="absolute inset-0 z-40 pointer-events-none opacity-[0.03] mix-blend-overlay"
-        style={{ 
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
-      />
+      <Footer />
     </div>
   );
 };

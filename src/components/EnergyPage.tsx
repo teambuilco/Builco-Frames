@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { NetworkBackground } from './NetworkBackground';
 import Logo from './Logo';
 import { AppContext } from '../context/AppContext';
+import { Footer } from './Footer';
 
 const EnergyPage = () => {
   const { theme, lang } = useContext(AppContext);
@@ -155,6 +156,8 @@ const EnergyPage = () => {
           </div>
         </motion.div>
       </div>
+
+      <Footer />
     </div>
   );
 };
